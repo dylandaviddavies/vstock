@@ -2,5 +2,6 @@ module.exports = {
     css: {
         sourceMap: true
     },
-    productionSourceMap: true
+    productionSourceMap: true,
+    publicPath: '/vstock/'
 }
