@@ -67,7 +67,7 @@ export default {
     loadStocks() {
       this.loadedStocks = false;
       fetch(
-        `https://vstock-api.herokuapp.com/api/v1/quotes?symbols=${this.subscribedSymbols.join(",")}`
+        `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?symbols=${this.subscribedSymbols.join(",")}`
       )
         .then(r => r.json())
         .then(data => {
