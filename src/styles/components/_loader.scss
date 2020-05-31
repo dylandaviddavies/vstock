@@ -1,0 +1,13 @@
+.vs-loader {
+    position:relative;
+    animation: spin 5s infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0%);
+    }
+    100% {
+        transform: rotate(100%);
+    }
+}

@@ -1,0 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900|Material+Icons+Round);
+$font-family: "Poppins", sans-serif;
+$header-font-family: "Poppins", sans-serif;
+body,button,input,select,form,tr,td,table{
+    font-family:$font-family;
+}
+body{
+    font-size:16px;
+    color:#202a35;
+}
+body,button{    
+    line-height:1.5em;
+}

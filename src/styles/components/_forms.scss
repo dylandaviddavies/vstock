@@ -1,0 +1,59 @@
+.vs-stock-filter {
+    display:flex;
+    align-items:stretch;
+    flex-direction:column;
+    margin-bottom:32px;
+    &__label {
+        font-weight:bold;
+        text-align:center;
+        text-transform:uppercase;
+        margin-bottom:10px;
+        font-size:16px;
+    }
+    &__field {
+        position:relative;
+        &__icon:first-child {
+            position:absolute;
+            left:20px;
+            display:flex;
+            top:0;
+            bottom:0;
+            align-items:center;
+            justify-content:center;
+            font-weight:600;
+            pointer-events:none;
+            font-size:21px;
+        }
+        &__icon:last-child {
+            position:absolute;
+            pointer-events:none;
+            right:20px;
+            display:flex;
+            top:0;
+            bottom:0;
+            align-items:center;
+            justify-content:center;
+            font-weight:600;
+            font-size:21px;
+        }
+        &__select {
+            -webkit-appearance: none;
+        }
+        &__input,&__select {
+            border-radius:8px;
+            padding:16px 52px 16px 52px;
+            font-size:16px;
+            height:100%;
+            border:none;
+            width:100%;
+            outline:none;
+            background:#fff;
+            box-shadow:0 1px 3px rgba(77,71,81,.2);
+            transition: border-color .2s;
+            border:1.5px solid transparent;
+            @include hover-focus-active {
+                border-color:$primary;
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+body{
+    overflow-x:hidden;
+    background:#fafafa;
+}
+a {
+    text-decoration:none;
+    &:active {
+        color:darken($primary, 10%);
+    }
+}
+body,html {
+    margin:0;
+    width:100%;
+    max-width:100%;
+}
+
+h1,h2,h3,h4,h5,h6{
+    margin:.2em 0;
+    font-weight:600;
+}
+
+ul {
+    margin:0;
+    list-style-type:none;
+    padding:0;
+}
+dd {
+    margin:0;
+    padding:0;
+}
+
+@include hover-focus-active {
+    *{
+        outline:none !important;
+    }
+}
+
+p {
+    margin:0;
+}
