@@ -192,6 +192,7 @@ export default {
     addStock() {
       this.$store.commit("SUBSCRIBE_STOCK_SYMBOL", this.stockSymbolToAdd);
       this.stockSymbolToAdd = null;
+      this.closeAddStockModal();
       this.loadStocks();
     },
 
