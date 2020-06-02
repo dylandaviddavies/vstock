@@ -1,13 +1,26 @@
 .vs-loader {
     position:relative;
-    animation: spin 5s infinite;
+    min-height:200px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    &:before {
+        display:inline-block;
+        border:7px solid #08c;
+        border-bottom:7px solid transparent;
+        content:"";
+        height:60px;
+        width:60px;
+        border-radius:100%;
+        animation: spin 1.5s linear infinite;
+    }
 }
 
 @keyframes spin {
     0% {
-        transform: rotate(0%);
+        transform: rotate(0deg);
     }
     100% {
-        transform: rotate(100%);
+        transform: rotate(360deg);
     }
 }

@@ -2,10 +2,18 @@ body{
     overflow-x:hidden;
     background:#fafafa;
 }
+button {
+    cursor:pointer;
+}
 a {
     text-decoration:none;
     &:active {
         color:darken($primary, 10%);
+    }
+}
+* {
+    @include hover-focus-active {
+        outline:none;
     }
 }
 body,html {

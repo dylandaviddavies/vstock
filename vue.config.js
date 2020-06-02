@@ -3,5 +3,7 @@ module.exports = {
         sourceMap: true
     },
     productionSourceMap: true,
-    publicPath: '/vstock/'
+    publicPath: process.env.NODE_ENV === 'production'
+        ? '/vstock/'
+        : '/'
 }

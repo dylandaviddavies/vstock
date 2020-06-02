@@ -2,9 +2,10 @@
   <div class="vs-stock-card">
     <div class="vs-stock-card__head">
       <div class="vs-stock-card__symbol">{{stock.primaryExchange}}: {{stock.symbol}}</div>
-      <div class="vs-stock-card__price">${{stock.latestPrice}} USD</div>
+      <div class="vs-stock-card__price">{{stock.latestPrice}}</div>
       <div class="vs-stock-card__change" :class="[changeClass]">
-        <template v-if="stock.change > 0">+</template>{{stock.change}}
+        <template v-if="stock.change > 0">+</template>
+        {{stock.change}}
         <span class="material-icons-round" aria-hidden="true">
           <template v-if="stock.change < 0">arrow_downward</template>
           <template v-else-if="stock.change > 0">arrow_upward</template>

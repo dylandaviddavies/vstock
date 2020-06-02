@@ -1,17 +1,37 @@
-.vs-stock-filter {
+.vs-field {
+    $self: &;
     display:flex;
     align-items:stretch;
     flex-direction:column;
     margin-bottom:32px;
     &__label {
         font-weight:bold;
-        text-align:center;
         text-transform:uppercase;
         margin-bottom:10px;
         font-size:16px;
     }
+    &--bordered {
+        #{$self}__field {
+            &__input,&__select {
+                box-shadow:none;
+                border: 1.5px solid #e4e4e4;
+            }
+        }
+    }
     &__field {
         position:relative;
+        &__icon {
+            transform: translateX(0%);
+            transition: transform .3s, opacity .3s;
+            opacity:1;
+            &--button {
+                pointer-events:auto !important;
+            }
+            &--hide-right {
+                transform: translateX(100%);
+                opacity:0;
+            }
+        }
         &__icon:first-child {
             position:absolute;
             left:20px;
@@ -21,12 +41,15 @@
             align-items:center;
             justify-content:center;
             font-weight:600;
-            pointer-events:none;
             font-size:21px;
+            background:none;
+            border:none;
+            padding:0;
+            line-height:1em;
+            pointer-events:none;
         }
         &__icon:last-child {
             position:absolute;
-            pointer-events:none;
             right:20px;
             display:flex;
             top:0;
@@ -35,13 +58,23 @@
             justify-content:center;
             font-weight:600;
             font-size:21px;
+            background:none;
+            border:none;
+            padding:0;
+            pointer-events:none;
         }
         &__select {
             -webkit-appearance: none;
         }
+        &__icon:first-child ~ &__input, &__icon:first-child ~ &__select {
+            padding-left:52px;
+        }
+        &__icon:last-child ~ &__input, &__icon:last-child ~ &__select {
+            padding-right:52px;
+        }
         &__input,&__select {
             border-radius:8px;
-            padding:16px 52px 16px 52px;
+            padding:16px;
             font-size:16px;
             height:100%;
             border:none;
@@ -49,8 +82,8 @@
             outline:none;
             background:#fff;
             box-shadow:0 1px 3px rgba(77,71,81,.2);
+            border: 1.5px solid transparent;
             transition: border-color .2s;
-            border:1.5px solid transparent;
             @include hover-focus-active {
                 border-color:$primary;
             }

@@ -1,0 +1,74 @@
+.vs-modal {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    pointer-events:none;
+    display:flex;
+    opacity:0;
+    overflow-y:auto;
+    justify-content:center;
+    align-items:flex-start;
+    transition: opacity 0s ease-in-out .2s;
+    &__img {
+        @extend .mb-4;
+        display:block;
+        margin: 0 auto;
+        max-width:80%;
+        @include media-breakpoint-up(sm){
+            width:40%;
+        }
+    }
+    &__title {
+        margin:0;
+        font-size:30px;
+    }
+    &__head{
+        display:flex;
+        align-items:center;
+    }
+    &__close {
+        position:absolute;
+        right:50px;
+        background:none;
+        border:none;
+        top:32px;
+        padding:0;
+        &__icon {            
+            font-weight:bold;
+            font-size:18px;
+            color:#999;
+        }
+    }
+    &--open {
+        pointer-events:auto;
+        opacity:1;
+        transition: opacity 0s ease-in-out 0s;
+        &:before {
+            opacity:1 !important;
+        }
+    }
+    &:before {
+        transition: opacity .2s ease-in-out 0s;
+        opacity:0;
+        content:"";
+        position:fixed;
+        top:0;
+        right:0;
+        left:0;
+        bottom:0;
+        background: rgba(0,0,0,.3);
+    }
+    &__inner {
+        transition: opacity .2s ease-in-out 0s;
+        position:relative;
+        width:700px;
+        box-shadow: 0px 4px 24px rgba(26, 24, 36, 0.2);
+        max-width:100%;
+        margin: 12px;
+        border-radius:8px;
+        background:#fff;
+        padding:32px 50px;
+    }
+}

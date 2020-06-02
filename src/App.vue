@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vc-header></vc-header>
+    <vs-header></vs-header>
     <main class="vs-main">
       <router-view></router-view>
     </main>
@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import VcHeader from './components/VcHeader.vue';
+import VsHeader from "./components/VsHeader.vue";
 export default {
   components: {
-    VcHeader
+    VsHeader
   }
 };
 </script>
