@@ -21,7 +21,7 @@
         </li>
       </ul>
       <router-link to="/stocks" tag="button" class="ml-auto vs-btn vs-btn--fill">
-        <span class="material-icons-round vs-btn__icon" aria-hidden="true">show_chart</span>
+        <span class="material-icons-round vs-btn__icon" aria-hidden="true">multiline_chart</span>
         My Stocks
       </router-link>
     </div>
