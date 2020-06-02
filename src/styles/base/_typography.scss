@@ -12,3 +12,14 @@ body{
 body,button{    
     line-height:1.5em;
 }
+.vs-title {
+    display:flex;
+    align-items:center;
+    font-size:32px;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    &__icon {
+        margin-right:8px;
+        font-size:35px;
+    }
+}

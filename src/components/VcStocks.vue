@@ -1,5 +1,9 @@
 <template>
   <div>
+    <h1 class="vs-title">
+      <span class="material-icons-round vs-title__icon" aria-hidden="true">multiline_chart</span>
+      Stocks
+    </h1>
     <div class="row">
       <div class="col-md-3">
         <div class="d-flex flex-column">
