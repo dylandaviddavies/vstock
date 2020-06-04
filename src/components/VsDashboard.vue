@@ -11,17 +11,19 @@
 <script>
 export default {
   data() {
-    lineChartData: null;
+    null;
   },
   mounted() {
     this.loadLineChartData();
   },
   loadLineChartData() {
+    /*
     return fetch(
       `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?symbols=${stockSymbol}`
     )
       .then(r => r.json())
       .then(data => (this.lineChartData = data));
+    */
   }
 };
 </script>
