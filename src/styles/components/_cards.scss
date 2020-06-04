@@ -21,6 +21,19 @@
         margin-bottom:12px;
     }
 }
+
+.vs-box {
+    background-color:#fff;
+    padding:32px;
+    border-radius:16px;
+    @include layered-box-shadow($dark-box-shadow-colour, .02);
+    &__title,&__controls {
+        margin-bottom:26px;
+    }
+    &__title {
+        font-size:28px;
+    }
+}
 .vs-stock-card{
     @include layered-box-shadow($dark-box-shadow-colour, .02);
     background:#fff;
