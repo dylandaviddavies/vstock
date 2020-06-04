@@ -1,0 +1,20 @@
+.vs-alert {
+    display:flex;
+    align-items:stretch;
+    border-radius: 8px;
+    @include layered-box-shadow($error, .1);
+    &--error {
+        background-color:$error;
+        color:$white;
+    }
+    &__content {        
+        padding:24px;
+    }
+    &__icon {
+        display:flex;
+        align-items:center;
+        font-size:40px;
+        border-radius: 8px;
+        padding:24px 0px 24px 24px;
+    }
+}

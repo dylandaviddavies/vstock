@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
-import VcDashboard from './components/VcDashboard.vue';
-import VcStocks from './components/VcStocks.vue';
+import VsDashboard from './components/VsDashboard.vue';
+import VsStocks from './components/VsStocks.vue';
 
 const routes = [
   {
-    path: '/dashboard', component: VcDashboard
-  },
-  {    
-    path: '/stocks', component: VcStocks
+    path: '/dashboard', component: VsDashboard
   },
   {
-    path: '*', redirect: '/stocks'
+    path: '/stocks', component: VsStocks
+  },
+  {
+    path: '*', redirect: '/dashboard'
   }
 ];
 

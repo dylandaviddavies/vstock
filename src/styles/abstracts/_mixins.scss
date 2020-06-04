@@ -1,0 +1,7 @@
+@mixin layered-box-shadow($colour, $transparency, $multiplier: 1) {
+    box-shadow: 0 #{1 * $multiplier}px #{1 * $multiplier}px transparentize($colour, 1 - $transparency), 
+    0 #{2 * $multiplier}px #{2 * $multiplier}px transparentize($colour, 1 - $transparency), 
+    0 #{4 * $multiplier}px #{4 * $multiplier}px transparentize($colour, 1 - $transparency), 
+    0 #{8 * $multiplier}px #{8 * $multiplier}px transparentize($colour, 1 - $transparency),
+    0 #{16 * $multiplier}px #{16 * $multiplier}px transparentize($colour, 1 - $transparency);
+}

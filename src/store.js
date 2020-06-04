@@ -4,7 +4,7 @@ Vue.use(Vuex);
 
 var store = new Vuex.Store({
 	state: {
-		subscribedSymbols: new Set()
+		subscribedSymbols: []
 	},
 	mutations: {
 		SUBSCRIBE_STOCK_SYMBOL(state, symbol) {

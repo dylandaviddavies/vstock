@@ -4,6 +4,21 @@
     align-items:stretch;
     flex-direction:column;
     margin-bottom:32px;
+    &--error {
+        &#{$self}--bordered {
+            #{$self}__field {
+                &__input {
+                    border-color:$error;
+                }
+                &__icon {
+                    color:$error;
+                }
+            }
+        }
+        #{$self}__label {
+            color:$error;
+        }
+    }
     &__label {
         font-weight:bold;
         text-transform:uppercase;
@@ -81,7 +96,8 @@
             width:100%;
             outline:none;
             background:#fff;
-            box-shadow:0 1px 3px rgba(77,71,81,.2);
+            //box-shadow:0 1px 3px rgba(77,71,81,.2);
+            @include layered-box-shadow($dark-box-shadow-colour, .02);
             border: 1.5px solid transparent;
             transition: border-color .2s;
             @include hover-focus-active {

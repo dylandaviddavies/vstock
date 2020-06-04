@@ -18,6 +18,7 @@
               <input
                 v-model="searchFilter"
                 id="searchFilter"
+                required
                 type="text"
                 class="vs-field__field__input"
               />
@@ -75,7 +76,7 @@
         </div>
       </div>
       <div class="col-md-9">
-        <div v-if="loadedStocks" class="row">
+        <div v-if="loadedStocks || silentlyLoadStocks" class="row">
           <div class="col-6 col-xl-3 col-lg-4 mb-4" v-for="s in stocks" :key="s.symbol">
             <vs-stock-card class="h-100" :stock="s"></vs-stock-card>
           </div>
@@ -106,7 +107,10 @@
       <template v-slot:body>
         <p class="my-4 text-center text-grey">Add the symbol of a stock you'd like to watch.</p>
         <form @submit.prevent="addStock">
-          <div class="vs-field vs-field--bordered">
+          <div
+            class="vs-field vs-field--bordered"
+            :class="{'vs-field--error' : isStockSymbolToAddInvalid}"
+          >
             <label for class="vs-field__label text-center">Stock Symbol</label>
             <div class="vs-field__field">
               <span
@@ -116,10 +120,17 @@
               <input
                 v-model="stockSymbolToAdd"
                 type="text"
+                required
                 placeholder="e.g. AAPL"
                 class="vs-field__field__input"
               />
             </div>
+            <vs-alert v-if="isStockSymbolToAddInvalid" type="error" class="my-3">
+              <strong>
+                <i>{{invalidStockSymbolToAdd}}</i>
+              </strong>&nbsp;
+              <span>doesn't appear to be a valid stock option. Please try again or try a different stock symbol.</span>
+            </vs-alert>
           </div>
           <div class="d-flex justify-content-center">
             <button type="submit" class="vs-btn vs-btn--fill vs-btn--lg d-flex d-md-inline-flex">
@@ -137,6 +148,8 @@
 import { mapState } from "vuex";
 import VsStockCard from "./VsStockCard.vue";
 import VsModal from "./VsModal.vue";
+import tick from "../scripts/tick";
+import VsAlert from "./VsAlert.vue";
 export default {
   watch: {
     changeFilter() {
@@ -156,16 +169,25 @@ export default {
 
   components: {
     VsStockCard,
-    VsModal
+    VsModal,
+    VsAlert
   },
 
   mounted() {
     this.loadStocks();
+    tick(() => {
+      if (this.loadedStocks) {
+        this.silentlyLoadStocks = true;
+        this.loadStocks().then(() => (this.silentlyLoadStocks = false));
+      }
+    }, 10000);
   },
 
   data() {
     return {
       loadedStocks: false,
+      isStockSymbolToAddInvalid: false,
+      invalidStockSymbolToAdd: null,
       stocks: null,
       isAddStockModalOpen: false,
       stockSymbolToAdd: null,
@@ -173,11 +195,17 @@ export default {
       appliedSearchFilter: "",
       changeFilter: "",
       sort: "CHANGE",
+      silentlyLoadStocks: false,
       sortDirection: "DESC"
     };
   },
 
   methods: {
+    setInvalidStockSymbolToAdd(stockSymbol) {
+      this.invalidStockSymbolToAdd = stockSymbol;
+      this.isStockSymbolToAddInvalid = true;
+    },
+
     applySearchFilter() {
       this.appliedSearchFilter = this.searchFilter;
       this.loadStocks();
@@ -189,11 +217,22 @@ export default {
       this.loadStocks();
     },
 
-    addStock() {
-      this.$store.commit("SUBSCRIBE_STOCK_SYMBOL", this.stockSymbolToAdd);
-      this.stockSymbolToAdd = null;
-      this.closeAddStockModal();
-      this.loadStocks();
+    async addStock() {
+      return await this.verifyStockSymbol(this.stockSymbolToAdd)
+        .then(valid => {
+          if (!valid) {
+            this.setInvalidStockSymbolToAdd(this.stockSymbolToAdd);
+            return false;
+          }
+          this.$store.commit("SUBSCRIBE_STOCK_SYMBOL", this.stockSymbolToAdd);
+          this.closeAddStockModal();
+          this.loadStocks();
+          return true;
+        })
+        .catch(() => {
+          this.setInvalidStockSymbolToAdd(this.stockSymbolToAdd);
+          return false;
+        });
     },
 
     openAddStockModal() {
@@ -203,27 +242,33 @@ export default {
     closeAddStockModal() {
       this.isAddStockModalOpen = false;
       document.body.classList.remove("overflow-hidden");
+      this.invalidStockSymbolToAdd = null;
+      this.stockSymbolToAdd = null;
+      this.isStockSymbolToAddInvalid = false;
+    },
+
+    verifyStockSymbol(stockSymbol) {
+      return fetch(
+        `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?symbols=${stockSymbol}`
+      )
+        .then(r => r.json())
+        .then(data => data.length > 0);
     },
 
     loadStocks() {
       this.loadedStocks = false;
-      fetch(
+      return fetch(
         `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?search=${
           this.appliedSearchFilter
-        }&changeFilter=${this.changeFilter}&sort=${
-          this.sort
-        }&symbols=${this.subscribedSymbols.join(",")}`
+        }&sort=${this.sort}&sortDirection=${this.sortDirection}&changeFilter=${
+          this.changeFilter
+        }&sort=${this.sort}&symbols=${this.subscribedSymbols.join(",")}`
       )
         .then(r => r.json())
         .then(data => {
           this.stocks = data;
           this.loadedStocks = true;
         });
-    },
-
-    tick(callback, time) {
-      callback();
-      setTimeout(() => this.tick(callback, time), time);
     }
   }
 };

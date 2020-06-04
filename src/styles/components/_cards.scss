@@ -22,7 +22,7 @@
     }
 }
 .vs-stock-card{
-    box-shadow:0 1px 3px rgba(77,71,81,.2);
+    @include layered-box-shadow($dark-box-shadow-colour, .02);
     background:#fff;
     border-radius:8px;
     overflow:hidden;
@@ -32,7 +32,7 @@
     cursor:pointer;
     @include hover-focus-active {
         transform:translateY(-4px);
-        box-shadow:0 5px 12px rgba(77,71,81,.2);
+        @include layered-box-shadow($dark-box-shadow-colour, .05, 1.5);
     }
     &__symbol {
         color:#999;

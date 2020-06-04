@@ -22,7 +22,8 @@
         color:#fff;
         background-color:$primary;
         border:none;
-        box-shadow:0px 2px 5px rgba(0,0,0,.05);
+        //box-shadow:0px 2px 5px rgba(0,0,0,.05);
+        @include layered-box-shadow($primary, .1);
     }
     &--outline {        
         color:$primary;
