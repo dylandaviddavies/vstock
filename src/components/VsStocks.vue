@@ -144,134 +144,126 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Watch, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import VsStockCard from "./VsStockCard.vue";
 import VsModal from "./VsModal.vue";
-import tick from "../scripts/tick";
 import VsAlert from "./VsAlert.vue";
-export default {
-  watch: {
-    changeFilter() {
-      this.loadStocks();
-    },
-    sortDirection() {
-      this.loadStocks();
-    },
-    sort() {
-      this.loadStocks();
-    }
-  },
 
-  computed: {
-    ...mapState(["subscribedSymbols"])
-  },
-
+@Component({
   components: {
     VsStockCard,
     VsModal,
     VsAlert
   },
+  computed: mapState(["subscribedSymbols"])
+})
+export default class VsStocks extends Vue {
+  private subscribedSymbols!: Array<String>;
+  private loadedStocks: boolean = false;
+  private isStockSymbolToAddInvalid: boolean = false;
+  private invalidStockSymbolToAdd: string = "";
+  private stocks: Array<Object> = [];
+  private isAddStockModalOpen: boolean = false;
+  private stockSymbolToAdd: string = "";
+  private searchFilter: string = "";
+  private appliedSearchFilter: string = "";
+  private changeFilter: string = "";
+  private sort: string = "CHANGE";
+  private silentlyLoadStocks: boolean = false;
+  private sortDirection: string = "DESC";
+
+  @Watch("changeFilter")
+  watchChangeFilter() {
+    this.loadStocks();
+  }
+
+  @Watch("sortDirection")
+  watchSortDirection() {
+    this.loadStocks();
+  }
+
+  @Watch("sort")
+  watchSort() {
+    this.loadStocks();
+  }
 
   mounted() {
     this.loadStocks();
-    tick(() => {
-      if (this.loadedStocks) {
-        this.silentlyLoadStocks = true;
-        this.loadStocks().then(() => (this.silentlyLoadStocks = false));
-      }
-    }, 10000);
-  },
+  }
 
-  data() {
-    return {
-      loadedStocks: false,
-      isStockSymbolToAddInvalid: false,
-      invalidStockSymbolToAdd: null,
-      stocks: null,
-      isAddStockModalOpen: false,
-      stockSymbolToAdd: null,
-      searchFilter: "",
-      appliedSearchFilter: "",
-      changeFilter: "",
-      sort: "CHANGE",
-      silentlyLoadStocks: false,
-      sortDirection: "DESC"
-    };
-  },
+  setInvalidStockSymbolToAdd(stockSymbol: string) {
+    this.invalidStockSymbolToAdd = stockSymbol;
+    this.isStockSymbolToAddInvalid = true;
+  }
 
-  methods: {
-    setInvalidStockSymbolToAdd(stockSymbol) {
-      this.invalidStockSymbolToAdd = stockSymbol;
-      this.isStockSymbolToAddInvalid = true;
-    },
+  applySearchFilter() {
+    this.appliedSearchFilter = this.searchFilter;
+    this.loadStocks();
+  }
 
-    applySearchFilter() {
-      this.appliedSearchFilter = this.searchFilter;
-      this.loadStocks();
-    },
+  clearSearchFilter() {
+    this.searchFilter = "";
+    this.appliedSearchFilter = "";
+    this.loadStocks();
+  }
 
-    clearSearchFilter() {
-      this.searchFilter = "";
-      this.appliedSearchFilter = "";
-      this.loadStocks();
-    },
-
-    async addStock() {
-      return await this.verifyStockSymbol(this.stockSymbolToAdd)
-        .then(valid => {
-          if (!valid) {
-            this.setInvalidStockSymbolToAdd(this.stockSymbolToAdd);
-            return false;
-          }
-          this.$store.commit("SUBSCRIBE_STOCK_SYMBOL", this.stockSymbolToAdd);
-          this.closeAddStockModal();
-          this.loadStocks();
-          return true;
-        })
-        .catch(() => {
+  async addStock(): Promise<boolean> {
+    return await this.verifyStockSymbol(this.stockSymbolToAdd)
+      .then(valid => {
+        if (!valid) {
           this.setInvalidStockSymbolToAdd(this.stockSymbolToAdd);
           return false;
-        });
-    },
-
-    openAddStockModal() {
-      this.isAddStockModalOpen = true;
-      document.body.classList.add("overflow-hidden");
-    },
-    closeAddStockModal() {
-      this.isAddStockModalOpen = false;
-      document.body.classList.remove("overflow-hidden");
-      this.invalidStockSymbolToAdd = null;
-      this.stockSymbolToAdd = null;
-      this.isStockSymbolToAddInvalid = false;
-    },
-
-    verifyStockSymbol(stockSymbol) {
-      return fetch(
-        `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?symbols=${stockSymbol}`
-      )
-        .then(r => r.json())
-        .then(data => data.length > 0);
-    },
-
-    loadStocks() {
-      this.loadedStocks = false;
-      return fetch(
-        `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?search=${
-          this.appliedSearchFilter
-        }&sort=${this.sort}&sortDirection=${this.sortDirection}&changeFilter=${
-          this.changeFilter
-        }&sort=${this.sort}&symbols=${this.subscribedSymbols.join(",")}`
-      )
-        .then(r => r.json())
-        .then(data => {
-          this.stocks = data;
-          this.loadedStocks = true;
-        });
-    }
+        }
+        this.$store.commit("SUBSCRIBE_STOCK_SYMBOL", this.stockSymbolToAdd);
+        this.closeAddStockModal();
+        this.loadStocks();
+        return true;
+      })
+      .catch(() => {
+        this.setInvalidStockSymbolToAdd(this.stockSymbolToAdd);
+        return false;
+      });
   }
-};
+
+  openAddStockModal() {
+    this.isAddStockModalOpen = true;
+    document.body.classList.add("overflow-hidden");
+  }
+
+  closeAddStockModal() {
+    this.isAddStockModalOpen = false;
+    document.body.classList.remove("overflow-hidden");
+    this.invalidStockSymbolToAdd = "";
+    this.stockSymbolToAdd = "";
+    this.isStockSymbolToAddInvalid = false;
+  }
+
+  verifyStockSymbol(stockSymbol: string): Promise<boolean> {
+    return fetch(
+      `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?symbols=${stockSymbol}`
+    )
+      .then(r => r.json())
+      .then(data => data.length > 0);
+  }
+
+  loadStocks(): Promise<void> {
+    this.loadedStocks = false;
+    return fetch(
+      `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?search=${
+        this.appliedSearchFilter
+      }&sort=${this.sort}&sortDirection=${this.sortDirection}&changeFilter=${
+        this.changeFilter
+      }&symbols=${this.subscribedSymbols.join(",")}`
+    )
+      .then(r => r.json())
+      .then(data => {
+        this.stocks = data;
+        this.loadedStocks = true;
+      });
+  }
+}
 </script>
 
 <style>
