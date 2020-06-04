@@ -9,19 +9,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    type: {
-      type: String
-    }
-  },
-  methods: {
-    isError() {
-      return this.type === "error";
-    }
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+@Component
+export default class MyComponent extends Vue {
+  @Prop({ required: true }) readonly type!: string;
+  public isError(): boolean {
+    return this.type === "error";
   }
-};
+}
 </script>
 
 <style>
