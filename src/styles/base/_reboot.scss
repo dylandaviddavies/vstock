@@ -4,6 +4,9 @@ body{
 }
 button {
     cursor:pointer;
+    > * {
+        pointer-events:none;
+    }
 }
 a {
     text-decoration:none;
