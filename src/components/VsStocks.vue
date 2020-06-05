@@ -12,9 +12,17 @@
             <div class="vs-field__field">
               <button
                 type="submit"
-                class="material-icons-round vs-field__field__icon vs-field__field__icon--button"
+                class="material-icons-round vs-field__field__icon vs-field__field__icon--button vs-field__field__icon--start"
                 aria-hidden="true"
               >search</button>
+              <button
+                type="button"
+                @click="clearSearchFilter"
+                class="vs-field__field__icon vs-field__field__icon--button vs-field__field__icon--end"
+                :class="{'vs-field__field__icon--hide-right' : searchFilter === ''}"
+              >
+                <span class="material-icons-round" aria-hidden="true">close</span>
+              </button>
               <input
                 v-model="searchFilter"
                 id="searchFilter"
@@ -22,26 +30,22 @@
                 type="text"
                 class="vs-field__field__input"
               />
-              <button
-                type="button"
-                @click="clearSearchFilter"
-                class="vs-field__field__icon vs-field__field__icon--button"
-                :class="{'vs-field__field__icon--hide-right' : searchFilter === ''}"
-              >
-                <span class="material-icons-round" aria-hidden="true">close</span>
-              </button>
             </div>
           </form>
           <div class="vs-field">
             <label for="changeFilter" class="vs-field__label text-center">Change</label>
             <div class="vs-field__field">
-              <span class="material-icons-round vs-field__field__icon">show_chart</span>
+              <span
+                class="material-icons-round vs-field__field__icon vs-field__field__icon--start"
+              >show_chart</span>
+              <span
+                class="material-icons-round vs-field__field__icon vs-field__field__icon--end"
+              >expand_more</span>
               <select v-model="changeFilter" id="changeFilter" class="vs-field__field__select">
                 <option value>Select</option>
                 <option value="POSITIVE">Positive</option>
                 <option value="NEGATIVE">Negative</option>
               </select>
-              <span class="material-icons-round vs-field__field__icon">expand_more</span>
             </div>
           </div>
           <div>
@@ -49,17 +53,24 @@
             <div class="d-flex">
               <div class="vs-field mr-2" style="width:60%;">
                 <div class="vs-field__field">
-                  <span class="material-icons-round vs-field__field__icon">sort</span>
+                  <span
+                    class="material-icons-round vs-field__field__icon vs-field__field__icon--start"
+                  >sort</span>
+                  <span
+                    class="material-icons-round vs-field__field__icon vs-field__field__icon--end"
+                  >expand_more</span>
                   <select v-model="sort" id="sort" class="vs-field__field__select">
                     <option value="CHANGE">Change</option>
                     <option value="COMPANY_NAME">Company</option>
                     <option value="LATEST_PRICE">Latest Price</option>
                   </select>
-                  <span class="material-icons-round vs-field__field__icon">expand_more</span>
                 </div>
               </div>
               <div class="vs-field flex-grow-1">
                 <div class="vs-field__field">
+                  <span
+                    class="material-icons-round vs-field__field__icon vs-field__field__icon--end"
+                  >expand_more</span>
                   <select
                     v-model="sortDirection"
                     id="sortDirection"
@@ -68,7 +79,6 @@
                     <option value="ASC">ASC</option>
                     <option value="DESC">DESC</option>
                   </select>
-                  <span class="material-icons-round vs-field__field__icon">expand_more</span>
                 </div>
               </div>
             </div>
@@ -114,7 +124,7 @@
             <label for class="vs-field__label text-center">Stock Symbol</label>
             <div class="vs-field__field">
               <span
-                class="vs-field__field__icon material-icons-round"
+                class="vs-field__field__icon vs-field__field__icon--start material-icons-round"
                 aria-hidden="true"
               >attach_money</span>
               <input

@@ -47,7 +47,7 @@
                 opacity:0;
             }
         }
-        &__icon:first-child {
+        &__icon--start {
             position:absolute;
             left:20px;
             display:flex;
@@ -63,7 +63,7 @@
             line-height:1em;
             pointer-events:none;
         }
-        &__icon:last-child {
+        &__icon--end {
             position:absolute;
             right:20px;
             display:flex;
@@ -81,10 +81,10 @@
         &__select {
             -webkit-appearance: none;
         }
-        &__icon:first-child ~ &__input, &__icon:first-child ~ &__select {
+        &__icon--start ~ &__input, &__icon--start ~ &__select {
             padding-left:52px;
         }
-        &__icon:last-child ~ &__input, &__icon:last-child ~ &__select {
+        &__icon--end ~ &__input, &__icon--end ~ &__select {
             padding-right:52px;
         }
         &__input,&__select {
