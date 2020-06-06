@@ -14,7 +14,14 @@ a {
         color:darken($primary, 10%);
     }
 }
+
+img {
+    display:block;
+    max-width:100%;
+}
+
 * {
+    box-sizing:border-box;
     @include hover-focus-active {
         outline:none;
     }

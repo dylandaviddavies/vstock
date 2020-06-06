@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 import VsDashboard from './components/VsDashboard.vue';
 import VsStocks from './components/VsStocks.vue';
+import VsStockOverview from './components/VsStockOverview.vue';
 
 const routes = [
   {
@@ -10,6 +11,9 @@ const routes = [
   },
   {
     path: '/stocks', component: VsStocks
+  },
+  {
+    path: '/stock/:symbol', component: VsStockOverview
   },
   {
     path: '*', redirect: '/dashboard'

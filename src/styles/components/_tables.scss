@@ -1,0 +1,54 @@
+.vs-stock-row {
+    $self: &;
+    line-height:1em;
+    &--good {
+        #{$self}__change {
+            color:rgb(58, 167, 73);
+        }
+    }
+    &--bad {
+        #{$self}__change {
+            color:rgb(185, 68, 68);
+        }
+    }
+    &--neutral {
+        #{$self}__change {
+            color:#999;
+        }
+    }
+    > * {
+        padding: 8px 0;
+    }
+    > *:not(:last-child) {
+        padding-right:16px;
+    }
+    &__title {
+        display:block;
+        line-height:1.3em;
+        font-weight:500;
+    }
+    &__subtitle {
+        display:block;
+        color:#999;
+        font-size:12px;
+    }
+    &__price {     
+        color:#999;   
+    }
+    &__number {
+        color:#999;
+    }
+    &__change {
+        vertical-align:middle;
+        display:inline-flex;
+        width:100%;
+        white-space:nowrap;
+        align-items:center;
+        line-height:1em;
+        font-size:14px;
+        > .material-icons-round {
+            font-size:18px;
+            margin-left:2px;
+        }
+    }
+}

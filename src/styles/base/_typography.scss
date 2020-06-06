@@ -6,20 +6,35 @@ body,button,input,select,form,tr,td,table{
 }
 body{
     font-size:16px;
-    //color:#202a35;
     color:#3b464d;
 }
 body,button{    
     line-height:1.5em;
 }
 .vs-title {
-    display:flex;
-    align-items:center;
+    @extend .font-weight-zebra;
     font-size:32px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
     margin-top: 10px;
+    font-weight:500;
     &__icon {
         margin-right:8px;
         font-size:35px;
+    }
+}
+.vs-subtitle {
+    color:#999;
+    font-size:22px;
+    margin-top:-12px;
+    font-weight:300;
+    margin-bottom:32px;
+}
+
+.font-weight-zebra {
+    > :nth-child(odd) {
+        font-weight:400;
+    }
+    > :nth-child(even) {
+        font-weight:600;
     }
 }

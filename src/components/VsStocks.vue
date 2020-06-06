@@ -1,96 +1,20 @@
 <template>
   <div>
     <h1 class="vs-title">
-      <span class="material-icons-round vs-title__icon" aria-hidden="true">multiline_chart</span>
-      Stocks
+      <span>My</span>
+      &nbsp;
+      <span>Stocks</span>
     </h1>
     <div class="row">
       <div class="col-md-3">
-        <div class="d-flex flex-column">
-          <form @submit.prevent="applySearchFilter" class="vs-field">
-            <label for="searchFilter" class="vs-field__label text-center">Search</label>
-            <div class="vs-field__field">
-              <button
-                type="submit"
-                class="material-icons-round vs-field__field__icon vs-field__field__icon--button vs-field__field__icon--start"
-                aria-hidden="true"
-              >search</button>
-              <button
-                type="button"
-                @click="clearSearchFilter"
-                class="vs-field__field__icon vs-field__field__icon--button vs-field__field__icon--end"
-                :class="{'vs-field__field__icon--hide-right' : searchFilter === ''}"
-              >
-                <span class="material-icons-round" aria-hidden="true">close</span>
-              </button>
-              <input
-                v-model="searchFilter"
-                id="searchFilter"
-                required
-                type="text"
-                class="vs-field__field__input"
-              />
-            </div>
-          </form>
-          <div class="vs-field">
-            <label for="changeFilter" class="vs-field__label text-center">Change</label>
-            <div class="vs-field__field">
-              <span
-                class="material-icons-round vs-field__field__icon vs-field__field__icon--start"
-              >show_chart</span>
-              <span
-                class="material-icons-round vs-field__field__icon vs-field__field__icon--end"
-              >expand_more</span>
-              <select v-model="changeFilter" id="changeFilter" class="vs-field__field__select">
-                <option value>Select</option>
-                <option value="POSITIVE">Positive</option>
-                <option value="NEGATIVE">Negative</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label for="sort" class="vs-field__label d-block text-center">Sort</label>
-            <div class="d-flex">
-              <div class="vs-field mr-2" style="width:60%;">
-                <div class="vs-field__field">
-                  <span
-                    class="material-icons-round vs-field__field__icon vs-field__field__icon--start"
-                  >sort</span>
-                  <span
-                    class="material-icons-round vs-field__field__icon vs-field__field__icon--end"
-                  >expand_more</span>
-                  <select v-model="sort" id="sort" class="vs-field__field__select">
-                    <option value="CHANGE">Change</option>
-                    <option value="COMPANY_NAME">Company</option>
-                    <option value="LATEST_PRICE">Latest Price</option>
-                  </select>
-                </div>
-              </div>
-              <div class="vs-field flex-grow-1">
-                <div class="vs-field__field">
-                  <span
-                    class="material-icons-round vs-field__field__icon vs-field__field__icon--end"
-                  >expand_more</span>
-                  <select
-                    v-model="sortDirection"
-                    id="sortDirection"
-                    class="vs-field__field__select"
-                  >
-                    <option value="ASC">ASC</option>
-                    <option value="DESC">DESC</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <vs-stock-filters :onFilter="applyFilters"></vs-stock-filters>
       </div>
       <div class="col-md-9">
         <div v-if="loadedStocks || silentlyLoadStocks" class="row">
-          <div class="col-6 col-xl-3 col-lg-4 mb-4" v-for="s in stocks" :key="s.symbol">
-            <vs-stock-card class="h-100" :stock="s"></vs-stock-card>
+          <div class="col-6 col-xl-3 col-lg-4 mb-5" v-for="s in stocks" :key="s.symbol">
+            <vs-stock-card :to="`/stock/${s.symbol}`" class="h-100" :stock="s"></vs-stock-card>
           </div>
-          <div class="col-6 col-xl-3 col-lg-4 mb-4">
+          <div class="col-6 col-xl-3 col-lg-4 mb-5">
             <button
               class="vs-add-card w-100 h-100"
               aria-controls="addStockModal"
@@ -101,71 +25,75 @@
               <span aria-hidden="true" class="material-icons-round vs-add-card__icon">add</span>
               <span>Add stock</span>
             </button>
+            <vs-modal
+              :isOpen="isAddStockModalOpen"
+              :headAsColumn="true"
+              :onClose="closeAddStockModal"
+              :img="require('../assets/add_stock_img.svg')"
+              id="addStockModal"
+            >
+              <template v-slot:title>Add stock</template>
+              <template v-slot:body>
+                <p class="my-4 text-center text-grey">Add the symbol of a stock you'd like to watch.</p>
+                <form @submit.prevent="addStock">
+                  <div
+                    class="vs-field vs-field--bordered"
+                    :class="{'vs-field--error' : isStockSymbolToAddInvalid}"
+                  >
+                    <label for class="vs-field__label text-center">Stock Symbol</label>
+                    <div class="vs-field__field">
+                      <span
+                        class="vs-field__field__icon vs-field__field__icon--start material-icons-round"
+                        aria-hidden="true"
+                      >attach_money</span>
+                      <input
+                        v-model="stockSymbolToAdd"
+                        type="text"
+                        required
+                        placeholder="e.g. AAPL"
+                        class="vs-field__field__input"
+                      />
+                    </div>
+                    <vs-alert v-if="isStockSymbolToAddInvalid" type="error" class="my-3">
+                      <strong>
+                        <i>{{invalidStockSymbolToAdd}}</i>
+                      </strong>&nbsp;
+                      <span>doesn't appear to be a valid stock option. Please try again or try a different stock symbol.</span>
+                    </vs-alert>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <button
+                      type="submit"
+                      class="vs-btn vs-btn--fill vs-btn--lg d-flex d-md-inline-flex"
+                    >
+                      <span class="material-icons-round vs-btn__icon" aria-hidden="true">add</span>
+                      <span>Add stock</span>
+                    </button>
+                  </div>
+                </form>
+              </template>
+            </vs-modal>
           </div>
         </div>
         <div v-else class="vs-loader"></div>
       </div>
     </div>
-    <vs-modal
-      :isOpen="isAddStockModalOpen"
-      :headAsColumn="true"
-      :onClose="closeAddStockModal"
-      :img="require('../assets/add_stock_img.svg')"
-      id="addStockModal"
-    >
-      <template v-slot:title>Add stock</template>
-      <template v-slot:body>
-        <p class="my-4 text-center text-grey">Add the symbol of a stock you'd like to watch.</p>
-        <form @submit.prevent="addStock">
-          <div
-            class="vs-field vs-field--bordered"
-            :class="{'vs-field--error' : isStockSymbolToAddInvalid}"
-          >
-            <label for class="vs-field__label text-center">Stock Symbol</label>
-            <div class="vs-field__field">
-              <span
-                class="vs-field__field__icon vs-field__field__icon--start material-icons-round"
-                aria-hidden="true"
-              >attach_money</span>
-              <input
-                v-model="stockSymbolToAdd"
-                type="text"
-                required
-                placeholder="e.g. AAPL"
-                class="vs-field__field__input"
-              />
-            </div>
-            <vs-alert v-if="isStockSymbolToAddInvalid" type="error" class="my-3">
-              <strong>
-                <i>{{invalidStockSymbolToAdd}}</i>
-              </strong>&nbsp;
-              <span>doesn't appear to be a valid stock option. Please try again or try a different stock symbol.</span>
-            </vs-alert>
-          </div>
-          <div class="d-flex justify-content-center">
-            <button type="submit" class="vs-btn vs-btn--fill vs-btn--lg d-flex d-md-inline-flex">
-              <span class="material-icons-round vs-btn__icon" aria-hidden="true">add</span>
-              <span>Add stock</span>
-            </button>
-          </div>
-        </form>
-      </template>
-    </vs-modal>
   </div>
 </template>
-
 <script lang="ts">
-import { Component, Watch, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import { mapState } from "vuex";
 import VsStockCard from "./VsStockCard.vue";
 import VsModal from "./VsModal.vue";
 import VsAlert from "./VsAlert.vue";
+import VsStockFilters from "./VsStockFilters.vue";
 
 @Component({
   components: {
     VsStockCard,
     VsModal,
-    VsAlert
+    VsAlert,
+    VsStockFilters
   },
   computed: mapState(["subscribedSymbols"])
 })
@@ -174,28 +102,14 @@ export default class VsStocks extends Vue {
   private loadedStocks: boolean = false;
   private isStockSymbolToAddInvalid: boolean = false;
   private invalidStockSymbolToAdd: string = "";
+  private silentlyLoadStocks: boolean = false;
   private stocks: Array<Object> = [];
   private isAddStockModalOpen: boolean = false;
   private stockSymbolToAdd: string = "";
-  private searchFilter: string = "";
-  private appliedSearchFilter: string = "";
-  private changeFilter: string = "";
-  private sort: string = "CHANGE";
-  private silentlyLoadStocks: boolean = false;
-  private sortDirection: string = "DESC";
+  private filters: Record<string, string> = {};
 
-  @Watch("changeFilter")
-  watchChangeFilter() {
-    this.loadStocks();
-  }
-
-  @Watch("sortDirection")
-  watchSortDirection() {
-    this.loadStocks();
-  }
-
-  @Watch("sort")
-  watchSort() {
+  @Watch("filters", { immediate: true, deep: true })
+  watchFilters() {
     this.loadStocks();
   }
 
@@ -203,20 +117,13 @@ export default class VsStocks extends Vue {
     this.loadStocks();
   }
 
+  applyFilters(filters: Record<string, string>) {
+    this.filters = filters;
+  }
+
   setInvalidStockSymbolToAdd(stockSymbol: string) {
     this.invalidStockSymbolToAdd = stockSymbol;
     this.isStockSymbolToAddInvalid = true;
-  }
-
-  applySearchFilter() {
-    this.appliedSearchFilter = this.searchFilter;
-    this.loadStocks();
-  }
-
-  clearSearchFilter() {
-    this.searchFilter = "";
-    this.appliedSearchFilter = "";
-    this.loadStocks();
   }
 
   async addStock(): Promise<boolean> {
@@ -258,20 +165,23 @@ export default class VsStocks extends Vue {
       .then(data => data.length > 0);
   }
 
-  loadStocks(): Promise<void> {
+  loadStocks() {
     this.loadedStocks = false;
+    let options = {
+      symbols: this.subscribedSymbols.join(","),
+      ...this.filters
+    };
+    this.fetchStocks(options).then(data => {
+      this.stocks = data;
+      this.loadedStocks = true;
+    });
+  }
+
+  fetchStocks(options: Record<string, string>): Promise<Array<Object>> {
+    let params = new URLSearchParams(options).toString();
     return fetch(
-      `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?search=${
-        this.appliedSearchFilter
-      }&sort=${this.sort}&sortDirection=${this.sortDirection}&changeFilter=${
-        this.changeFilter
-      }&symbols=${this.subscribedSymbols.join(",")}`
-    )
-      .then(r => r.json())
-      .then(data => {
-        this.stocks = data;
-        this.loadedStocks = true;
-      });
+      `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/quotes?${params}`
+    ).then(r => r.json());
   }
 }
 </script>

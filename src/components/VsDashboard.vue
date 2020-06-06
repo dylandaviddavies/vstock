@@ -1,24 +1,112 @@
 <template>
   <div>
     <h1 class="vs-title">
-      <span class="material-icons-round vs-title__icon" aria-hidden="true">dashboard</span>
-      Dashboard
+      <span>System</span>
+      &nbsp;
+      <span>Overview</span>
     </h1>
     <div class="row">
-      <div class="vs-box col-md-8">
-        <h2 class="vs-box__title">My Stocks</h2>
-        <div class="vs-box__controls vs-chips d-flex flex-wrap">
-          <button
-            v-for="o in lineChartDateRangeFilterOptions"
-            :key="o.id"
-            class="vs-chip"
-            @click="lineChartDateRangeFilter = o.id"
-            :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
-            type="button"
-          >{{o.label}}</button>
+      <div class="col-md-5">
+        <div class="vs-box">
+          <h2 class="vs-box__title">
+            <span>My</span>
+            &nbsp;
+            <span>Stocks</span>
+          </h2>
+          <div class="vs-box__controls vs-chips d-flex flex-wrap">
+            <button
+              v-for="o in lineChartDateRangeFilterOptions"
+              :key="o.id"
+              class="vs-chip"
+              @click="lineChartDateRangeFilter = o.id"
+              :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
+              type="button"
+            >{{o.label}}</button>
+          </div>
+          <vs-line-chart
+            v-if="loadedLineChartData"
+            :options="lineChartOptions"
+            :chart-data="lineChartData"
+          ></vs-line-chart>
+          <div v-else class="vs-loader"></div>
         </div>
-        <vs-line-chart v-if="loadedLineChartData" :chart-data="lineChartData"></vs-line-chart>
-        <div v-else class="vs-loader"></div>
+      </div>
+      <div class="col-md-4">
+        <div class="vs-box vs-box--small mb-4">
+          <h2 class="vs-box__title">
+            <span>My</span>
+            &nbsp;
+            <span>Gains</span>
+          </h2>
+          <div class="vs-loader" v-if="!loadedGains"></div>
+          <table v-else-if="gains.length > 0">
+            <tbody>
+              <vs-stock-row
+                class="vs-stock-row--good"
+                :stock="q"
+                :number="i + 1"
+                v-for="(q, i) in gains"
+                :key="q.symbol"
+              ></vs-stock-row>
+            </tbody>
+          </table>
+          <div v-else>
+            <img
+              class="w-50 mt-4 mb-3 mx-auto"
+              :src="require('../assets/no_gains.svg')"
+              alt="No gains recorded"
+            />
+            <div class="text-center text-grey">No gains recorded</div>
+          </div>
+        </div>
+        <div class="vs-box vs-box--small">
+          <h2 class="vs-box__title">
+            <span>My</span>
+            &nbsp;
+            <span>Losses</span>
+          </h2>
+          <div class="vs-loader" v-if="!loadedLosses"></div>
+          <table v-else-if="losses.length > 0">
+            <tbody>
+              <vs-stock-row
+                class="vs-stock-row--bad"
+                :stock="q"
+                :number="i + 1"
+                v-for="(q, i) in losses"
+                :key="q.symbol"
+              ></vs-stock-row>
+            </tbody>
+          </table>
+          <div v-else>
+            <img
+              class="w-50 mt-4 mb-3 mx-auto"
+              :src="require('../assets/no_losses.svg')"
+              alt="No losses recorded"
+            />
+            <div class="text-center text-grey">No losses recorded</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="vs-box vs-box--small">
+          <h2 class="vs-box__title">
+            <span>My</span>
+            &nbsp;
+            <span>News</span>
+          </h2>
+          <div class="vs-loader" v-if="!loadedNews"></div>
+          <div v-else-if="news.length > 0">
+            <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
+          </div>
+          <div v-else>
+            <img
+              class="w-50 mt-4 mb-3 mx-auto"
+              :src="require('../assets/no_news.svg')"
+              alt="No news to report"
+            />
+            <div class="text-center text-grey">No news to report</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -27,51 +115,160 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import VsLineChart from "./VsLineChart.vue";
+import VsStockRow from "./VsStockRow.vue";
+import VsNews from "./VsNews.vue";
 import { mapState } from "vuex";
-
+import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
 @Component({
   computed: mapState(["subscribedSymbols"]),
   components: {
-    VsLineChart
+    VsLineChart,
+    VsStockRow,
+    VsNews
   }
 })
 export default class VsDashboard extends Vue {
+  private loadedLineChartData: boolean = false;
+  private loadedGains = false;
+  private loadedLosses = false;
+  private loadedNews = false;
   private lineChartData: any = null;
+  private gains: Array<any> = [];
+  private losses: Array<any> = [];
+  private news: Array<any> = [];
   private lineChartDateRangeFilter: string = "ONE_DAY";
   private subscribedSymbols!: Array<string>;
-  private loadedLineChartData: boolean = false;
-  private lineChartDateRangeFilterOptions: Array<any> = [
+  private lineChartOptions = {
+    responsive: true,
+    elements: {
+      point: {
+        radius: 0
+      }
+    },
+    maintainAspectRatio: false,
+    spanGaps: true,
+    legend: {
+      display: false
+    },
+    tooltips: {
+      mode: "index",
+      intersect: false
+    },
+    hover: {
+      mode: "index",
+      intersect: false
+    },
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: false
+          }
+        }
+      ],
+      xAxes: [chartRangeXaxesOptions.ONE_DAY]
+    }
+  };
+
+  private lineChartDateRangeFilterOptions: Array<object> = [
     { id: "ONE_DAY", label: "1d" },
     { id: "FIVE_DAYS", label: "5d" },
     { id: "ONE_MONTH", label: "1m" }
-    //{ id: "SIX_MONTHS", label: "6m" },
-    //{ id: "ONE_YEAR", label: "1y" },
-    //{ id: "MAX", label: "Max" }
   ];
 
   @Watch("lineChartDateRangeFilter")
-  watchLineChartDateRangeFilter() {
+  watchLineChartDateRangeFilter(newVal: string) {
+    switch (newVal) {
+      case "ONE_DAY":
+        this.lineChartOptions.scales.xAxes[0] = chartRangeXaxesOptions.ONE_DAY;
+        break;
+      case "FIVE_DAYS":
+        this.lineChartOptions.scales.xAxes[0] =
+          chartRangeXaxesOptions.FIVE_DAYS;
+        break;
+      case "ONE_MONTH":
+        this.lineChartOptions.scales.xAxes[0] =
+          chartRangeXaxesOptions.ONE_MONTH;
+        break;
+    }
     this.loadLineChartData();
   }
 
   mounted() {
     this.loadLineChartData();
+    this.loadGains();
+    this.loadLosses();
+    this.loadNews();
   }
 
-  loadLineChartData() {
+  loadNews(): Promise<void> {
+    this.loadedNews = false;
+    return this.fetchNews().then(data => {
+      this.news = data;
+      this.loadedNews = true;
+    });
+  }
+
+  loadLosses(): Promise<void> {
+    this.loadedLosses = false;
+    return this.fetchLosses().then(data => {
+      this.losses = data;
+      this.loadedLosses = true;
+    });
+  }
+
+  loadGains(): Promise<void> {
+    this.loadedGains = false;
+    return this.fetchGains().then(data => {
+      this.gains = data;
+      this.loadedGains = true;
+    });
+  }
+
+  loadLineChartData(): Promise<void> {
     this.loadedLineChartData = false;
+    return this.fetchLineChartData().then(data => {
+      this.lineChartData = data.data;
+      this.loadedLineChartData = true;
+    });
+  }
+
+  fetchNews(): Promise<any> {
+    return fetch(`
+      ${
+        process.env.VUE_APP_VSTOCK_API_URL
+      }/api/v1/news?limit=3&symbols=${this.subscribedSymbols.join(",")}
+    `).then(r => r.json());
+  }
+
+  fetchLosses(): Promise<any> {
+    return fetch(`
+      ${
+        process.env.VUE_APP_VSTOCK_API_URL
+      }/api/v1/quotes?limit=3&changeFilter=NEGATIVE&sort=CHANGE&sortDirection=DESC&symbols=${this.subscribedSymbols.join(
+      ","
+    )}
+    `).then(r => r.json());
+  }
+
+  fetchGains(): Promise<any> {
+    return fetch(`
+      ${
+        process.env.VUE_APP_VSTOCK_API_URL
+      }/api/v1/quotes?limit=3&changeFilter=POSITIVE&sort=CHANGE&sortDirection=DESC&symbols=${this.subscribedSymbols.join(
+      ","
+    )}
+    `).then(r => r.json());
+  }
+
+  fetchLineChartData(): Promise<any> {
     return fetch(
       `${
         process.env.VUE_APP_VSTOCK_API_URL
       }/api/v1/myStocksLineChart?chartRange=${
         this.lineChartDateRangeFilter
       }&symbols=${this.subscribedSymbols.join(",")}`
-    )
-      .then(r => r.json())
-      .then(data => {
-        this.lineChartData = data.data;
-        this.loadedLineChartData = true;
-      });
+    ).then(r => r.json());
   }
 }
 </script>
