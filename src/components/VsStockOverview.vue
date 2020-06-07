@@ -1,10 +1,66 @@
 <template>
   <div>
+    <vs-toasts :toasts="toasts"></vs-toasts>
     <div v-if="loaded">
-      <h1 class="vs-title">{{stock.quote.companyName}}</h1>
-      <h2 class="vs-subtitle">{{stock.quote.symbol}}</h2>
+      <div class="d-flex justify-content-between">
+        <div>
+          <h1 class="vs-title">{{stock.quote.companyName}}</h1>
+          <h2 class="vs-subtitle">{{stock.quote.symbol}}</h2>
+        </div>
+        <div>
+          <vs-btn-group>
+            <vs-btn-group-action :onClick="openRemoveModal" aria-controls="removeModal">Remove</vs-btn-group-action>
+          </vs-btn-group>
+          <vs-modal
+            :isOpen="isRemoveModalOpen"
+            :headAsColumn="true"
+            :onClose="closeRemoveModal"
+            :img="require('../assets/add_stock_img.svg')"
+            id="removeModal"
+          >
+            <template v-slot:title>Remove stock</template>
+            <template v-slot:body>
+              <p
+                class="my-4 text-center text-grey"
+              >Are you sure you want to remove this stock from your portfolio?</p>
+              <div class="row justify-content-center">
+                <div class="col-12 mb-4 col-sm-4">
+                  <button
+                    @click="remove"
+                    class="w-100 vs-btn vs-btn--lg vs-btn--danger vs-btn--fill"
+                  >Yes, I'm sure</button>
+                </div>
+                <div class="col-12 mb-4 col-sm-4">
+                  <button
+                    @click="closeRemoveModal"
+                    class="w-100 vs-btn vs-btn--default vs-btn--lg vs-btn--danger vs-btn--fill"
+                  >No, I'm not</button>
+                </div>
+              </div>
+            </template>
+          </vs-modal>
+        </div>
+      </div>
       <div class="row">
-        <div class="col-lg-9 mb-4 col-md-8">
+        <div class="col-lg-2 mb-4 col-sm-4">
+          <div class="vs-box text-center">
+            <div class="vs-box__title">
+              <span>My</span>&nbsp;
+              <span>Price</span>
+            </div>
+            <div class="text-center">
+              <div class="vs-stock-card__price">{{stock.quote.latestPrice}}</div>
+              <span
+                class="vs-stock-card__change"
+                :class="{'vs-stock-card__change--good': stock.quote.change > 0, 'vs-stock-card__change--bad': stock.quote.change < 0}"
+              >
+                <div class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</div>
+                <div style="font-size: 0.7em;">({{changePercentage}})</div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 mb-4 col-sm-4">
           <div class="vs-box">
             <div class="vs-box__title">
               <span>My</span>
@@ -29,7 +85,7 @@
             <div v-else class="vs-loader"></div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4">
+        <div class="col-lg-3 col-sm-4">
           <div class="vs-box vs-box--small">
             <div class="vs-box__title">
               <span>My</span>
@@ -58,18 +114,28 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import VsToasts from "./VsToasts.vue";
 import VsLineChart from "./VsLineChart.vue";
 import VsNews from "./VsNews.vue";
+import VsModal from "./VsModal.vue";
+import VsBtnGroup from "./VsBtnGroup.vue";
+import VsBtnGroupAction from "./VsBtnGroupAction.vue";
 import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
 
 @Component({
   components: {
     VsLineChart,
-    VsNews
+    VsModal,
+    VsNews,
+    VsBtnGroup,
+    VsBtnGroupAction,
+    VsToasts
   }
 })
 export default class VsStockOverview extends Vue {
-  private loadedNews = false;
+  private toasts: Array<string> = [];
+  private isRemoveModalOpen: boolean = false;
+  private loadedNews: boolean = false;
   private news: Array<any> = [];
   private loadedLineChartData: boolean = false;
   private loaded: boolean = false;
@@ -127,6 +193,31 @@ export default class VsStockOverview extends Vue {
         break;
     }
     this.loadLineChartData();
+  }
+
+  get changePercentage() {
+    if (this.stock.quote.latestPrice === 0) return "0%";
+    return (
+      Math.round(
+        (this.stock.quote.change / this.stock.quote.latestPrice) * 100
+      ) /
+        100 +
+      "%"
+    );
+  }
+
+  remove() {
+    this.closeRemoveModal();
+    this.$store.dispatch("unsubscribeStock", this.stock.quote.symbol);
+    this.toasts.push(`Removed stock`);
+  }
+
+  openRemoveModal() {
+    this.isRemoveModalOpen = true;
+  }
+
+  closeRemoveModal() {
+    this.isRemoveModalOpen = false;
   }
 
   mounted() {

@@ -6,16 +6,15 @@ body,button,input,select,form,tr,td,table{
 }
 body{
     font-size:16px;
-    color:#3b464d;
+    color: $text;
 }
-body,button{    
+body,button,h1,h2,h3,h4,h5,h6{    
     line-height:1.5em;
 }
 .vs-title {
     @extend .font-weight-zebra;
     font-size:32px;
-    margin-bottom: 32px;
-    margin-top: 10px;
+    margin-bottom: 16px;
     font-weight:500;
     &__icon {
         margin-right:8px;

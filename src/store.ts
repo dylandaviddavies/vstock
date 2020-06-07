@@ -6,7 +6,16 @@ var store = new Vuex.Store({
 	state: {
 		subscribedSymbols: Array<string>()
 	},
+	actions: {
+		unsubscribeStock({ commit }, symbol) {
+			commit('UNSUBSCRIBE_STOCK_SYMBOL', symbol);
+		}
+	},
 	mutations: {
+		UNSUBSCRIBE_STOCK_SYMBOL(state, symbol) {
+			var index = state.subscribedSymbols.indexOf(symbol);
+			if (index !== -1) state.subscribedSymbols.splice(index, 1);
+		},
 		SUBSCRIBE_STOCK_SYMBOL(state, symbol) {
 			state.subscribedSymbols.push(symbol);
 		},

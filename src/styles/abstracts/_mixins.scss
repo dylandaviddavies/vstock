@@ -5,3 +5,8 @@
     0 #{8 * $multiplier}px #{8 * $multiplier}px transparentize($colour, 1 - $transparency),
     0 #{16 * $multiplier}px #{16 * $multiplier}px transparentize($colour, 1 - $transparency);
 }
+
+@mixin bg-w-shadow($colour) {
+    @include layered-box-shadow($colour, .1);
+    background-color:$colour;
+}

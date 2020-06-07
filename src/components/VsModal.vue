@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import ClickOutside from "vue-click-outside";
 export default {
   computed: {
     modalTitleId() {
@@ -68,10 +67,6 @@ export default {
       if (event.target.getAttribute("aria-controls") === this.modalId) return;
       this.close();
     }
-  },
-
-  directives: {
-    ClickOutside
   }
 };
 </script>

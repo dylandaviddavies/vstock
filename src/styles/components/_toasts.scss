@@ -1,0 +1,53 @@
+.vs-toast {
+    position: fixed;
+    bottom:60px;
+    justify-content:center;
+    align-items:center;
+    display:flex;
+    left:0;
+    right:0;
+    z-index:12;
+    transform:translateY(calc(100% + 60px));
+    transition: opacity .5s ease-in-out, transform .5s ease-in-out;
+    &--inflated {        
+        transform:translateY(0%);
+    }
+    &__inner {
+        display:flex;
+        align-items:center;
+        background:#fff;
+        padding: 20px 40px 20px 32px;
+        border-radius:6px;
+        position:relative;
+        @include layered-box-shadow($dark-box-shadow-colour, .02);
+    }
+    &__close {
+        position:absolute;
+        top:8px;
+        color:rgb(204, 204, 204);
+        right:2px;
+        background:none;
+        border:none;
+        display:inline-flex;
+        justify-content:center;
+        align-items:center;
+        &__icon {            
+            font-size:16px;
+        }
+    }
+    &__icon {
+        background:$primary;
+        border-radius:100%;
+        margin-right:16px;
+        width:35px;
+        height:35px;
+        color:#fff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-weight:bold;
+    }
+    &__content {
+        font-size:18px;
+    }
+}
