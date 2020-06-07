@@ -1,5 +1,6 @@
 <template>
   <div>
+    <vs-toasts :toasts="toasts"></vs-toasts>
     <vs-header></vs-header>
     <main class="vs-main">
       <router-view></router-view>
@@ -8,13 +9,20 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { mapState } from "vuex";
 import VsHeader from "./components/VsHeader.vue";
-export default {
+import VsToasts from "./components/VsToasts.vue";
+
+@Component({
   components: {
-    VsHeader
-  }
-};
+    VsHeader,
+    VsToasts
+  },
+  computed: mapState(["toasts"])
+})
+export default class App extends Vue {}
 </script>
 
 <style scoped>

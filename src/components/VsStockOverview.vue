@@ -1,6 +1,5 @@
 <template>
   <div>
-    <vs-toasts :toasts="toasts"></vs-toasts>
     <div v-if="loaded">
       <div class="d-flex justify-content-between">
         <div>
@@ -209,7 +208,7 @@ export default class VsStockOverview extends Vue {
   remove() {
     this.closeRemoveModal();
     this.$store.dispatch("unsubscribeStock", this.stock.quote.symbol);
-    this.toasts.push(`Removed stock`);
+    this.$store.dispatch("popToast", `Removed stock`);
   }
 
   openRemoveModal() {
