@@ -138,7 +138,6 @@ export default class VsStocks extends Vue {
   async addStock(): Promise<boolean> {
     return await this.verifyStockSymbol(this.stockSymbolToAdd)
       .then(valid => {
-        console.log("Helo");
         if (!valid) {
           this.setInvalidStockSymbolToAdd(this.stockSymbolToAdd);
           return false;
