@@ -11,7 +11,7 @@
     min-height:300px;
     background:none;
     font-size:20px;
-    font-weight:600;
+    font-weight:$fw-vs-add-card;
     transition: background-color .2s ease-in-out;
     @include hover-focus-active {
         background-color: rgba(0,0,0,.02);
@@ -33,7 +33,7 @@
     }
     &__title {
         margin-bottom:18px;
-        @extend .font-weight-zebra;
+        @extend .fw-zebra;
         font-size:22px;
     }
     &--small {
@@ -70,7 +70,7 @@
     }
     &__price {
         font-size:28px;
-        font-weight: 500;
+        font-weight: $fw-vs-stock-card-price;
         margin: 20px 0;
         flex-grow: 1;
         display:block;
@@ -86,7 +86,7 @@
     &__title {
         display:block;
         font-size:18px;
-        font-weight:500;
+        font-weight:$fw-vs-stock-card-title;
         text-align:center;
     }
     &__change {

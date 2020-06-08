@@ -1,30 +1,10 @@
 <template>
   <header class="vs-header">
-    <div class="vs-header__inner">
-      <router-link class="vs-header__logo mr-5" to="/">
-        <img class="vs-header__logo__img" src="../assets/logo.svg" alt="vstock" />
-      </router-link>
-      <ul class="d-none d-sm-flex vs-header__links">
-        <li>
-          <router-link
-            class="vs-header__link"
-            active-class="vs-header__link--active"
-            to="/dashboard"
-          >Dashboard</router-link>
-        </li>
-        <li>
-          <router-link
-            class="vs-header__link"
-            active-class="vs-header__link--active"
-            to="/discussions"
-          >Insights</router-link>
-        </li>
-      </ul>
-      <router-link to="/stocks" tag="button" class="ml-auto vs-btn vs-btn--fill">
-        <span class="material-icons-round vs-btn__icon" aria-hidden="true">multiline_chart</span>
-        My Stocks
-      </router-link>
-    </div>
+    <router-link class="vs-header__avatar" to="/profile">
+      <img
+        src="https://media-exp1.licdn.com/dms/image/C5603AQH3IdNkmuru3w/profile-displayphoto-shrink_200_200/0?e=1597276800&v=beta&t=nWf3DN2mAnuADI_NxN0iNG4l7X8E-gmewouJC-cOCqI"
+      />
+    </router-link>
   </header>
 </template>
 

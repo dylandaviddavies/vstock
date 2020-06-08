@@ -1,4 +1,26 @@
 $primary: #3fa9f5;
 $error: #ff4f4f;
-$dark-box-shadow-colour: rgb(43, 60, 77);
+$dark-box-shadow-colour: rgb(196, 218, 240);
 $text: #3b464d;
+
+// font-weights
+$fw-header: 600; 
+$fw-base:500;
+$fw-vs-title:500;
+$fw-vs-subtitle:300;
+$fw-vs-stock-row-title:500;
+$fw-vs-sidebar-active-link: 600;
+$fw-vs-sidebar-link:500;
+$fw-vs-news-title:500;
+$fw-vs-news-source:500;
+$fw-vs-field-label:600;
+$fw-vs-chip: 500;
+$fw-vs-stock-card-title:500;
+$fw-vs-stock-card-price:500;
+$fw-vs-add-card:600;
+$fw-button:500;
+$fw-zebra-odd:400;
+$fw-zebra-even:600;
+
+// sidebar
+$sidebar-width: 275px;

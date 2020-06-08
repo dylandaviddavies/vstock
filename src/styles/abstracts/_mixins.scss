@@ -6,6 +6,14 @@
     0 #{16 * $multiplier}px #{16 * $multiplier}px transparentize($colour, 1 - $transparency);
 }
 
+@mixin layered-box-shadow-x($colour, $transparency, $multiplier: 1) {
+    box-shadow: 0 #{1 * $multiplier}px #{1 * $multiplier}px transparentize($colour, 1 - $transparency), 
+    #{2 * $multiplier}px 0 #{2 * $multiplier}px transparentize($colour, 1 - $transparency), 
+    #{4 * $multiplier}px 0 #{4 * $multiplier}px transparentize($colour, 1 - $transparency), 
+    #{8 * $multiplier}px 0 #{8 * $multiplier}px transparentize($colour, 1 - $transparency),
+    #{16 * $multiplier}px 0 #{16 * $multiplier}px transparentize($colour, 1 - $transparency);
+}
+
 @mixin bg-w-shadow($colour) {
     @include layered-box-shadow($colour, .1);
     background-color:$colour;

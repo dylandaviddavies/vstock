@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="vs-title">
-      <span>System</span>
+      <span>My</span>
       &nbsp;
       <span>Overview</span>
     </h1>

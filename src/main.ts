@@ -9,7 +9,7 @@ Vue.use(vClickOutside);
 
 require('./styles/index.scss');
 
-Chart.defaults.global.defaultFontFamily = "Poppins";
+Chart.defaults.global.defaultFontFamily = "Varela Round";
 
 Vue.config.productionTip = false
 

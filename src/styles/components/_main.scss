@@ -1,5 +1,7 @@
 .vs-main {
-    max-width:1400px;
+    overflow:auto;
     margin:0 auto;
-    padding: 24px 16px;
+    padding: 0px 40px;
+    margin-left:$sidebar-width;
+    transition: margin-left .5s ease-in-out;
 }

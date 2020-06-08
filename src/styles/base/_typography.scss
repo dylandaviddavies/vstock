@@ -1,21 +1,23 @@
-@import url(https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900|Material+Icons+Round);
-$font-family: "Poppins", sans-serif;
-$header-font-family: "Poppins", sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Varela+Round:400,500,600,700,900|Material+Icons+Round);
+$font-family: "Varela Round", sans-serif;
+$header-font-family: "Varela Round", sans-serif;
 body,button,input,select,form,tr,td,table{
     font-family:$font-family;
 }
 body{
     font-size:16px;
     color: $text;
+    font-weight:$fw-base;
 }
 body,button,h1,h2,h3,h4,h5,h6{    
     line-height:1.5em;
 }
 .vs-title {
-    @extend .font-weight-zebra;
+    @extend .fw-zebra;
     font-size:32px;
     margin-bottom: 16px;
-    font-weight:500;
+    margin-top:0px;
+    font-weight: $fw-vs-title;
     &__icon {
         margin-right:8px;
         font-size:35px;
@@ -25,15 +27,15 @@ body,button,h1,h2,h3,h4,h5,h6{
     color:#999;
     font-size:22px;
     margin-top:-12px;
-    font-weight:300;
+    font-weight:$fw-vs-subtitle;
     margin-bottom:32px;
 }
 
-.font-weight-zebra {
+.fw-zebra {
     > :nth-child(odd) {
-        font-weight:400;
+        font-weight:$fw-zebra-odd;
     }
     > :nth-child(even) {
-        font-weight:600;
+        font-weight:$fw-zebra-even;
     }
 }

@@ -9,7 +9,12 @@
     >{{news.headline}}</a>
     <p class="vs-news__summary">{{summary}}</p>
     <div class="d-flex flex-wrap">
-      <div class="vs-chip vs-chip--small vs-chip--active" type="button">{{news.related}}</div>
+      <div
+        v-for="r in related"
+        :key="r"
+        class="vs-chip vs-chip--small vs-chip--active"
+        type="button"
+      >{{r}}</div>
     </div>
     <div class="vs-news__date">{{date}}</div>
   </div>
@@ -23,6 +28,10 @@ import moment from "moment";
 export default class VsNews extends Vue {
   @Prop({ required: true })
   private readonly news!: any;
+
+  get related() {
+    return this.news.related.split(",");
+  }
 
   get summary() {
     return this.news.summary.length > 150

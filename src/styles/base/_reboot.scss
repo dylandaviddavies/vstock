@@ -2,6 +2,13 @@ body{
     overflow-x:hidden;
     background:#fafafa;
 }
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.vs-app,.vs-body,body {
+    min-height:100vh;
+}
 select {
     cursor:pointer;
 }
@@ -37,7 +44,7 @@ body,html {
 
 h1,h2,h3,h4,h5,h6{
     margin:.2em 0;
-    font-weight:600;
+    font-weight:$fw-header;
 }
 
 ul {
