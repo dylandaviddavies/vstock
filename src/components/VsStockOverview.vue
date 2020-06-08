@@ -113,7 +113,6 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
-import VsToasts from "./VsToasts.vue";
 import VsLineChart from "./VsLineChart.vue";
 import VsNews from "./VsNews.vue";
 import VsModal from "./VsModal.vue";
@@ -127,12 +126,10 @@ import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
     VsModal,
     VsNews,
     VsBtnGroup,
-    VsBtnGroupAction,
-    VsToasts
+    VsBtnGroupAction
   }
 })
 export default class VsStockOverview extends Vue {
-  private toasts: Array<string> = [];
   private isRemoveModalOpen: boolean = false;
   private loadedNews: boolean = false;
   private news: Array<any> = [];
@@ -208,7 +205,7 @@ export default class VsStockOverview extends Vue {
   remove() {
     this.closeRemoveModal();
     this.$store.dispatch("unsubscribeStock", this.stock.quote.symbol);
-    this.$store.dispatch("popToast", `Removed stock`);
+    this.$store.dispatch("addToast", `Removed stock`);
   }
 
   openRemoveModal() {

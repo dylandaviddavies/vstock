@@ -12,8 +12,18 @@ var store = new Vuex.Store({
 			commit('UNSUBSCRIBE_STOCK_SYMBOL', symbol);
 		},
 
-		popToast({ commit }, toast) {
-			commit('POP_TOAST', toast);
+		subscribeStock({ commit }, symbol) {
+			commit('SUBSCRIBE_STOCK_SYMBOL', symbol);
+		},
+
+		popToast({ state }) {
+			if (state.toasts.length === 0)
+				return;
+			return state.toasts.shift();
+		},
+
+		addToast({ commit }, toast) {
+			commit('ADD_TOAST', toast);
 		}
 	},
 	mutations: {
@@ -26,21 +36,26 @@ var store = new Vuex.Store({
 			state.subscribedSymbols.push(symbol);
 		},
 
-		POP_TOAST(state, toast) {
+		ADD_TOAST(state, toast) {
+			state.toasts.push(toast);
+		},
+
+		REMOVE_TOAST(state, toast) {
 			state.toasts.push(toast);
 		},
 
 		INIT(state) {
 			let storeJson = localStorage.getItem('store');
 			if (storeJson) {
-				this.replaceState(
-					Object.assign(state, JSON.parse(storeJson))
-				);
+				let store = JSON.parse(storeJson);
+				state.subscribedSymbols = store.subscribedSymbols;
 			}
 		}
 	},
 });
 store.subscribe((mutation, state) => {
-	localStorage.setItem('store', JSON.stringify(state));
+	localStorage.setItem('store', JSON.stringify({
+		subscribedSymbols: state.subscribedSymbols
+	}));
 });
 export default store;

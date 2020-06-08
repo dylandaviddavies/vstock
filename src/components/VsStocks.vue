@@ -47,6 +47,7 @@
                         aria-hidden="true"
                       >attach_money</span>
                       <input
+                        ref="stockSymbolToAdd"
                         v-model="stockSymbolToAdd"
                         type="text"
                         required
@@ -81,7 +82,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch, Ref } from "vue-property-decorator";
 import { mapState } from "vuex";
 import VsStockCard from "./VsStockCard.vue";
 import VsModal from "./VsModal.vue";
@@ -108,9 +109,17 @@ export default class VsStocks extends Vue {
   private stockSymbolToAdd: string = "";
   private filters: Record<string, string> = {};
 
+  @Ref("stockSymbolToAdd")
+  private readonly txtStockSymbolToAdd!: HTMLInputElement;
+
   @Watch("filters", { immediate: true, deep: true })
   watchFilters() {
     this.loadStocks();
+  }
+
+  @Watch("isAddStockModalOpen")
+  watchIsAddStockModalOpen(newVal: boolean) {
+    if (newVal) this.txtStockSymbolToAdd.focus();
   }
 
   mounted() {
@@ -129,12 +138,14 @@ export default class VsStocks extends Vue {
   async addStock(): Promise<boolean> {
     return await this.verifyStockSymbol(this.stockSymbolToAdd)
       .then(valid => {
+        console.log("Helo");
         if (!valid) {
           this.setInvalidStockSymbolToAdd(this.stockSymbolToAdd);
           return false;
         }
-        this.$store.commit("SUBSCRIBE_STOCK_SYMBOL", this.stockSymbolToAdd);
+        this.$store.dispatch("subscribeStock", this.stockSymbolToAdd);
         this.closeAddStockModal();
+        this.$store.dispatch("addToast", "Added stock.");
         this.loadStocks();
         return true;
       })
