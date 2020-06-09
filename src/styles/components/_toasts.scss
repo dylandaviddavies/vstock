@@ -19,7 +19,7 @@
         padding: 20px 40px 20px 32px;
         border-radius:6px;
         position:relative;
-        @include layered-box-shadow($dark-box-shadow-colour, .02);
+        @include layered-box-shadow($dark-box-shadow-colour, .1);
     }
     &__close {
         position:absolute;

@@ -11,7 +11,7 @@
     background-color:#fff;
     width:$sidebar-width;
     height:100%;
-    @include layered-box-shadow-x($dark-box-shadow-colour, .02);
+    @include layered-box-shadow-x($dark-box-shadow-colour, .05);
     transition: transform .5s ease-in-out;
     &__links {
         font-weight:$fw-vs-sidebar-link;

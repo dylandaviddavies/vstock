@@ -51,7 +51,7 @@
     padding:8px 12px;
     border:none;
     transition: background-color .2s ease-in-out;
-    @include layered-box-shadow($dark-box-shadow-colour, .02);
+    @include layered-box-shadow($dark-box-shadow-colour, .1);
     @include hover-focus-active {
         color:inherit;
         background-color: #fafafa;
@@ -76,7 +76,7 @@
         top:0;
         right:100%;
         background:#fff;
-        @include layered-box-shadow($dark-box-shadow-colour, .02);
+        @include layered-box-shadow($dark-box-shadow-colour, .1);
         > :not(:last-child) {
             border-bottom:1px solid #f1f1f1;
         }

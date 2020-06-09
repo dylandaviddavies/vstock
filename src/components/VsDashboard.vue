@@ -6,105 +6,121 @@
       <span>Overview</span>
     </h1>
     <div class="row">
-      <div class="col-md-5">
-        <div class="vs-box">
-          <h2 class="vs-box__title">
-            <span>My</span>
-            &nbsp;
-            <span>Stocks</span>
-          </h2>
-          <div class="vs-box__controls vs-chips d-flex flex-wrap">
-            <button
-              v-for="o in lineChartDateRangeFilterOptions"
-              :key="o.id"
-              class="vs-chip"
-              @click="lineChartDateRangeFilter = o.id"
-              :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
-              type="button"
-            >{{o.label}}</button>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-12">
+            <div class="vs-box mb-4">
+              <h2 class="vs-box__title">
+                <span>My</span>
+                &nbsp;
+                <span>Stocks</span>
+              </h2>
+              <div class="vs-box__body">
+                <div class="vs-box__controls vs-chips d-flex flex-wrap">
+                  <button
+                    v-for="o in lineChartDateRangeFilterOptions"
+                    :key="o.id"
+                    class="vs-chip"
+                    @click="lineChartDateRangeFilter = o.id"
+                    :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
+                    type="button"
+                  >{{o.label}}</button>
+                </div>
+                <vs-line-chart
+                  style="height:250px;"
+                  v-if="loadedLineChartData"
+                  :options="lineChartOptions"
+                  :chart-data="lineChartData"
+                ></vs-line-chart>
+                <div v-else class="vs-loader"></div>
+              </div>
+            </div>
           </div>
-          <vs-line-chart
-            v-if="loadedLineChartData"
-            :options="lineChartOptions"
-            :chart-data="lineChartData"
-          ></vs-line-chart>
-          <div v-else class="vs-loader"></div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="vs-box vs-box--small mb-4">
-          <h2 class="vs-box__title">
-            <span>My</span>
-            &nbsp;
-            <span>Gains</span>
-          </h2>
-          <div class="vs-loader" v-if="!loadedGains"></div>
-          <table v-else-if="gains.length > 0">
-            <tbody>
-              <vs-stock-row
-                class="vs-stock-row--good"
-                :stock="q"
-                :number="i + 1"
-                v-for="(q, i) in gains"
-                :key="q.symbol"
-              ></vs-stock-row>
-            </tbody>
-          </table>
-          <div v-else>
-            <img
-              class="w-50 mt-4 mb-3 mx-auto"
-              :src="require('../assets/no_gains.svg')"
-              alt="No gains recorded"
-            />
-            <div class="text-center text-grey">No gains recorded</div>
+
+          <div class="col-md-6">
+            <div class="vs-box vs-box--small mb-4">
+              <h2 class="vs-box__title">
+                <span>My</span>
+                &nbsp;
+                <span>Gains</span>
+              </h2>
+              <div class="vs-box__body">
+                <div class="vs-loader" v-if="!loadedGains"></div>
+                <table v-else-if="gains.length > 0">
+                  <tbody>
+                    <vs-stock-row
+                      class="vs-stock-row--good"
+                      :stock="q"
+                      :number="i + 1"
+                      v-for="(q, i) in gains"
+                      :key="q.symbol"
+                    ></vs-stock-row>
+                  </tbody>
+                </table>
+                <div v-else>
+                  <img
+                    class="w-50 mt-4 mb-3 mx-auto"
+                    :src="require('../assets/no_gains.svg')"
+                    alt="No gains recorded"
+                  />
+                  <div class="text-center text-grey">No gains recorded</div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="vs-box vs-box--small">
-          <h2 class="vs-box__title">
-            <span>My</span>
-            &nbsp;
-            <span>Losses</span>
-          </h2>
-          <div class="vs-loader" v-if="!loadedLosses"></div>
-          <table v-else-if="losses.length > 0">
-            <tbody>
-              <vs-stock-row
-                class="vs-stock-row--bad"
-                :stock="q"
-                :number="i + 1"
-                v-for="(q, i) in losses"
-                :key="q.symbol"
-              ></vs-stock-row>
-            </tbody>
-          </table>
-          <div v-else>
-            <img
-              class="w-50 mt-4 mb-3 mx-auto"
-              :src="require('../assets/no_losses.svg')"
-              alt="No losses recorded"
-            />
-            <div class="text-center text-grey">No losses recorded</div>
+          <div class="col-md-6">
+            <div class="vs-box vs-box--small mb-4">
+              <h2 class="vs-box__title">
+                <span>My</span>
+                &nbsp;
+                <span>Losses</span>
+              </h2>
+              <div class="vs-box__body">
+                <div class="vs-loader" v-if="!loadedLosses"></div>
+                <table v-else-if="losses.length > 0">
+                  <tbody>
+                    <vs-stock-row
+                      class="vs-stock-row--bad"
+                      :stock="q"
+                      :number="i + 1"
+                      v-for="(q, i) in losses"
+                      :key="q.symbol"
+                    ></vs-stock-row>
+                  </tbody>
+                </table>
+                <div v-else>
+                  <img
+                    class="w-50 mt-4 mb-3 mx-auto"
+                    :src="require('../assets/no_losses.svg')"
+                    alt="No losses recorded"
+                  />
+                  <div class="text-center text-grey">No losses recorded</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-md-3">
-        <div class="vs-box vs-box--small">
+        <div class="vs-box vs-box--small mb-4">
           <h2 class="vs-box__title">
             <span>My</span>
             &nbsp;
             <span>News</span>
           </h2>
-          <div class="vs-loader" v-if="!loadedNews"></div>
-          <div v-else-if="news.length > 0">
-            <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
-          </div>
-          <div v-else>
-            <img
-              class="w-50 mt-4 mb-3 mx-auto"
-              :src="require('../assets/no_news.svg')"
-              alt="No news to report"
-            />
-            <div class="text-center text-grey">No news to report</div>
+          <div>
+            <div class="vs-box__body vs-loader" v-if="!loadedNews"></div>
+            <div style="max-height:500px;" class="overflow-auto" v-else-if="news.length > 0">
+              <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
+            </div>
+            <div class="vs-box__body" v-else>
+              <img
+                class="w-50 mt-4 mb-3 mx-auto"
+                :src="require('../assets/no_news.svg')"
+                alt="No news to report"
+              />
+              <div class="text-center text-grey">No news to report</div>
+            </div>
           </div>
         </div>
       </div>
@@ -172,8 +188,7 @@ export default class VsDashboard extends Vue {
 
   private lineChartDateRangeFilterOptions: Array<object> = [
     { id: "ONE_DAY", label: "1d" },
-    { id: "FIVE_DAYS", label: "5d" },
-    { id: "ONE_MONTH", label: "1m" }
+    { id: "FIVE_DAYS", label: "5d" }
   ];
 
   @Watch("lineChartDateRangeFilter")
@@ -185,10 +200,6 @@ export default class VsDashboard extends Vue {
       case "FIVE_DAYS":
         this.lineChartOptions.scales.xAxes[0] =
           chartRangeXaxesOptions.FIVE_DAYS;
-        break;
-      case "ONE_MONTH":
-        this.lineChartOptions.scales.xAxes[0] =
-          chartRangeXaxesOptions.ONE_MONTH;
         break;
     }
     this.loadLineChartData();

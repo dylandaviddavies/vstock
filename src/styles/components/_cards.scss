@@ -24,29 +24,36 @@
 
 .vs-box {
     $self: &;
+    max-height: 100%;
     background-color:#fff;
-    padding:28px 40px;
     border-radius:8px;
-    @include layered-box-shadow($dark-box-shadow-colour, .02);
+    @include layered-box-shadow($dark-box-shadow-colour, .1);
     &__controls {
         margin-bottom:20px;
     }
     &__title {
+        padding:28px 40px 0px 40px;
         margin-bottom:18px;
         @extend .fw-zebra;
         font-size:22px;
     }
+    &__body {   
+        padding:0px 40px 28px 40px;
+    }
     &--small {
-        padding: 22px 24px;
         #{$self}__title {
+            padding: 22px 24px 0px 24px;
             margin-bottom:12px;
             font-size:18px;
+        }
+        #{$self}__body {            
+            padding: 0px 24px 22px 24px;
         }
     }
 }
 
 .vs-stock-card{
-    @include layered-box-shadow($dark-box-shadow-colour, .02);
+    @include layered-box-shadow($dark-box-shadow-colour, .1);
     width: 100%;
     color:inherit;
     border:none;
@@ -62,7 +69,7 @@
     @include hover-focus-active {
         color:inherit;
         transform:translateY(-4px);
-        @include layered-box-shadow($dark-box-shadow-colour, .05, 1.5);
+        @include layered-box-shadow($dark-box-shadow-colour, .15, 1.5);
     }
     &__symbol {
         color:#999;

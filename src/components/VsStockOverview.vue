@@ -41,13 +41,13 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-2 mb-4 col-sm-4">
-          <div class="vs-box text-center">
+        <div class="col-lg-2 col-sm-4">
+          <div class="vs-box text-center mb-4">
             <div class="vs-box__title">
               <span>My</span>&nbsp;
               <span>Price</span>
             </div>
-            <div class="text-center">
+            <div class="vs-box__body text-center">
               <div class="vs-stock-card__price">{{stock.quote.latestPrice}}</div>
               <span
                 class="vs-stock-card__change"
@@ -59,49 +59,53 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-7 mb-4 col-sm-4">
-          <div class="vs-box">
+        <div class="col-lg-7 col-sm-4">
+          <div class="vs-box mb-4">
             <div class="vs-box__title">
               <span>My</span>
               &nbsp;
               <span>Timeline</span>
             </div>
-            <div class="vs-box__controls vs-chips d-flex flex-wrap">
-              <button
-                v-for="o in lineChartDateRangeFilterOptions"
-                :key="o.id"
-                class="vs-chip"
-                @click="lineChartDateRangeFilter = o.id"
-                :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
-                type="button"
-              >{{o.label}}</button>
+            <div class="vs-box__body">
+              <div class="vs-box__controls vs-chips d-flex flex-wrap">
+                <button
+                  v-for="o in lineChartDateRangeFilterOptions"
+                  :key="o.id"
+                  class="vs-chip"
+                  @click="lineChartDateRangeFilter = o.id"
+                  :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
+                  type="button"
+                >{{o.label}}</button>
+              </div>
+              <vs-line-chart
+                v-if="loadedLineChartData"
+                :options="lineChartOptions"
+                :chart-data="lineChartData"
+              ></vs-line-chart>
+              <div v-else class="vs-loader"></div>
             </div>
-            <vs-line-chart
-              v-if="loadedLineChartData"
-              :options="lineChartOptions"
-              :chart-data="lineChartData"
-            ></vs-line-chart>
-            <div v-else class="vs-loader"></div>
           </div>
         </div>
         <div class="col-lg-3 col-sm-4">
-          <div class="vs-box vs-box--small">
+          <div class="vs-box vs-box--small mb-4">
             <div class="vs-box__title">
               <span>My</span>
               &nbsp;
               <span>News</span>
             </div>
-            <div class="vs-loader" v-if="!loadedNews"></div>
-            <div v-else-if="news.length > 0">
-              <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
-            </div>
-            <div v-else>
-              <img
-                class="w-50 mt-4 mb-3 mx-auto"
-                :src="require('../assets/no_news.svg')"
-                alt="No news to report"
-              />
-              <div class="text-center text-grey">No news to report</div>
+            <div>
+              <div class="vs-box__body vs-loader" v-if="!loadedNews"></div>
+              <div style="max-height:500px;" class="overflow-auto" v-else-if="news.length > 0">
+                <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
+              </div>
+              <div class="vs-box__body" v-else>
+                <img
+                  class="w-50 mt-4 mb-3 mx-auto"
+                  :src="require('../assets/no_news.svg')"
+                  alt="No news to report"
+                />
+                <div class="text-center text-grey">No news to report</div>
+              </div>
             </div>
           </div>
         </div>
@@ -140,8 +144,7 @@ export default class VsStockOverview extends Vue {
   private lineChartDateRangeFilter: string = "ONE_DAY";
   private lineChartDateRangeFilterOptions: Array<object> = [
     { id: "ONE_DAY", label: "1d" },
-    { id: "FIVE_DAYS", label: "5d" },
-    { id: "ONE_MONTH", label: "1m" }
+    { id: "FIVE_DAYS", label: "5d" }
   ];
   private lineChartOptions = {
     responsive: true,
@@ -182,9 +185,6 @@ export default class VsStockOverview extends Vue {
         this.lineChartOptions.scales.xAxes[0] = chartRangeXaxesOptions[newVal];
         break;
       case "FIVE_DAYS":
-        this.lineChartOptions.scales.xAxes[0] = chartRangeXaxesOptions[newVal];
-        break;
-      case "ONE_MONTH":
         this.lineChartOptions.scales.xAxes[0] = chartRangeXaxesOptions[newVal];
         break;
     }

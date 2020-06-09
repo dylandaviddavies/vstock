@@ -35,24 +35,5 @@ export default {
             autoSkip: false,
             maxTicksLimit: 0
         }
-    },
-
-    ONE_MONTH: {
-        gridLines: {
-            display: false
-        },
-        type: "time",
-        time: {
-            tooltipFormat: "ll",
-            unit: "day",
-            unitStepSize: 1,
-            displayFormats: {
-                day: "MMM DD"
-            }
-        },
-        ticks: {
-            autoSkip: false,
-            maxTicksLimit: 0
-        }
     }
 }
