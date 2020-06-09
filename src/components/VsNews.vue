@@ -29,6 +29,9 @@ export default class VsNews extends Vue {
   @Prop({ required: true })
   private readonly news!: any;
 
+  @Prop({ required: false, default: false })
+  private readonly full!: boolean;
+
   get related() {
     return this.news.related.split(",");
   }
