@@ -2,6 +2,9 @@
     overflow:auto;
     margin:0 auto;
     padding: 0px 40px;
-    margin-left:$sidebar-width;
     transition: margin-left .5s ease-in-out;
+    margin-left:0px;
+    @include media-breakpoint-up(md) {
+        margin-left:$sidebar-width;
+    }
 }

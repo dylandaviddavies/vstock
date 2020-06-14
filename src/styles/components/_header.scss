@@ -1,14 +1,46 @@
 .vs-header {
     $self: &;
-    margin-left:$sidebar-width;
     padding: 16px 32px;
     display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#fff;
+    margin-bottom:24px;
+    @include layered-box-shadow($dark-box-shadow-colour, .03);
+    @include media-breakpoint-up(md) {     
+        box-shadow:none;   
+        margin-left:$sidebar-width;
+        padding: 16px 32px;
+        background:none;
+    }
+    &__menu {
+        background:none;
+        align-items:center;
+        justify-content:center;
+        border:none;
+        display:inline-flex;
+        @include media-breakpoint-up(md) {        
+            display:none;
+        }
+    }
+    &__logo {
+        > img {            
+            height:30px;
+        }
+        @include media-breakpoint-up(md) {        
+            display:none;
+        }
+    }
     &__avatar {
-        margin-left:auto;
+        position:absolute;
+        right: 32px;
+        top:13px;
         display:flex;
         justify-content:center;
         align-items:center;
-        position:relative;
+        @include media-breakpoint-up(md) {            
+            top:16px;
+        }
         > img {
             z-index:1;
             position:relative;

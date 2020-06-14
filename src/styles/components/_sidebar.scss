@@ -1,18 +1,82 @@
 .vs-sidebar {
     $self: &;
-    position:fixed;
-    z-index:9;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    left:0;
-    top:0;
-    bottom:0;
-    background-color:#fff;
-    width:$sidebar-width;
-    height:100%;
-    @include layered-box-shadow-x($dark-box-shadow-colour, .05);
-    transition: transform .5s ease-in-out;
+    z-index:10;
+    &:before {
+        z-index:9;
+        position:fixed;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        background-color:#000;
+        content:"";
+        pointer-events:none;
+        opacity:0;
+        transition: opacity .5s ease-in-out;
+    }
+    &__toggle {
+        position:absolute;
+        font-weight:600;
+        top:18px;
+        display:inline-flex;
+        z-index:11;
+        align-items:center;
+        justify-content:center;
+        background:none;
+        border:none;
+        padding:0;
+        left:40px;
+        opacity:1;
+        pointer-events:auto;
+        transition: opacity .5s ease-in-out, left .5s ease-in-out;
+        @include media-breakpoint-up(md) {
+            pointer-events:none;
+            opacity:0;          
+            transition: none;          
+        }
+    }
+    &__inner {
+        position:fixed;
+        z-index:9;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        left:0;
+        top:0;
+        bottom:0;
+        background-color:#fff;
+        height:100%;
+        width:80%;
+        @include layered-box-shadow-x($dark-box-shadow-colour, .05);
+        transition: transform .5s ease-in-out, opacity .5s .5s ease-in-out;
+        transform: translateX(-100%);
+        opacity:0;
+        @include media-breakpoint-up(md) {
+            transition: none;
+            transform: translateX(0%);
+            opacity:1;
+            width:$sidebar-width;
+        }
+    }
+    &--visible {
+        #{$self}__toggle {            
+            left:calc(80% + 20px);
+            color:#fff;
+            position:fixed;
+        }
+        #{$self}__inner {
+            @include media-breakpoint-down(md) {
+                transform: translateX(0%);
+                transition: transform .5s ease-in-out, opacity 0s ease-in-out;
+                opacity:1;
+            }
+        }
+        &:before {
+            @include media-breakpoint-down(md) {
+                opacity:.5;
+            }
+        }
+    }
     &__links {
         font-weight:$fw-vs-sidebar-link;
     }

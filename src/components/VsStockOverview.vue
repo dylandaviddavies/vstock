@@ -222,7 +222,7 @@ export default class VsStockOverview extends Vue {
 
   load() {
     this.loaded = false;
-    this.fetch()
+    this.fetchStock()
       .then(data => {
         this.stock = data;
         this.loaded = true;
@@ -261,7 +261,7 @@ export default class VsStockOverview extends Vue {
     ).then(r => r.json());
   }
 
-  fetch(): Promise<any> {
+  fetchStock(): Promise<any> {
     return fetch(
       `${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/stock/${this.$route.params.symbol}`
     ).then(r => r.json());
