@@ -32,13 +32,19 @@
         margin-bottom:20px;
     }
     &__title {
-        padding:28px 40px 0px 40px;
+        padding:28px 28px 0px 28px;
+        @include media-breakpoint-up(md) {
+            padding:28px 40px 0px 40px;
+        }
         margin-bottom:18px;
         @extend .fw-zebra;
         font-size:22px;
     }
     &__body {   
-        padding:0px 40px 28px 40px;
+        padding:0px 28px 28px 28px;
+        @include media-breakpoint-up(md) {
+            padding:0px 40px 28px 40px;
+        }
     }
     &--small {
         #{$self}__title {
