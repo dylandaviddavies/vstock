@@ -6,10 +6,10 @@
       <span>Stocks</span>
     </h1>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-xl-3">
         <vs-stock-filters :onFilter="applyFilters"></vs-stock-filters>
       </div>
-      <div class="col-md-9">
+      <div class="col-xl-9">
         <div v-if="loadedStocks || silentlyLoadStocks" class="row">
           <div class="col-6 col-xl-3 col-lg-4 mb-5" v-for="s in stocks" :key="s.symbol">
             <vs-stock-card :to="`/stock/${s.symbol}`" class="h-100" :stock="s"></vs-stock-card>
