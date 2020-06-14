@@ -6,7 +6,7 @@
       <span>Overview</span>
     </h1>
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-xl-9">
         <div class="row">
           <div class="col-12">
             <div class="vs-box mb-4">
@@ -37,14 +37,14 @@
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-xl-6">
             <div class="vs-box vs-box--small mb-4">
               <h2 class="vs-box__title">
                 <span>My</span>
                 &nbsp;
                 <span>Gains</span>
               </h2>
-              <div class="vs-box__body">
+              <div class="vs-box__body overflow-auto">
                 <div class="vs-loader" v-if="!loadedGains"></div>
                 <table v-else-if="gains.length > 0">
                   <tbody>
@@ -68,14 +68,14 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-xl-6">
             <div class="vs-box vs-box--small mb-4">
               <h2 class="vs-box__title">
                 <span>My</span>
                 &nbsp;
                 <span>Losses</span>
               </h2>
-              <div class="vs-box__body">
+              <div class="vs-box__body overflow-auto">
                 <div class="vs-loader" v-if="!loadedLosses"></div>
                 <table v-else-if="losses.length > 0">
                   <tbody>
@@ -101,7 +101,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-xl-3">
         <div class="vs-box vs-box--small mb-4">
           <h2 class="vs-box__title">
             <span>My</span>
