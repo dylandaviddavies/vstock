@@ -8,30 +8,39 @@
         </div>
         <div>
           <vs-btn-group>
-            <vs-btn-group-action :onClick="openRemoveModal" aria-controls="removeModal">Remove</vs-btn-group-action>
+            <vs-btn-group-action
+              v-if="isSubscribed"
+              :onClick="openUnsubscribeModal"
+              aria-controls="unsubscribeModal"
+            >Unsubscribe</vs-btn-group-action>
+            <vs-btn-group-action
+              v-else
+              :onClick="subscribe"
+              aria-controls="unsubscribeModal"
+            >Subscribe</vs-btn-group-action>
           </vs-btn-group>
           <vs-modal
-            :isOpen="isRemoveModalOpen"
+            :isOpen="isUnsubscribeModalOpen"
             :headAsColumn="true"
-            :onClose="closeRemoveModal"
+            :onClose="closeUnsubscribeModal"
             :img="require('../assets/add_stock_img.svg')"
-            id="removeModal"
+            id="unsubscribeModal"
           >
-            <template v-slot:title>Remove stock</template>
+            <template v-slot:title>Unsubscribe</template>
             <template v-slot:body>
               <p
                 class="my-4 text-center text-grey"
-              >Are you sure you want to remove this stock from your portfolio?</p>
+              >Are you sure you want to unsubscribe from this stock?</p>
               <div class="row justify-content-center">
                 <div class="col-12 mb-4 col-sm-4">
                   <button
-                    @click="remove"
+                    @click="unsubscribe"
                     class="w-100 vs-btn vs-btn--lg vs-btn--danger vs-btn--fill"
                   >Yes, I'm sure</button>
                 </div>
                 <div class="col-12 mb-4 col-sm-4">
                   <button
-                    @click="closeRemoveModal"
+                    @click="closeUnsubscribeModal"
                     class="w-100 vs-btn vs-btn--default vs-btn--lg vs-btn--danger vs-btn--fill"
                   >No, I'm not</button>
                 </div>
@@ -123,6 +132,7 @@ import VsModal from "./VsModal.vue";
 import VsBtnGroup from "./VsBtnGroup.vue";
 import VsBtnGroupAction from "./VsBtnGroupAction.vue";
 import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
+import { mapState } from "vuex";
 
 @Component({
   components: {
@@ -131,10 +141,13 @@ import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
     VsNews,
     VsBtnGroup,
     VsBtnGroupAction
-  }
+  },
+
+  computed: mapState(["subscribedSymbols"])
 })
 export default class VsStockOverview extends Vue {
-  private isRemoveModalOpen: boolean = false;
+  private subscribedSymbols!: Array<string>;
+  private isUnsubscribeModalOpen: boolean = false;
   private loadedNews: boolean = false;
   private news: Array<any> = [];
   private loadedLineChartData: boolean = false;
@@ -191,6 +204,10 @@ export default class VsStockOverview extends Vue {
     this.loadLineChartData();
   }
 
+  get isSubscribed(): boolean {
+    return this.subscribedSymbols.includes(this.stock.quote.symbol);
+  }
+
   get changePercentage() {
     if (this.stock.quote.latestPrice === 0) return "0%";
     return (
@@ -202,18 +219,23 @@ export default class VsStockOverview extends Vue {
     );
   }
 
-  remove() {
-    this.closeRemoveModal();
+  subscribe() {
+    this.$store.dispatch("subscribeStock", this.stock.quote.symbol);
+    this.$store.dispatch("addToast", `Subscribed to stock`);
+  }
+
+  unsubscribe() {
+    this.closeUnsubscribeModal();
     this.$store.dispatch("unsubscribeStock", this.stock.quote.symbol);
-    this.$store.dispatch("addToast", `Removed stock`);
+    this.$store.dispatch("addToast", `Unsubscribed from stock`);
   }
 
-  openRemoveModal() {
-    this.isRemoveModalOpen = true;
+  openUnsubscribeModal() {
+    this.isUnsubscribeModalOpen = true;
   }
 
-  closeRemoveModal() {
-    this.isRemoveModalOpen = false;
+  closeUnsubscribeModal() {
+    this.isUnsubscribeModalOpen = false;
   }
 
   mounted() {

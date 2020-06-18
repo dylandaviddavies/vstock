@@ -34,6 +34,8 @@ var store = new Vuex.Store({
 		},
 
 		SUBSCRIBE_STOCK_SYMBOL(state, symbol) {
+			if (state.subscribedSymbols.includes(symbol))
+				return;
 			state.subscribedSymbols.push(symbol);
 		},
 
