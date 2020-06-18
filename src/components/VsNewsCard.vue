@@ -1,6 +1,12 @@
 <template>
   <div class="vs-news-card">
-    <div class="vs-news-card__img" :style="`background-image:url(${news.image})`"></div>
+    <a
+      :href="news.url"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="vs-news-card__img"
+      :style="`background-image:url(${news.image})`"
+    ></a>
     <div class="vs-news-card__body">
       <div class="vs-news-card__source">{{news.source}}</div>
       <a

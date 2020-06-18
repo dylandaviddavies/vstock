@@ -6,7 +6,7 @@
       <span>News</span>
     </h1>
     <div class="row">
-      <div class="col-lg-8 col-12">
+      <div class="col-xl-8 col-12">
         <div v-if="loaded" class="vs-news-page">
           <vs-news-card :full="true" :news="n" v-for="n in news" :key="n.url"></vs-news-card>
         </div>

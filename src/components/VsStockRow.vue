@@ -1,5 +1,8 @@
 <template>
-  <tr class="vs-stock-row">
+  <tr
+    class="vs-stock-row"
+    :class="{'vs-stock-row--good': stock.change > 0, 'vs-stock-row--bad': stock.change < 0}"
+  >
     <td v-if="number">
       <span class="vs-stock-row__number">{{number}}.</span>
     </td>
@@ -10,7 +13,10 @@
     </td>
     <td class="vs-stock-row__price">{{stock.latestPrice}}</td>
     <td class="vs-stock-row__content">
-      <span class="vs-stock-row__title">{{stock.companyName}}</span>
+      <router-link
+        :to="`/stock/${ stock.symbol }`"
+        class="vs-stock-row__title"
+      >{{stock.companyName}}</router-link>
       <span class="vs-stock-row__subtitle">{{stock.symbol}}</span>
     </td>
   </tr>

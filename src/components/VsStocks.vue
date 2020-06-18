@@ -10,12 +10,14 @@
         <vs-stock-filters :onFilter="applyFilters"></vs-stock-filters>
       </div>
       <div class="col-xl-9">
+        <p class="text-center mb-3">{{ subscribedSymbols.length }} / {{ maxSymbols }} stocks</p>
         <div v-if="loadedStocks || silentlyLoadStocks" class="row">
           <div class="col-6 col-xl-3 col-lg-4 mb-5" v-for="s in stocks" :key="s.symbol">
             <vs-stock-card :to="`/stock/${s.symbol}`" class="h-100" :stock="s"></vs-stock-card>
           </div>
           <div class="col-6 col-xl-3 col-lg-4 mb-5">
             <button
+              v-if="subscribedSymbols.length < maxSymbols"
               class="vs-add-card w-100 h-100"
               aria-controls="addStockModal"
               @click="openAddStockModal"
@@ -96,7 +98,7 @@ import VsStockFilters from "./VsStockFilters.vue";
     VsAlert,
     VsStockFilters
   },
-  computed: mapState(["subscribedSymbols"])
+  computed: mapState(["subscribedSymbols", "maxSymbols"])
 })
 export default class VsStocks extends Vue {
   private subscribedSymbols!: Array<String>;

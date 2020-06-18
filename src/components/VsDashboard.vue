@@ -49,7 +49,6 @@
                 <table v-else-if="gains.length > 0">
                   <tbody>
                     <vs-stock-row
-                      class="vs-stock-row--good"
                       :stock="q"
                       :number="i + 1"
                       v-for="(q, i) in gains"
@@ -80,7 +79,6 @@
                 <table v-else-if="losses.length > 0">
                   <tbody>
                     <vs-stock-row
-                      class="vs-stock-row--bad"
                       :stock="q"
                       :number="i + 1"
                       v-for="(q, i) in losses"

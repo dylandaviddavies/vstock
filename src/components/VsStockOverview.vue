@@ -40,8 +40,8 @@
           </vs-modal>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-2 col-sm-4">
+      <div class="row justify-content-center">
+        <div class="col-xl-2 col-sm-5">
           <div class="vs-box text-center mb-4">
             <div class="vs-box__title">
               <span>My</span>&nbsp;
@@ -59,7 +59,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-7 col-sm-4">
+        <div class="col-xl-7 col-12">
           <div class="vs-box mb-4">
             <div class="vs-box__title">
               <span>My</span>
@@ -86,7 +86,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-4">
+        <div class="col-xl-3 col-12">
           <div class="vs-box vs-box--small mb-4">
             <div class="vs-box__title">
               <span>My</span>

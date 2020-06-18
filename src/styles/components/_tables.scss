@@ -24,8 +24,10 @@
     }
     &__title {
         display:block;
+        white-space:nowrap;
         line-height:1.3em;
         font-weight:$fw-vs-stock-row-title;
+        color:inherit;
     }
     &__subtitle {
         display:block;

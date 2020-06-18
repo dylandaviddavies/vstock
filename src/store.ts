@@ -5,6 +5,7 @@ Vue.use(Vuex);
 var store = new Vuex.Store({
 	state: {
 		subscribedSymbols: Array<string>(),
+		maxSymbols: 8,
 		toasts: Array<string>()
 	},
 	actions: {

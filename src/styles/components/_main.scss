@@ -1,7 +1,8 @@
 .vs-main {
     overflow:auto;
+    overflow-x: hidden;
     margin:0 auto;
-    padding: 0px 12px;
+    padding: 0px 8px;
     transition: margin-left .5s ease-in-out;
     margin-left:0px;
     @include media-breakpoint-up(md) {
