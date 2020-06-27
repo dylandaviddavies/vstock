@@ -10,14 +10,14 @@
         <vs-stock-filters :onFilter="applyFilters"></vs-stock-filters>
       </div>
       <div class="col-xl-9">
-        <p class="text-center mb-3">{{ subscribedSymbols.length }} / {{ maxSymbols }} stocks</p>
+        <p class="text-center mb-3">{{ stocks.length }} / {{ maxSymbols }} stocks</p>
         <div v-if="loadedStocks || silentlyLoadStocks" class="row">
           <div class="col-6 col-xl-3 col-lg-4 mb-5" v-for="s in stocks" :key="s.symbol">
             <vs-stock-card :to="`/stock/${s.symbol}`" class="h-100" :stock="s"></vs-stock-card>
           </div>
           <div class="col-6 col-xl-3 col-lg-4 mb-5">
             <button
-              v-if="subscribedSymbols.length < maxSymbols"
+              v-if="stocks.length < maxSymbols"
               class="vs-add-card w-100 h-100"
               aria-controls="addStockModal"
               @click="openAddStockModal"
@@ -84,6 +84,8 @@
   </div>
 </template>
 <script lang="ts">
+// eslint-disable-next-line no-unused-vars
+import { Stock } from "../types";
 import { Component, Vue, Watch, Ref } from "vue-property-decorator";
 import { mapState } from "vuex";
 import VsStockCard from "./VsStockCard.vue";
@@ -98,15 +100,15 @@ import VsStockFilters from "./VsStockFilters.vue";
     VsAlert,
     VsStockFilters
   },
-  computed: mapState(["subscribedSymbols", "maxSymbols"])
+  computed: mapState(["subbedStocks", "maxSymbols"])
 })
 export default class VsStocks extends Vue {
-  private subscribedSymbols!: Array<String>;
+  private subbedStocks!: Array<any>;
   private loadedStocks: boolean = false;
   private isStockSymbolToAddInvalid: boolean = false;
   private invalidStockSymbolToAdd: string = "";
   private silentlyLoadStocks: boolean = false;
-  private stocks: Array<Object> = [];
+  private stocks: Array<any> = [];
   private isAddStockModalOpen: boolean = false;
   private stockSymbolToAdd: string = "";
   private filters: Record<string, string> = {};
@@ -144,7 +146,9 @@ export default class VsStocks extends Vue {
           this.setInvalidStockSymbolToAdd(this.stockSymbolToAdd);
           return false;
         }
-        this.$store.dispatch("subscribeStock", this.stockSymbolToAdd);
+        this.$store.dispatch("subscribeStock", {
+          symbol: this.stockSymbolToAdd
+        } as Stock);
         this.closeAddStockModal();
         this.$store.dispatch("addToast", "Added stock.");
         this.loadStocks();
@@ -180,7 +184,7 @@ export default class VsStocks extends Vue {
   loadStocks() {
     this.loadedStocks = false;
     let options = {
-      symbols: this.subscribedSymbols.join(","),
+      symbols: this.subbedStocks.map(s => s.symbol).join(","),
       ...this.filters
     };
     this.fetchStocks(options).then(data => {

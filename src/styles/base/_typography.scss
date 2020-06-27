@@ -14,10 +14,13 @@ body,button,h1,h2,h3,h4,h5,h6{
 }
 .vs-title {
     @extend .fw-zebra;
-    font-size:32px;
     margin-bottom: 24px;
     margin-top:0px;
     font-weight: $fw-vs-title;
+    font-size:28px;
+    @include media-breakpoint-up(sm) {        
+        font-size:32px;
+    }
     &__icon {
         margin-right:8px;
         font-size:35px;
@@ -25,7 +28,10 @@ body,button,h1,h2,h3,h4,h5,h6{
 }
 .vs-subtitle {
     color:#999;
-    font-size:22px;
+    font-size:18px;
+    @include media-breakpoint-up(sm) {        
+        font-size:22px;
+    }
     margin-top:-12px;
     font-weight:$fw-vs-subtitle;
     margin-bottom:32px;

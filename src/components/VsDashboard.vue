@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-12">
             <div class="vs-box mb-4">
-              <h2 class="vs-box__title">
+              <h2 class="vs-box__title fw-zebra">
                 <span>My</span>
                 &nbsp;
                 <span>Stocks</span>
@@ -39,7 +39,7 @@
 
           <div class="col-xl-6">
             <div class="vs-box vs-box--small mb-4">
-              <h2 class="vs-box__title">
+              <h2 class="vs-box__title fw-zebra">
                 <span>My</span>
                 &nbsp;
                 <span>Gains</span>
@@ -69,7 +69,7 @@
           </div>
           <div class="col-xl-6">
             <div class="vs-box vs-box--small mb-4">
-              <h2 class="vs-box__title">
+              <h2 class="vs-box__title fw-zebra">
                 <span>My</span>
                 &nbsp;
                 <span>Losses</span>
@@ -101,7 +101,7 @@
       </div>
       <div class="col-xl-3">
         <div class="vs-box vs-box--small mb-4">
-          <h2 class="vs-box__title">
+          <h2 class="vs-box__title fw-zebra">
             <span>My</span>
             &nbsp;
             <span>News</span>
@@ -127,6 +127,8 @@
 </template>
 
 <script lang="ts">
+// eslint-disable-next-line no-unused-vars
+import { Stock } from "../types";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import VsLineChart from "./VsLineChart.vue";
 import VsStockRow from "./VsStockRow.vue";
@@ -134,7 +136,7 @@ import VsNews from "./VsNews.vue";
 import { mapState } from "vuex";
 import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
 @Component({
-  computed: mapState(["subscribedSymbols"]),
+  computed: mapState(["subbedStocks"]),
   components: {
     VsLineChart,
     VsStockRow,
@@ -151,7 +153,7 @@ export default class VsDashboard extends Vue {
   private losses: Array<any> = [];
   private news: Array<any> = [];
   private lineChartDateRangeFilter: string = "ONE_DAY";
-  private subscribedSymbols!: Array<string>;
+  private subbedStocks!: Array<Stock>;
   private lineChartOptions = {
     responsive: true,
     elements: {
@@ -246,7 +248,9 @@ export default class VsDashboard extends Vue {
     return fetch(`
       ${
         process.env.VUE_APP_VSTOCK_API_URL
-      }/api/v1/news?limit=3&symbols=${this.subscribedSymbols.join(",")}
+      }/api/v1/news?limit=3&symbols=${this.subbedStocks
+      .map(s => s.symbol)
+      .join(",")}
     `).then(r => r.json());
   }
 
@@ -254,9 +258,9 @@ export default class VsDashboard extends Vue {
     return fetch(`
       ${
         process.env.VUE_APP_VSTOCK_API_URL
-      }/api/v1/quotes?limit=3&changeFilter=NEGATIVE&sort=CHANGE&sortDirection=DESC&symbols=${this.subscribedSymbols.join(
-      ","
-    )}
+      }/api/v1/quotes?limit=3&changeFilter=NEGATIVE&sort=CHANGE&sortDirection=DESC&symbols=${this.subbedStocks
+      .map(s => s.symbol)
+      .join(",")}
     `).then(r => r.json());
   }
 
@@ -264,9 +268,9 @@ export default class VsDashboard extends Vue {
     return fetch(`
       ${
         process.env.VUE_APP_VSTOCK_API_URL
-      }/api/v1/quotes?limit=3&changeFilter=POSITIVE&sort=CHANGE&sortDirection=DESC&symbols=${this.subscribedSymbols.join(
-      ","
-    )}
+      }/api/v1/quotes?limit=3&changeFilter=POSITIVE&sort=CHANGE&sortDirection=DESC&symbols=${this.subbedStocks
+      .map(s => s.symbol)
+      .join(",")}
     `).then(r => r.json());
   }
 
@@ -276,7 +280,7 @@ export default class VsDashboard extends Vue {
         process.env.VUE_APP_VSTOCK_API_URL
       }/api/v1/myStocksLineChart?chartRange=${
         this.lineChartDateRangeFilter
-      }&symbols=${this.subscribedSymbols.join(",")}`
+      }&symbols=${this.subbedStocks.map(s => s.symbol).join(",")}`
     ).then(r => r.json());
   }
 }

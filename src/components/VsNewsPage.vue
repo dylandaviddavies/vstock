@@ -21,13 +21,13 @@ import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
 import VsNewsCard from "./VsNewsCard.vue";
 @Component({
-  computed: mapState(["subscribedSymbols"]),
+  computed: mapState(["subbedStocks"]),
   components: {
     VsNewsCard
   }
 })
 export default class VsNewsPage extends Vue {
-  private subscribedSymbols!: Array<string>;
+  private subbedStocks!: Array<any>;
   private news: Array<any> = [];
   private loaded: boolean = false;
 
@@ -45,7 +45,11 @@ export default class VsNewsPage extends Vue {
 
   fetch(): Promise<any> {
     return fetch(`
-      ${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/news?limit=10&symbols=${this.subscribedSymbols}
+      ${
+        process.env.VUE_APP_VSTOCK_API_URL
+      }/api/v1/news?limit=10&symbols=${this.subbedStocks
+      .map(s => s.symbol)
+      .join(",")}
     `).then(r => r.json());
   }
 }

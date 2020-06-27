@@ -1,20 +1,26 @@
+import { Stock } from './types';
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
-
 var store = new Vuex.Store({
 	state: {
-		subscribedSymbols: Array<string>(),
+		v: 1,
+		subbedStocks: Array<Stock>(),
 		maxSymbols: 8,
 		toasts: Array<string>()
 	},
 	actions: {
-		unsubscribeStock({ commit }, symbol) {
-			commit('UNSUBSCRIBE_STOCK_SYMBOL', symbol);
+		getSubbedStockBySymbol({ state }, symbol) {
+			return state.subbedStocks.find(s => s.symbol === symbol);
 		},
 
-		subscribeStock({ commit }, symbol) {
-			commit('SUBSCRIBE_STOCK_SYMBOL', symbol);
+		unsubscribeStockBySymbol({ commit, dispatch }, symbol) {
+			let stock = dispatch("getSubbedStockBySymbol", symbol);
+			commit('UNSUBSCRIBE_STOCK', stock);
+		},
+
+		subscribeStock({ commit }, stock: Stock) {
+			commit('SUBSCRIBE_STOCK', stock);
 		},
 
 		popToast({ state }) {
@@ -28,15 +34,17 @@ var store = new Vuex.Store({
 		}
 	},
 	mutations: {
-		UNSUBSCRIBE_STOCK_SYMBOL(state, symbol) {
-			var index = state.subscribedSymbols.indexOf(symbol);
-			if (index !== -1) state.subscribedSymbols.splice(index, 1);
+		UNSUBSCRIBE_STOCK(state, stock) {
+			var index = state.subbedStocks.indexOf(stock);
+			if (index !== -1) state.subbedStocks.splice(index, 1);
 		},
 
-		SUBSCRIBE_STOCK_SYMBOL(state, symbol) {
-			if (state.subscribedSymbols.includes(symbol))
-				return;
-			state.subscribedSymbols.push(symbol);
+		SUBSCRIBE_STOCK(state, stock) {
+			let index = state.subbedStocks.findIndex(s => s.symbol === stock.symbol);
+			if (index === -1)
+				state.subbedStocks.push(stock);
+			else
+				state.subbedStocks[index] = stock;
 		},
 
 		ADD_TOAST(state, toast) {
@@ -51,14 +59,19 @@ var store = new Vuex.Store({
 			let storeJson = localStorage.getItem('store');
 			if (storeJson) {
 				let store = JSON.parse(storeJson);
-				state.subscribedSymbols = store.subscribedSymbols;
+				if (store.v == null || store.v !== state.v) {
+					localStorage.removeItem("store");
+				} else {
+					state.subbedStocks = store.subbedStocks;
+				}
 			}
 		}
 	},
 });
 store.subscribe((mutation, state) => {
 	localStorage.setItem('store', JSON.stringify({
-		subscribedSymbols: state.subscribedSymbols
+		subbedStocks: state.subbedStocks,
+		v: state.v
 	}));
 });
 export default store;

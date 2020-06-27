@@ -1,18 +1,13 @@
 <template>
   <component :is="tag" :to="to" class="vs-stock-card">
     <span class="vs-stock-card__head">
-      <span class="vs-stock-card__symbol">
-        <span class="d-block">{{stock.primaryExchange}}</span>
-        <span class="d-block" style="font-size:.9em;">{{stock.symbol}}</span>
-      </span>
+      <span class="vs-stock-card__symbol">{{stock.symbol}}</span>
+      <span class="vs-stock-card__title">{{stock.companyName}}</span>
       <span class="vs-stock-card__price">{{stock.latestPrice}}</span>
       <span class="vs-stock-card__change" :class="[changeClass]">
         <span class="mb-2">{{stock.change > 0 ? '+' : ''}}{{stock.change}}</span>
         <span style="font-size:.7em;">({{stock.change > 0 ? '+' : ''}}{{changePercentage}})</span>
       </span>
-    </span>
-    <span class="vs-stock-card__body">
-      <span class="vs-stock-card__title">{{stock.companyName}}</span>
     </span>
   </component>
 </template>
@@ -41,6 +36,15 @@ export default {
       }
 
       return "button";
+    },
+
+    primaryExchange() {
+      switch (this.stock.primaryExchange) {
+        case "New York Stock Exchange":
+          return "NYSE";
+        default:
+          return this.stock.primaryExchange;
+      }
     },
 
     changeClass() {
