@@ -3,18 +3,20 @@
     <div v-if="loaded">
       <div class="row">
         <div class="col-sm-3 d-flex flex-column align-items-center">
-          <div class="vs-stat">
-            <div class="vs-stat__title fw-zebra">
-              <span>Current</span>&nbsp;
-              <span>Price</span>
+          <div class="d-none d-sm-block mb-5">
+            <div class="vs-stat">
+              <div class="vs-stat__title fw-zebra">
+                <span>Current</span>&nbsp;
+                <span>Price</span>
+              </div>
+              <div class="vs-stat__value">{{stock.quote.latestPrice}}</div>
+              <span class="vs-stat__change" :class="[changeClass]">
+                <span class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</span>
+                <span
+                  style="font-size:.7em;"
+                >({{stock.quote.change > 0 ? '+' : ''}}{{changePercentage}})</span>
+              </span>
             </div>
-            <div class="vs-stat__value">{{stock.quote.latestPrice}}</div>
-            <span class="vs-stat__change" :class="[changeClass]">
-              <span class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</span>
-              <span
-                style="font-size:.7em;"
-              >({{stock.quote.change > 0 ? '+' : ''}}{{changePercentage}})</span>
-            </span>
           </div>
         </div>
         <div class="col-sm-9">
@@ -66,6 +68,21 @@
               </vs-modal>
             </div>
           </div>
+          <div class="d-flex flex-column align-items-center d-sm-none mb-5">
+            <div class="vs-stat">
+              <div class="vs-stat__title fw-zebra">
+                <span>Current</span>&nbsp;
+                <span>Price</span>
+              </div>
+              <div class="vs-stat__value">{{stock.quote.latestPrice}}</div>
+              <span class="vs-stat__change" :class="[changeClass]">
+                <span class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</span>
+                <span
+                  style="font-size:.7em;"
+                >({{stock.quote.change > 0 ? '+' : ''}}{{changePercentage}})</span>
+              </span>
+            </div>
+          </div>
           <div class="mb-4">
             <h2 class="vs-section__title">Timeline</h2>
             <div class="vs-section__body">
@@ -92,7 +109,7 @@
             <div>
               <div class="vs-section__body vs-loader" v-if="!loadedNews"></div>
               <div style="max-height:500px;" v-else-if="news.length > 0">
-                <vs-news class="px-0" v-for="n in news" :news="n" :key="n.url"></vs-news>
+                <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
               </div>
               <div class="vs-section__body" v-else>
                 <img

@@ -3,16 +3,16 @@
     <h1 class="vs-title">Trending</h1>
     <div class="row">
       <div class="col-12 col-md-9 col-xl-6">
-        <div class="vs-box mb-4">
-          <h2 class="vs-box__title">
+        <div class="vs-section mb-4">
+          <h2 class="vs-section__title">
             <span>Today's</span>
             &nbsp;
             <span>Trending</span>
           </h2>
-          <div class="vs-box__body pb-3">
+          <div class="vs-section__body pb-3">
             <p class="text-grey">Stocks other users are keeping an eye on.</p>
           </div>
-          <div class="vs-box__body overflow-auto">
+          <div class="vs-section__body overflow-auto">
             <div class="vs-loader" v-if="!loadedTodaysTrendingStocks"></div>
             <table v-else-if="todaysTrendingStocks.length > 0">
               <tbody>

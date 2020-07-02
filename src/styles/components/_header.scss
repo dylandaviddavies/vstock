@@ -2,9 +2,9 @@
     $self: &;
     padding: 16px 32px;
     display:flex;
+    height:$header-height;
     justify-content:center;
     align-items:center;
-    //background:#fff;
     margin-bottom:24px;
     @include media-breakpoint-up(md) {     
         box-shadow:none;   
@@ -13,32 +13,15 @@
         background:none;
         margin-bottom:0px;
     }
-    &__menu {
-        background:none;
-        align-items:center;
-        justify-content:center;
-        border:none;
-        display:inline-flex;
-        @include media-breakpoint-up(md) {        
-            display:none;
-        }
-    }
-    &__logo {
-        > img {            
-            height:30px;
-        }
-        @include media-breakpoint-up(md) {        
-            display:none;
-        }
-    }
     &__avatar {
         position:absolute;
-        right: 32px;
-        top:13px;
+        top:12px;
+        right: 12px;
         display:flex;
         justify-content:center;
         align-items:center;
-        @include media-breakpoint-up(md) {            
+        @include media-breakpoint-up(md) {   
+            right: 32px;         
             top:16px;
             top:0;
             right: 0;

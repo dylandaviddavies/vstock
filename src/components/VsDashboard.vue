@@ -9,14 +9,14 @@
       <div class="col-xl-9">
         <div class="row">
           <div class="col-12">
-            <div class="vs-box mb-4">
-              <h2 class="vs-box__title fw-zebra">
+            <div class="vs-section mb-4">
+              <h2 class="vs-section__title fw-zebra">
                 <span>My</span>
                 &nbsp;
                 <span>Stocks</span>
               </h2>
-              <div class="vs-box__body">
-                <div class="vs-box__controls vs-chips d-flex flex-wrap">
+              <div class="vs-section__body">
+                <div class="my-3 vs-chips d-flex flex-wrap">
                   <button
                     v-for="o in lineChartDateRangeFilterOptions"
                     :key="o.id"
@@ -38,13 +38,13 @@
           </div>
 
           <div class="col-xl-6">
-            <div class="vs-box vs-box--small mb-4">
-              <h2 class="vs-box__title fw-zebra">
+            <div class="vs-section vs-section--small mb-4">
+              <h2 class="vs-section__title fw-zebra">
                 <span>My</span>
                 &nbsp;
                 <span>Gains</span>
               </h2>
-              <div class="vs-box__body overflow-auto">
+              <div class="vs-section__body overflow-auto">
                 <div class="vs-loader" v-if="!loadedGains"></div>
                 <table v-else-if="gains.length > 0">
                   <tbody>
@@ -68,13 +68,13 @@
             </div>
           </div>
           <div class="col-xl-6">
-            <div class="vs-box vs-box--small mb-4">
-              <h2 class="vs-box__title fw-zebra">
+            <div class="vs-section vs-section--small mb-4">
+              <h2 class="vs-section__title fw-zebra">
                 <span>My</span>
                 &nbsp;
                 <span>Losses</span>
               </h2>
-              <div class="vs-box__body overflow-auto">
+              <div class="vs-section__body overflow-auto">
                 <div class="vs-loader" v-if="!loadedLosses"></div>
                 <table v-else-if="losses.length > 0">
                   <tbody>
@@ -100,18 +100,18 @@
         </div>
       </div>
       <div class="col-xl-3">
-        <div class="vs-box vs-box--small mb-4">
-          <h2 class="vs-box__title fw-zebra">
+        <div class="vs-section vs-section--small mb-4">
+          <h2 class="vs-section__title fw-zebra">
             <span>My</span>
             &nbsp;
             <span>News</span>
           </h2>
           <div>
-            <div class="vs-box__body vs-loader" v-if="!loadedNews"></div>
+            <div class="vs-section__body vs-loader" v-if="!loadedNews"></div>
             <div style="max-height:500px;" class="overflow-auto" v-else-if="news.length > 0">
               <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
             </div>
-            <div class="vs-box__body" v-else>
+            <div class="vs-section__body" v-else>
               <img
                 class="w-50 mt-4 mb-3 mx-auto"
                 :src="require('../assets/no_news.svg')"
