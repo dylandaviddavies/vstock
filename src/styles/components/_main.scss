@@ -3,7 +3,7 @@
     padding: 0px 8px;
     transition: margin-left .5s ease-in-out;
     margin-left:0px;
-    @include media-breakpoint-up(md) {
+    @include media-desktop {
         margin-left:$sidebar-width;
         padding: 0px 40px;
     }

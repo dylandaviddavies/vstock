@@ -27,7 +27,7 @@
                   >{{o.label}}</button>
                 </div>
                 <vs-line-chart
-                  style="height:250px;"
+                  class="vs-chart"
                   v-if="loadedLineChartData"
                   :options="lineChartOptions"
                   :chart-data="lineChartData"

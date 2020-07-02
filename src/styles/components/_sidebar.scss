@@ -29,7 +29,7 @@
         opacity:1;
         pointer-events:auto;
         transition: opacity .5s ease-in-out, left .5s ease-in-out;
-        @include media-breakpoint-up(md) {
+        @include media-desktop {
             left:40px;
             pointer-events:none;
             opacity:0;          
@@ -52,7 +52,7 @@
         transition: transform .5s ease-in-out, opacity .5s .5s ease-in-out;
         transform: translateX(-100%);
         opacity:0;
-        @include media-breakpoint-up(md) {
+        @include media-desktop {
             transition: none;
             transform: translateX(0%);
             opacity:1;

@@ -22,7 +22,7 @@ body,button,h1,h2,h3,h4,h5,h6{
     font-weight: $fw-vs-title;
     color:$title;
     font-size:28px;
-    @include media-breakpoint-up(sm) {        
+    @include media-desktop {        
         font-size:32px;
     }
     &__icon {
@@ -33,7 +33,7 @@ body,button,h1,h2,h3,h4,h5,h6{
 .vs-subtitle {
     color:$subtext;
     font-size:18px;
-    @include media-breakpoint-up(sm) {        
+    @include media-desktop {        
         font-size:22px;
     }
     margin-top:-12px;

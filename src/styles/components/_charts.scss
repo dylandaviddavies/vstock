@@ -1,3 +1,6 @@
 .vs-chart {
-    
+    height:200px;
+    @include media-desktop {
+        height:250px;
+    }
 }

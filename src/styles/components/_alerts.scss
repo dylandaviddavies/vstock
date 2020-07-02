@@ -2,7 +2,6 @@
     display:flex;
     align-items:stretch;
     border-radius: $box-border-radius;
-    @include layered-box-shadow($error, .1);
     &--error {
         background-color:$error;
         color:$white;

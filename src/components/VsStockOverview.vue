@@ -97,6 +97,7 @@
                 >{{o.label}}</button>
               </div>
               <vs-line-chart
+                class="vs-chart"
                 v-if="loadedLineChartData"
                 :options="lineChartOptions"
                 :chart-data="lineChartData"
