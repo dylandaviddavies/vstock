@@ -21,14 +21,14 @@
     &--fill {        
         border:none;
         color:#fff;
-        @include bg-w-shadow($primary);
+        background-color:$primary;
     }
     &--danger#{&}--fill {
-        @include bg-w-shadow($error);
+        background-color:$error;
     }
     &--default#{&}--fill {
         color:$text;
-        @include bg-w-shadow(#f1f1f1);
+        background-color:$box-body;
     }
     &--outline {        
         color:$primary;
@@ -43,7 +43,6 @@
 }
 
 .vs-icon-btn {
-    background:#fff;
     display:inline-flex;
     justify-content:center;
     align-items:center;
@@ -51,10 +50,9 @@
     padding:8px 12px;
     border:none;
     transition: background-color .2s ease-in-out;
-    @include layered-box-shadow($dark-box-shadow-colour, .1);
+    background:$box-body;
     @include hover-focus-active {
         color:inherit;
-        background-color: #fafafa;
     }
 }
 
@@ -75,8 +73,7 @@
         overflow:hidden;
         top:0;
         right:100%;
-        background:#fff;
-        @include layered-box-shadow($dark-box-shadow-colour, .1);
+        background:$box-body;
         > :not(:last-child) {
             border-bottom:1px solid #f1f1f1;
         }
@@ -87,7 +84,7 @@
         width:100%;
         text-align:left;
         padding:16px 24px;
-        background:#fff;
+        background:$box-body;
         font-size:14px;
         color:inherit;
         line-height:1em;
@@ -95,7 +92,7 @@
         transition: background-color .2s ease-in-out;
         @include hover-focus-active {
             color:inherit;
-            background-color: #fafafa;
+            //background-color: #fafafa;
         }
     }
 }

@@ -1,6 +1,6 @@
 .vs-add-card {
-    border: 8px dashed #4a4a4a;
-    color:#4a4a4a;
+    border: 8px dashed $box-border;
+    color:$text;
     border-radius:8px;
     display:flex;
     align-items:center;
@@ -13,28 +13,67 @@
     font-size:20px;
     font-weight:$fw-vs-add-card;
     transition: background-color .2s ease-in-out;
-    @include hover-focus-active {
-        background-color: rgba(0,0,0,.02);
-    }
     &__icon {
         font-size:60px;
         margin-bottom:12px;
     }
 }
 
+.vs-stat {    
+    border: 2px solid $box-border;
+    border-radius:8px;
+    background:$box-body;
+    display:inline-flex;
+    padding:28px 32px;
+    margin:0 auto;
+    align-items:center;
+    flex-direction:column;
+    &__title {
+        font-size:20px;
+        margin-bottom:20px;
+    }
+    &__value {
+        font-size:30px;
+        font-weight:600;
+        margin-bottom:16px;
+        color:$price;
+    }
+    &__change {
+        display:flex;
+        align-items:center;
+        flex-direction:column;
+        line-height:1em;
+        font-size:18px;
+        vertical-align:middle;
+        &--good {
+            color:rgb(58, 167, 73);
+        }
+        &--bad {
+            color:rgb(185, 68, 68);
+        }
+        &--neutral {
+            color:$subtext;
+        }
+        > .material-icons-round {
+            font-size:22px;
+            margin-left:2px;
+        }
+    }
+}
+
 .vs-box {
     $self: &;
+    border: 2px solid $box-border;
     max-height: 100%;
-    background-color:#fff;
     border-radius:8px;
-    @include layered-box-shadow($dark-box-shadow-colour, .1);
+    background:$box-body;
     &__controls {
         margin-bottom:20px;
     }
     &__title {
         padding: 22px 28px 16px 28px;
         margin-bottom:12px;
-        border-bottom:1.5px solid $body;
+        border-bottom:1px solid $divider;
         margin-bottom:18px;       
         font-size:20px;
         font-weight:$fw-vs-title;
@@ -45,11 +84,10 @@
 }
 
 .vs-stock-card{
-    @include layered-box-shadow($dark-box-shadow-colour, .1);
+    background:$box-body;
     width: 100%;
     color:inherit;
-    border:none;
-    background:#fff;
+    border: 2px solid $box-border;
     align-items: stretch;
     margin:0;
     border-radius:8px;
@@ -61,15 +99,15 @@
     @include hover-focus-active {
         color:inherit;
         transform:translateY(-4px);
-        @include layered-box-shadow($dark-box-shadow-colour, .15, 1.5);
     }
     &__symbol {
-        color:#999;
+        color:$subtext;
         font-size:12px;
     }
     &__price {
         font-size:30px;
         font-weight: $fw-vs-stock-card-price;
+        color:$price;
         margin: 40px 0;
         display:block;
     }
@@ -102,7 +140,7 @@
             color:rgb(185, 68, 68);
         }
         &--neutral {
-            color:#999;
+            color:$subtext;
         }
         > .material-icons-round {
             font-size:22px;

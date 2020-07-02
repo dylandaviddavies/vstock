@@ -10,6 +10,7 @@ Vue.use(vClickOutside);
 require('./styles/index.scss');
 
 Chart.defaults.global.defaultFontFamily = "Varela Round";
+Chart.defaults.global.defaultFontColor = '#5a6f86';
 
 Vue.config.productionTip = false
 

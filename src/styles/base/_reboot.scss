@@ -2,6 +2,14 @@ body{
     overflow-x:hidden;
     background:$body;
 }
+input,textarea,select {
+    background:$box-body;
+    border: 2px solid $box-border;
+    color:$text;
+    &::placeholder {
+        color:$subtext;
+    }
+}
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,6 +30,9 @@ a {
     text-decoration:none;
     &:active {
         color:darken($primary, 10%);
+    }
+    &:visited {
+        color:inherit;
     }
 }
 
@@ -80,11 +91,11 @@ background: none;
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-background: rgb(175, 175, 175);
+background: $text;
 border-radius:32px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: rgb(121, 121, 121);
+background: darken($text, 10%);
 }

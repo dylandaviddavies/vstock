@@ -95,10 +95,7 @@
             border:none;
             width:100%;
             outline:none;
-            background:#fff;
-            //box-shadow:0 1px 3px rgba(77,71,81,.2);
-            @include layered-box-shadow($dark-box-shadow-colour, .1);
-            border: 1.5px solid transparent;
+            border: 2px solid $box-border;
             transition: border-color .2s;
             @include hover-focus-active {
                 border-color:$primary;

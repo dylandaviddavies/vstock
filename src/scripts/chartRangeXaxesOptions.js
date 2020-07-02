@@ -1,7 +1,8 @@
 export default {
     ONE_DAY: {
         gridLines: {
-            display: false
+            display: false,
+            drawBorder: false
         },
         type: "time",
         time: {
@@ -20,7 +21,8 @@ export default {
 
     FIVE_DAYS: {
         gridLines: {
-            display: false
+            display: false,
+            drawBorder: false
         },
         type: "time",
         time: {

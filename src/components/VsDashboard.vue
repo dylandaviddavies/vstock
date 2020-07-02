@@ -177,6 +177,10 @@ export default class VsDashboard extends Vue {
     scales: {
       yAxes: [
         {
+          gridLines: {
+            drawBorder: false,
+            display: false
+          },
           ticks: {
             beginAtZero: false
           }

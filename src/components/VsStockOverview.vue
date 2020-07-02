@@ -1,139 +1,97 @@
 <template>
   <div>
     <div v-if="loaded">
-      <div class="d-flex justify-content-between">
-        <div>
-          <h1 class="vs-title">{{stock.quote.companyName}}</h1>
-          <h2 class="vs-subtitle">{{stock.quote.symbol}}</h2>
-        </div>
-        <div>
-          <vs-btn-group>
-            <vs-btn-group-action
-              v-if="isSubscribed"
-              :onClick="openUnsubscribeModal"
-              aria-controls="unsubscribeModal"
-            >Unsubscribe</vs-btn-group-action>
-            <vs-btn-group-action
-              v-else
-              :onClick="subscribe"
-              aria-controls="unsubscribeModal"
-            >Subscribe</vs-btn-group-action>
-          </vs-btn-group>
-          <vs-modal
-            :isOpen="isUnsubscribeModalOpen"
-            :headAsColumn="true"
-            :onClose="closeUnsubscribeModal"
-            :img="require('../assets/add_stock_img.svg')"
-            id="unsubscribeModal"
-          >
-            <template v-slot:title>Unsubscribe</template>
-            <template v-slot:body>
-              <p
-                class="my-4 text-center text-grey"
-              >Are you sure you want to unsubscribe from this stock?</p>
-              <div class="row justify-content-center">
-                <div class="col-12 mb-4 col-sm-4">
-                  <button
-                    @click="unsubscribe"
-                    class="w-100 vs-btn vs-btn--lg vs-btn--danger vs-btn--fill"
-                  >Yes, I'm sure</button>
-                </div>
-                <div class="col-12 mb-4 col-sm-4">
-                  <button
-                    @click="closeUnsubscribeModal"
-                    class="w-100 vs-btn vs-btn--default vs-btn--lg vs-btn--danger vs-btn--fill"
-                  >No, I'm not</button>
-                </div>
-              </div>
-            </template>
-          </vs-modal>
-        </div>
-      </div>
       <div class="row">
-        <div class="row col-xl-9">
-          <div class="col-12">
-            <div class="vs-box mb-4">
-              <div class="vs-box__title">Stats</div>
-              <div class="vs-box__body">
-                <div class="row">
-                  <div class="col-3">
-                    <div class="vs-stock-stat">
-                      <div class="vs-stock-stat__title fw-zebra">
-                        <span>Current</span>&nbsp;
-                        <span>Price</span>
-                      </div>
-                      <div class="vs-stock-stat__value">{{stock.quote.latestPrice}}</div>
-                      <span
-                        class="vs-stock-stat__change"
-                        :class="{'vs-stock-stat___change--good': stock.quote.change > 0, 'vs-stock-stat___change--bad': stock.quote.change < 0}"
-                      >
-                        <div
-                          class="mb-2"
-                        >{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</div>
-                        <div style="font-size: 0.7em;">({{changePercentage}})</div>
-                      </span>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="vs-stock-stat">
-                      <div class="vs-stock-stat__title fw-zebra">
-                        <span>Buy</span>&nbsp;
-                        <span>Price</span>
-                      </div>
-                      <div class="vs-stock-stat__value">{{buyPrice}}</div>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="vs-stock-stat">
-                      <div class="vs-stock-stat__title">
-                        <span>Profit</span>
-                      </div>
-                      <div class="vs-stock-stat__value">{{stock.quote.latestPrice}}</div>
-                      <span
-                        class="vs-stock-stat__change"
-                        :class="{'vs-stock-stat___change--good': stock.quote.change > 0, 'vs-stock-stat___change--bad': stock.quote.change < 0}"
-                      >
-                        <div
-                          class="mb-2"
-                        >{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</div>
-                        <div style="font-size: 0.7em;">({{changePercentage}})</div>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div class="col-sm-3 d-flex flex-column align-items-center">
+          <div class="vs-stat">
+            <div class="vs-stat__title fw-zebra">
+              <span>Current</span>&nbsp;
+              <span>Price</span>
             </div>
-          </div>
-          <div class="col-12">
-            <div class="vs-box mb-4">
-              <div class="vs-box__title">Timeline</div>
-              <div class="vs-box__body">
-                <div class="vs-box__controls vs-chips d-flex flex-wrap">
-                  <button
-                    v-for="o in lineChartDateRangeFilterOptions"
-                    :key="o.id"
-                    class="vs-chip"
-                    @click="lineChartDateRangeFilter = o.id"
-                    :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
-                    type="button"
-                  >{{o.label}}</button>
-                </div>
-                <vs-line-chart
-                  v-if="loadedLineChartData"
-                  :options="lineChartOptions"
-                  :chart-data="lineChartData"
-                ></vs-line-chart>
-                <div v-else class="vs-loader"></div>
-              </div>
-            </div>
+            <div class="vs-stat__value">{{stock.quote.latestPrice}}</div>
+            <span class="vs-stat__change" :class="[changeClass]">
+              <span class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</span>
+              <span
+                style="font-size:.7em;"
+              >({{stock.quote.change > 0 ? '+' : ''}}{{changePercentage}})</span>
+            </span>
           </div>
         </div>
-        <div class="col-xl-3">
-          <div class="vs-box vs-box--small mb-4">
+        <div class="col-sm-9">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h1 class="vs-title">{{stock.quote.companyName}}</h1>
+              <h2 class="vs-subtitle">{{stock.quote.symbol}}</h2>
+            </div>
+            <div>
+              <vs-btn-group>
+                <vs-btn-group-action
+                  v-if="isSubscribed"
+                  :onClick="openUnsubscribeModal"
+                  aria-controls="unsubscribeModal"
+                >Unsubscribe</vs-btn-group-action>
+                <vs-btn-group-action
+                  v-else
+                  :onClick="subscribe"
+                  aria-controls="unsubscribeModal"
+                >Subscribe</vs-btn-group-action>
+              </vs-btn-group>
+              <vs-modal
+                :isOpen="isUnsubscribeModalOpen"
+                :headAsColumn="true"
+                :onClose="closeUnsubscribeModal"
+                :img="require('../assets/add_stock_img.svg')"
+                id="unsubscribeModal"
+              >
+                <template v-slot:title>Unsubscribe</template>
+                <template v-slot:body>
+                  <p
+                    class="my-4 text-center text-grey"
+                  >Are you sure you want to unsubscribe from this stock?</p>
+                  <div class="row justify-content-center">
+                    <div class="col-12 mb-4 col-sm-4">
+                      <button
+                        @click="unsubscribe"
+                        class="w-100 vs-btn vs-btn--lg vs-btn--danger vs-btn--fill"
+                      >Yes, I'm sure</button>
+                    </div>
+                    <div class="col-12 mb-4 col-sm-4">
+                      <button
+                        @click="closeUnsubscribeModal"
+                        class="w-100 vs-btn vs-btn--default vs-btn--lg vs-btn--danger vs-btn--fill"
+                      >No, I'm not</button>
+                    </div>
+                  </div>
+                </template>
+              </vs-modal>
+            </div>
+          </div>
+          <div class="mb-4">
+            <div class="vs-box__title">Timeline</div>
+            <div class="vs-box__body">
+              <div class="vs-box__controls vs-chips d-flex flex-wrap">
+                <button
+                  v-for="o in lineChartDateRangeFilterOptions"
+                  :key="o.id"
+                  class="vs-chip"
+                  @click="lineChartDateRangeFilter = o.id"
+                  :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
+                  type="button"
+                >{{o.label}}</button>
+              </div>
+              <vs-line-chart
+                v-if="loadedLineChartData"
+                :options="lineChartOptions"
+                :chart-data="lineChartData"
+              ></vs-line-chart>
+              <div v-else class="vs-loader"></div>
+            </div>
+          </div>
+          <div class="mb-4">
             <div class="vs-box__title">News</div>
             <div>
               <div class="vs-box__body vs-loader" v-if="!loadedNews"></div>
-              <div style="max-height:500px;" class="overflow-auto" v-else-if="news.length > 0">
+              <div style="max-height:500px;" v-else-if="news.length > 0">
                 <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
               </div>
               <div class="vs-box__body" v-else>
@@ -213,6 +171,10 @@ export default class VsStockOverview extends Vue {
     scales: {
       yAxes: [
         {
+          gridLines: {
+            drawBorder: false,
+            display: false
+          },
           ticks: {
             beginAtZero: false
           }
@@ -239,6 +201,12 @@ export default class VsStockOverview extends Vue {
     return this.subbedStocks
       .map(s => s.symbol)
       .includes(this.stock.quote.symbol);
+  }
+
+  changeClass() {
+    if (this.stock.quote.change > 0) return "vs-stat__change--good";
+    if (this.stock.quote.change < 0) return "vs-stat__change--bad";
+    return "vs-stat__change--neutral";
   }
 
   get changePercentage() {

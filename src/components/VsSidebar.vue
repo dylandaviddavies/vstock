@@ -9,7 +9,10 @@
     </button>
     <aside id="vsSidebar" :aria-hidden="!visible" class="vs-sidebar__inner">
       <router-link @click.native="close" class="vs-sidebar__logo" to="/">
-        <img class="vs-sidebar__logo__img" src="../assets/logo.svg" alt="vstock" />
+        <h1 style="font-size:32px;">
+          v
+          <span style="color:#08c;line-height:1em">•</span> stock
+        </h1>
       </router-link>
       <form class="vs-sidebar__search" @submit.prevent="doSearch">
         <span class="material-icons-round vs-sidebar__search__icon" aria-hidden="true">search</span>

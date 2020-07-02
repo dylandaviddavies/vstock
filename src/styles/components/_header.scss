@@ -4,9 +4,8 @@
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#fff;
+    //background:#fff;
     margin-bottom:24px;
-    @include layered-box-shadow($dark-box-shadow-colour, .03);
     @include media-breakpoint-up(md) {     
         box-shadow:none;   
         margin-left:$sidebar-width;

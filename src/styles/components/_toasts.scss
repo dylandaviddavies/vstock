@@ -15,11 +15,11 @@
     &__inner {
         display:flex;
         align-items:center;
-        background:#fff;
+        //background:#fff;
         padding: 20px 40px 20px 32px;
         border-radius:6px;
         position:relative;
-        @include layered-box-shadow($dark-box-shadow-colour, .1);
+        background:$box-body;
     }
     &__close {
         position:absolute;

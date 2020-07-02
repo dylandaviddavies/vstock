@@ -10,7 +10,7 @@
         <h3 class="vs-account__section__title">Account</h3>
         <p class="mb-3 text-grey">Details about your account.</p>
         <form action>
-          <div class="vs-field mb-4 vs-field--bordered">
+          <div class="vs-field mb-4">
             <label for class="vs-field__label">Username</label>
             <div class="vs-field__field">
               <span
@@ -25,7 +25,7 @@
               />
             </div>
           </div>
-          <div class="vs-field mb-45 mb-45 vs-field--bordered">
+          <div class="vs-field mb-45">
             <label for class="vs-field__label">Image</label>
             <div>
               <label class="vs-btn vs-btn--default pr-4 vs-btn--fill">

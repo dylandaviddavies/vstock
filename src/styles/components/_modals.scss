@@ -40,7 +40,7 @@
         &__icon {            
             font-weight:bold;
             font-size:18px;
-            color:#999;
+            color:$subtext;
         }
     }
     &--open {
@@ -69,11 +69,11 @@
         transition: opacity .2s ease-in-out 0s;
         position:relative;
         width:700px;
-        box-shadow: 0px 4px 24px rgba(26, 24, 36, 0.2);
+        border:1.5px solid $box-border;
         max-width:100%;
         margin: 12px;
         border-radius:8px;
-        background:#fff;
+        background:$modal;
         padding:32px 50px;
         opacity:0;
     }

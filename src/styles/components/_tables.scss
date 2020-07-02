@@ -13,7 +13,7 @@
     }
     &--neutral {
         #{$self}__change {
-            color:#999;
+            color:$subtext;
         }
     }
     > * {
@@ -31,14 +31,14 @@
     }
     &__subtitle {
         display:block;
-        color:#999;
+        color:$subtext;
         font-size:12px;
     }
     &__price {     
-        color:#999;   
+        color:$price;
     }
     &__number {
-        color:#999;
+        color:$subtext;
     }
     &__change {
         vertical-align:middle;

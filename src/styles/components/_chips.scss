@@ -1,9 +1,9 @@
 .vs-chip {
     border-radius:32em;
     padding:12px 24px;
-    border:1.75px solid #f1f1f1;
-    color:#999;
-    background-color: transparentize(#f1f1f1, .8);
+    border:1.75px solid $subtext;
+    color:$subtext;
+    background-color: transparentize($subtext, .8);
     margin-right:8px;
     line-height:1em;
     font-weight:$fw-vs-chip;
