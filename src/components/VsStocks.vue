@@ -39,7 +39,7 @@
                 <p class="my-4 text-center text-grey">Add the symbol of a stock you'd like to watch.</p>
                 <form @submit.prevent="addStock">
                   <div
-                    class="vs-field vs-field--bordered"
+                    class="vs-field mb-45 vs-field--bordered"
                     :class="{'vs-field--error' : isStockSymbolToAddInvalid}"
                   >
                     <label for class="vs-field__label text-center">Stock Symbol</label>

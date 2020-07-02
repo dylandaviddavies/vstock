@@ -6,6 +6,7 @@ import VsStocks from './components/VsStocks.vue';
 import VsNewsPage from './components/VsNewsPage.vue';
 import VsStockOverview from './components/VsStockOverview.vue';
 import VsTrending from './components/VsTrending.vue';
+import VsAccount from './components/VsAccount.vue';
 
 const routes = [
   {
@@ -25,7 +26,10 @@ const routes = [
   },
   {
     path: '*', redirect: '/dashboard'
-  }
+  },/*
+  {
+    path: '/account', component: VsAccount
+  }*/
 ];
 
 export default new VueRouter({

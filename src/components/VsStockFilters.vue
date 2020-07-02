@@ -44,7 +44,7 @@
     <div>
       <label for="sort" class="vs-field__label d-block text-center">Sort</label>
       <div class="d-flex">
-        <div class="vs-field mr-2" style="width:60%;">
+        <div class="vs-field mb-45 mr-2" style="width:60%;">
           <div class="vs-field__field">
             <span
               class="material-icons-round vs-field__field__icon vs-field__field__icon--start"
@@ -59,7 +59,7 @@
             </select>
           </div>
         </div>
-        <div class="vs-field flex-grow-1">
+        <div class="vs-field mb-45 flex-grow-1">
           <div class="vs-field__field">
             <span
               class="material-icons-round vs-field__field__icon vs-field__field__icon--end"

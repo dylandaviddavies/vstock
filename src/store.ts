@@ -1,13 +1,17 @@
-import { Stock } from './types';
+import { Stock, User } from './types';
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
+
 var store = new Vuex.Store({
 	state: {
 		v: 1,
 		subbedStocks: Array<Stock>(),
 		maxSymbols: 8,
-		toasts: Array<string>()
+		toasts: Array<string>(),
+		user: new User({
+			name: "User",
+		})
 	},
 	actions: {
 		getSubbedStockBySymbol({ state }, symbol) {
@@ -34,6 +38,10 @@ var store = new Vuex.Store({
 		}
 	},
 	mutations: {
+		RESET_STATE(state) {
+			state.subbedStocks = new Array<Stock>();
+		},
+
 		UNSUBSCRIBE_STOCK(state, stock) {
 			var index = state.subbedStocks.indexOf(stock);
 			if (index !== -1) state.subbedStocks.splice(index, 1);

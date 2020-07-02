@@ -1,0 +1,39 @@
+.vs-account {
+    display:flex;
+    padding:20px 16px;
+    max-width:1200px;
+    margin:0 auto;
+    &__head {
+        display:flex;
+        flex-direction:column;
+        margin-right:32px;
+        &__img {
+            width:200px;
+            height:200px;
+            border-radius:100%;
+            background-color:#e4e4e4;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:120px;
+            margin-bottom:12px;
+        }
+    }
+    &__username {
+        text-align:center;
+    }
+    &__section {
+        &__title {
+            font-size:24px;
+            margin-bottom:12px;
+            padding-bottom:12px;
+            border-bottom:1.5px solid $body;
+            line-height:1em;
+        }
+    }
+    &__content {
+        padding:26px;
+        flex-grow:1;
+        @extend .vs-box;
+    }
+}
