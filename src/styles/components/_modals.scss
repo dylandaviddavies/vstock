@@ -72,7 +72,7 @@
         border:1.5px solid $box-border;
         max-width:100%;
         margin: 12px;
-        border-radius:8px;
+        border-radius:$box-border-radius;
         background:$modal;
         padding:32px 50px;
         opacity:0;

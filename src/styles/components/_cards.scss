@@ -1,7 +1,7 @@
 .vs-add-card {
     border: 8px dashed $box-border;
     color:$text;
-    border-radius:8px;
+    border-radius: $box-border-radius;
     display:flex;
     align-items:center;
     flex-direction:column;
@@ -21,7 +21,7 @@
 
 .vs-stat {    
     border: 2px solid $box-border;
-    border-radius:8px;
+    border-radius: $box-border-radius;
     background:$box-body;
     display:inline-flex;
     padding:28px 32px;
@@ -65,15 +65,15 @@
     $self: &;
     border: 2px solid $box-border;
     max-height: 100%;
-    border-radius:8px;
+    border-radius:4px;
     background:$box-body;
     &__controls {
         margin-bottom:20px;
     }
     &__title {
         padding: 22px 28px 16px 28px;
-        margin-bottom:12px;
-        border-bottom:1px solid $divider;
+        margin-top:0;
+        border-bottom:2px solid $box-border;
         margin-bottom:18px;       
         font-size:20px;
         font-weight:$fw-vs-title;
@@ -90,7 +90,7 @@
     border: 2px solid $box-border;
     align-items: stretch;
     margin:0;
-    border-radius:8px;
+    border-radius: $box-border-radius;
     overflow:hidden;
     display:flex;
     flex-direction:column;

@@ -1,7 +1,7 @@
 .vs-alert {
     display:flex;
     align-items:stretch;
-    border-radius: 8px;
+    border-radius: $box-border-radius;
     @include layered-box-shadow($error, .1);
     &--error {
         background-color:$error;
@@ -14,7 +14,7 @@
         display:flex;
         align-items:center;
         font-size:40px;
-        border-radius: 8px;
+        border-radius: $box-border-radius;
         padding:24px 0px 24px 24px;
     }
 }

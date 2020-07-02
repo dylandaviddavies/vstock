@@ -1,6 +1,6 @@
 .vs-news-card {
     display:flex;
-    border-radius:4px;
+    border-radius:$box-border-radius;
     overflow:hidden;
     margin-bottom:24px;
     background:$box-body;

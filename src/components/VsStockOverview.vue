@@ -67,9 +67,9 @@
             </div>
           </div>
           <div class="mb-4">
-            <div class="vs-box__title">Timeline</div>
-            <div class="vs-box__body">
-              <div class="vs-box__controls vs-chips d-flex flex-wrap">
+            <h2 class="vs-section__title">Timeline</h2>
+            <div class="vs-section__body">
+              <div class="my-3 vs-chips d-flex flex-wrap">
                 <button
                   v-for="o in lineChartDateRangeFilterOptions"
                   :key="o.id"
@@ -87,14 +87,14 @@
               <div v-else class="vs-loader"></div>
             </div>
           </div>
-          <div class="mb-4">
-            <div class="vs-box__title">News</div>
+          <div class="vs-section mb-4">
+            <h2 class="vs-section__title mb-3">News</h2>
             <div>
-              <div class="vs-box__body vs-loader" v-if="!loadedNews"></div>
+              <div class="vs-section__body vs-loader" v-if="!loadedNews"></div>
               <div style="max-height:500px;" v-else-if="news.length > 0">
-                <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
+                <vs-news class="px-0" v-for="n in news" :news="n" :key="n.url"></vs-news>
               </div>
-              <div class="vs-box__body" v-else>
+              <div class="vs-section__body" v-else>
                 <img
                   class="w-50 mt-4 mb-3 mx-auto"
                   :src="require('../assets/no_news.svg')"

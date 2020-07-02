@@ -89,7 +89,7 @@
         margin:0 28px 30px 28px;
         &__input {
             padding: 16px 16px 16px 74px;
-            border-radius:4px;
+            border-radius:$box-border-radius;
             border: 2px solid $box-border;
             font-size:16px;
             max-width:100%;

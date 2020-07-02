@@ -88,7 +88,7 @@
             padding-right:52px;
         }
         &__input,&__select {
-            border-radius:8px;
+            border-radius: $box-border-radius;
             padding:16px;
             font-size:16px;
             height:100%;

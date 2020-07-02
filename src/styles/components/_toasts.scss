@@ -17,7 +17,7 @@
         align-items:center;
         //background:#fff;
         padding: 20px 40px 20px 32px;
-        border-radius:6px;
+        border-radius:$box-border-radius;
         position:relative;
         background:$box-body;
     }
