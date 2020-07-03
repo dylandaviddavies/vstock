@@ -20,6 +20,16 @@
           </div>
         </div>
         <div class="col-lg-8">
+          <div>
+            <router-link
+              to="/trending"
+              class="vs-badge vs-badge--small m-0 mb-3 vs-badge--primary"
+              v-if="loadedTrendingData && trendingData.rank != null"
+            >
+              <span class="material-icons-round vs-badge__icon" aria-hidden="true">trending_up</span>
+              #{{trendingData.rank}} Trending
+            </router-link>
+          </div>
           <div class="d-flex justify-content-between">
             <div>
               <h1 class="vs-title">{{stock.quote.companyName}}</h1>
@@ -162,6 +172,8 @@ export default class VsStockOverview extends Vue {
   private stock: any = null;
   private lineChartData: any = null;
   private lineChartDateRangeFilter: string = "ONE_DAY";
+  private trendingData: any = null;
+  private loadedTrendingData: boolean = false;
   private lineChartDateRangeFilterOptions: Array<object> = [
     { id: "ONE_DAY", label: "1d" },
     { id: "FIVE_DAYS", label: "5d" }
@@ -221,13 +233,13 @@ export default class VsStockOverview extends Vue {
       .includes(this.stock.quote.symbol);
   }
 
-  get changeClass() {
+  get changeClass(): string {
     if (this.stock.quote.change > 0) return "vs-stat__change--good";
     if (this.stock.quote.change < 0) return "vs-stat__change--bad";
     return "vs-stat__change--neutral";
   }
 
-  get changePercentage() {
+  get changePercentage(): string {
     if (this.stock.quote.latestPrice === 0) return "0%";
     return (
       Math.round(
@@ -273,6 +285,7 @@ export default class VsStockOverview extends Vue {
       .then(() => {
         this.loadLineChartData();
         this.loadNews();
+        this.loadTrendingData();
       });
   }
 
@@ -282,6 +295,20 @@ export default class VsStockOverview extends Vue {
       this.news = data;
       this.loadedNews = true;
     });
+  }
+
+  loadTrendingData(): Promise<void> {
+    this.loadedTrendingData = false;
+    return this.fetchTrendingData().then(data => {
+      this.trendingData = data;
+      this.loadedTrendingData = true;
+    });
+  }
+
+  fetchTrendingData(): Promise<any> {
+    return fetch(`
+      ${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/trending/${this.stock.quote.symbol}
+    `).then(r => r.json());
   }
 
   fetchNews(): Promise<any> {
