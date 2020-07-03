@@ -221,7 +221,7 @@ export default class VsStockOverview extends Vue {
       .includes(this.stock.quote.symbol);
   }
 
-  changeClass() {
+  get changeClass() {
     if (this.stock.quote.change > 0) return "vs-stat__change--good";
     if (this.stock.quote.change < 0) return "vs-stat__change--bad";
     return "vs-stat__change--neutral";
