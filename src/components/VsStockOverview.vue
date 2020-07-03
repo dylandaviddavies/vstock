@@ -2,10 +2,10 @@
   <div>
     <div v-if="loaded">
       <div class="row">
-        <div class="col-sm-3 d-flex flex-column align-items-center">
-          <div class="d-none d-sm-block mb-5">
-            <div class="vs-stat">
-              <div class="vs-stat__title fw-zebra">
+        <div class="col-lg-4 d-flex flex-column align-items-center">
+          <div class="d-none d-lg-block">
+            <div class="vs-stat mb-5">
+              <div class="vs-stat__title justify-content-center fw-zebra">
                 <span>Current</span>&nbsp;
                 <span>Price</span>
               </div>
@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-9">
+        <div class="col-lg-8">
           <div class="d-flex justify-content-between">
             <div>
               <h1 class="vs-title">{{stock.quote.companyName}}</h1>
@@ -51,13 +51,13 @@
                     class="my-4 text-center text-grey"
                   >Are you sure you want to unsubscribe from this stock?</p>
                   <div class="row justify-content-center">
-                    <div class="col-12 mb-4 col-sm-4">
+                    <div class="col-12 mb-4 col-lg-4">
                       <button
                         @click="unsubscribe"
                         class="w-100 vs-btn vs-btn--lg vs-btn--danger vs-btn--fill"
                       >Yes, I'm sure</button>
                     </div>
-                    <div class="col-12 mb-4 col-sm-4">
+                    <div class="col-12 mb-4 col-lg-4">
                       <button
                         @click="closeUnsubscribeModal"
                         class="w-100 vs-btn vs-btn--default vs-btn--lg vs-btn--danger vs-btn--fill"
@@ -68,9 +68,9 @@
               </vs-modal>
             </div>
           </div>
-          <div class="d-flex flex-column align-items-center d-sm-none mb-5">
+          <div class="d-flex flex-column align-items-center d-lg-none mb-5">
             <div class="vs-stat">
-              <div class="vs-stat__title fw-zebra">
+              <div class="vs-stat__title justify-content-center fw-zebra">
                 <span>Current</span>&nbsp;
                 <span>Price</span>
               </div>
