@@ -1,6 +1,6 @@
 export interface IStock {
   symbol: string;
-  buyPrice: number;
+  buyPrice?: number;
 }
 export class Stock {
   symbol?: string;

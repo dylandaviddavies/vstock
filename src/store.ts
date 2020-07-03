@@ -5,8 +5,16 @@ Vue.use(Vuex);
 
 var store = new Vuex.Store({
 	state: {
-		v: 1,
-		subbedStocks: Array<Stock>(),
+		v: 2,
+		subbedStocks: Array<Stock>(
+			new Stock({ symbol: "MSFT" }),
+			new Stock({ symbol: "DIS" }),
+			new Stock({ symbol: "SNE" }),
+			new Stock({ symbol: "GOOGL" }),
+			new Stock({ symbol: "BA" }),
+			new Stock({ symbol: "V" }),
+			new Stock({ symbol: "TSLA" })
+		),
 		maxSymbols: 8,
 		toasts: Array<string>(),
 		user: new User({
