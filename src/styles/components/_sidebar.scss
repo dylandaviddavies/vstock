@@ -95,6 +95,10 @@
             font-size:16px;
             max-width:100%;
             width:100%;
+            transition: border-color .2s;
+            @include hover-focus-active {
+                border-color:$primary;
+            }
         }
         &__icon {
             position:absolute;
