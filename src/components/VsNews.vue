@@ -13,7 +13,7 @@
         :to="`/stock/${r}`"
         v-for="r in related"
         :key="r"
-        class="vs-chip mb-2 vs-chip--small vs-chip--primary"
+        class="vs-chip mr-2 mb-2 vs-chip--small vs-chip--primary"
       >{{r}}</router-link>
     </div>
     <div class="vs-news__date">{{date}}</div>
