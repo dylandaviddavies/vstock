@@ -50,6 +50,14 @@ body,button,h1,h2,h3,h4,h5,h6{
     }
 }
 
+.vs-text-primary{
+    color: colour(primary);
+}
+
+.vs-text-subtext{
+    color: colour(subtext);
+}
+
 .vs-stock-price {    
     &__value {
         font-size:28px;
@@ -58,10 +66,8 @@ body,button,h1,h2,h3,h4,h5,h6{
         color:colour(price);
     }
     &__change {
-        display:flex;
-        flex-direction:column;
         line-height:1em;
-        font-size:18px;
+        font-size:14px;
         vertical-align:middle;
         &--good {
             color:rgb(58, 167, 73);

@@ -3,46 +3,74 @@ $header-height: 66px;
 
 
 // Colours
-$colours: (
-    primary: #3fa9f5,
-    primary-darker: darken(#3fa9f5, 10%),
-    
+$colours: (    
     error: #ff4f4f,
     title: #fff,
     grey: #999,
     price: #fff,
 
     text: #597da7,
-    text-darker: darken(#597da7, 10%),
-    text-dangerzone: #a75959,
+    text-redalert: #a75959,
 
-    body: #0f1420,
-    body-dangerzone: #080808,
+    primary: #{colour(primary-default)},
+    primary-default: #3fa9f5,
+    primary-redalert: #ff4f4f,
 
-    box-body: #1d2538,
-    box-body-dangerzone: #381d1d,
+    primary-darker: #{colour(primary-darker-default)},
+    primary-darker-default: darken(#3fa9f5, 10%),
+    primary-darker-redalert: darken(#ff4f4f, 10%),
 
-    box-border: #273149,
-    box-border-dangerzone: #492727,
+    text-darker: #{colour(text-darker-default)},
+    text-darker-default: darken(#597da7, 10%),
+    text-darker-redalert: darken(#a75959, 10%),
 
-    subtext: #5a6f86,
-    subtext-dangerzone: #79858b,
+    body: #{colour(body-default)},
+    body-default: #0f1420,
+    body-redalert: #130909,
 
+    box-body: #{colour(box-body-default)},
+    box-body-default: #1d2538,
+    box-body-redalert: #381d1d,
+
+    box-border: #{colour(box-border-default)},
+    box-border-default: #273149,
+    box-border-redalert: #492727,
+
+    subtext: #{colour(subtext-default)},
+    subtext-default: #5a6f86,
+    subtext-redalert: #79858b,
+
+    badge-bg: #{colour(badge-bg-default)},
     badge-bg-default: transparentize(#5a6f86, .8),
-    badge-bg-primary: transparentize(#3fa9f5, .8),
+    badge-bg-redalert: transparentize(#865a5a, .8),
+
+    badge-bg-primary: #{colour(badge-bg-primary-default)},
+    badge-bg-primary-default: transparentize(#5a6f86, .8),
+    badge-bg-primary-redalert: transparentize(#ff4f4f, .8),
+
     badge-bg-error: transparentize(#ff4f4f, .8),
     
+    chip-bg: #{colour(chip-bg-default)},
     chip-bg-default: transparentize(#5a6f86, .8),
-    chip-bg-primary: transparentize(#3fa9f5, .8),
+    chip-bg-redalert: transparentize(#865a5a, .8),
+
+    chip-bg-primary: #{colour(chip-bg-primary-default)},
+    chip-bg-primary-default: transparentize(#3fa9f5, .8),
+    chip-bg-primary-redalert: transparentize(#ff4f4f, .8),
+    
     chip-bg-error: transparentize(#ff4f4f, .8),
     
-    header-avatar-hover-effect: transparentize(#3fa9f5,.8),
+    header-avatar-hover-effect: #{colour(header-avatar-hover-effect-default)},
+    header-avatar-hover-effect-default: transparentize(#3fa9f5,.8),
+    header-avatar-hover-effect-redalert: transparentize(#ff4f4f,.8),
 
-    divider: #283642,
-    divider-dangerzone: #422828,
+    divider: #{colour(divider-default)},
+    divider-default: #283642,
+    divider-redalert: #422828,
 
-    modal: #151c2c,
-    modal-dangerzone: rgb(66, 40, 40)
+    modal: #{colour(modal-default)},
+    modal-default: #151c2c,
+    modal-redalert: rgb(66, 40, 40)
 );
 
 :root {

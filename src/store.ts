@@ -1,4 +1,5 @@
-import { Stock, User } from './types';
+import { Stock, User, StyleState } from './types';
+import switchStyleState from './scripts/StyleStateSwitcher';
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
@@ -6,6 +7,7 @@ Vue.use(Vuex);
 var store = new Vuex.Store({
 	state: {
 		v: 2,
+		styleState: StyleState.Default,
 		subbedStocks: Array<Stock>(
 			new Stock({ symbol: "MSFT" }),
 			new Stock({ symbol: "DIS" }),
@@ -22,6 +24,11 @@ var store = new Vuex.Store({
 		})
 	},
 	actions: {
+		setStyleState({ commit }, styleState: StyleState) {
+			commit('SET_STYLE_STATE', styleState);
+			switchStyleState(styleState);
+		},
+
 		getSubbedStockBySymbol({ state }, symbol) {
 			return state.subbedStocks.find(s => s.symbol === symbol);
 		},
@@ -68,6 +75,10 @@ var store = new Vuex.Store({
 
 		REMOVE_TOAST(state, toast) {
 			state.toasts.push(toast);
+		},
+
+		SET_STYLE_STATE(state, styleState: StyleState) {
+			state.styleState = styleState;
 		},
 
 		INIT(state) {

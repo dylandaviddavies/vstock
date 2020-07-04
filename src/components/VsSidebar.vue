@@ -11,7 +11,7 @@
       <router-link @click.native="close" class="vs-sidebar__logo" to="/">
         <h1 style="font-size:32px;">
           v
-          <span style="color:#08c;line-height:1em">•</span> stock
+          <span class="vs-text-primary" style="line-height:1em">•</span> stock
         </h1>
       </router-link>
       <form class="vs-sidebar__search" @submit.prevent="doSearch">

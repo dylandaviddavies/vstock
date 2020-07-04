@@ -9,7 +9,7 @@
     <td>
       <span
         class="vs-stock-row__change"
-      >{{ stock.change > 0 ? '+' : '' }}{{stock.change}} ({{changePercentage}})</span>
+      >{{ stock.change > 0 ? `+$${stock.change}` : `-$${stock.change * -1}` }} ({{changePercentage}})</span>
     </td>
     <td class="vs-stock-row__price">${{stock.latestPrice}}</td>
     <td class="vs-stock-row__content">

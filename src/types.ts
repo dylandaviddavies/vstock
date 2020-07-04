@@ -10,6 +10,11 @@ export class Stock {
   }
 }
 
+export enum StyleState {
+  Default,
+  RedAlert
+}
+
 export interface IUser {
   name?: string;
   img?: string;

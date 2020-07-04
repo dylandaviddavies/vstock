@@ -5,7 +5,7 @@
       <span class="vs-stock-card__title">{{stock.companyName}}</span>
       <span class="vs-stock-card__price">${{stock.latestPrice}}</span>
       <span class="vs-stock-card__change" :class="[changeClass]">
-        <span class="mb-2">{{stock.change > 0 ? '+' : ''}}{{stock.change}}</span>
+        <span class="mb-2">{{stock.change > 0 ? `+$${stock.change}` : `-$${stock.change * -1}`}}</span>
         <span style="font-size:.7em;">({{stock.change > 0 ? '+' : ''}}{{changePercentage}})</span>
       </span>
     </span>

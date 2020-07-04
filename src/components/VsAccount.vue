@@ -63,7 +63,6 @@ export default class VsAccount extends Vue {
 
   mounted() {
     this.editUsername = this.user.name;
-    console.log(this.user.name);
   }
 }
 </script>

@@ -61,12 +61,25 @@
         </div>
         <div class="vs-stock-price mt-2 mb-4">
           <div class="vs-stock-price__value">${{stock.quote.latestPrice}}</div>
-          <span class="vs-stock-price__change" :class="[changeClass]">
-            <span class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</span>
+          <div class="vs-stock-price__change mb-2" :class="[getChangeClass(changeLineChartData)]">
+            {{changeLineChartData > 0 ? `+$${changeLineChartData}` : `-$${changeLineChartData * -1}`}}
+            ({{changeLineChartData > 0 ? `+$${getChangePercentage(lastLineChartData, changeLineChartData)}` : `${getChangePercentage(lastLineChartData, changeLineChartData)}`}})
             <span
-              style="font-size:.7em;"
-            >({{stock.quote.change > 0 ? '+' : ''}}{{changePercentage}})</span>
-          </span>
+              class="vs-text-subtext"
+              v-if="lineChartDateRangeFilter === 'ONE_DAY'"
+            >Today</span>
+            <span
+              class="vs-text-subtext"
+              v-else-if="lineChartDateRangeFilter === 'FIVE_DAYS'"
+            >Last 5 days</span>
+          </div>
+          <div class="vs-stock-price__change mb-2" :class="[getChangeClass(stock.quote.change)]">
+            {{stock.quote.change > 0 ? `+$${stock.quote.change}` : `-$${stock.quote.change * -1}`}}
+            ({{stock.quote.change > 0 ? '+' : ''}}{{getChangePercentage(stock.quote.latestPrice, stock.quote.change)}})
+            <span
+              class="vs-text-subtext"
+            >Latest change</span>
+          </div>
         </div>
         <div class="mb-4">
           <div class="vs-section__body">
@@ -114,7 +127,7 @@
 
 <script lang="ts">
 // eslint-disable-next-line no-unused-vars
-import { Stock } from "../types";
+import { Stock, StyleState } from "../types";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import VsLineChart from "./VsLineChart.vue";
 import VsNews from "./VsNews.vue";
@@ -133,9 +146,10 @@ import { mapState } from "vuex";
     VsBtnGroupAction
   },
 
-  computed: mapState(["subbedStocks"])
+  computed: mapState(["subbedStocks", "styleState"])
 })
 export default class VsStockOverview extends Vue {
+  private styleState!: StyleState;
   private subbedStocks!: Array<Stock>;
   private isUnsubscribeModalOpen: boolean = false;
   private loadedNews: boolean = false;
@@ -201,27 +215,40 @@ export default class VsStockOverview extends Vue {
     this.loadLineChartData();
   }
 
+  @Watch("styleState")
+  watchStyleState() {
+    this.updateDatasetsBorderColor();
+  }
+
+  @Watch("loadedLineChartData")
+  watchLoadedLineChartData(newVal: boolean) {
+    if (newVal) this.updateDatasetsBorderColor();
+  }
+
   get isSubscribed(): boolean {
     return this.subbedStocks
       .map(s => s.symbol)
       .includes(this.stock.quote.symbol);
   }
 
-  get changeClass(): string {
-    if (this.stock.quote.change > 0) return "vs-stat__change--good";
-    if (this.stock.quote.change < 0) return "vs-stat__change--bad";
-    return "vs-stat__change--neutral";
-  }
-
-  get changePercentage(): string {
-    if (this.stock.quote.latestPrice === 0) return "0%";
+  get changeLineChartData() {
     return (
       Math.round(
-        (this.stock.quote.change / this.stock.quote.latestPrice) * 100
-      ) /
-        100 +
-      "%"
+        (this.lastLineChartData - this.firstLineChartData + Number.EPSILON) *
+          100
+      ) / 100
     );
+  }
+
+  getChangeClass(change: number): string {
+    if (change > 0) return "vs-stock-price__change--good";
+    if (change < 0) return "vs-stock-price__change--bad";
+    return "vs-stock-price__change--neutral";
+  }
+
+  getChangePercentage(price: number, change: number): string {
+    if (price === 0) return "0%";
+    return Math.round((change / price) * 100) / 100 + "%";
   }
 
   subscribe() {
@@ -247,6 +274,10 @@ export default class VsStockOverview extends Vue {
 
   mounted() {
     this.load();
+  }
+
+  beforeDestroy() {
+    this.$store.dispatch("setStyleState", StyleState.Default);
   }
 
   load() {
@@ -291,14 +322,44 @@ export default class VsStockOverview extends Vue {
     `).then(r => r.json());
   }
 
+  get firstLineChartData(): number {
+    if (this.lineChartData == null) return 0;
+    return this.lineChartData.datasets[0].data[0];
+  }
+
+  get lastLineChartData(): number {
+    if (this.lineChartData == null) return 0;
+    return this.lineChartData.datasets[0].data[
+      this.lineChartData.datasets[0].data.length - 1
+    ];
+  }
+
   loadLineChartData(): Promise<void> {
     this.loadedLineChartData = false;
     return this.fetchLineChartData().then(data => {
-      data.data.datasets.forEach((d: any) => {
-        d.borderColor = "#3fa9f5 ";
-      });
       this.lineChartData = data.data;
       this.loadedLineChartData = true;
+      this.$store.dispatch(
+        "setStyleState",
+        this.firstLineChartData > this.lastLineChartData
+          ? StyleState.RedAlert
+          : StyleState.Default
+      );
+    });
+  }
+
+  updateDatasetsBorderColor() {
+    if (this.lineChartData == null) return;
+
+    this.lineChartData.datasets.forEach((d: any) => {
+      switch (this.styleState) {
+        case StyleState.RedAlert:
+          d.borderColor = "#ff4f4f";
+          break;
+        default:
+          d.borderColor = "#3fa9f5";
+          break;
+      }
     });
   }
 
