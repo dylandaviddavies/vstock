@@ -14,6 +14,7 @@ export default {
             }
         },
         ticks: {
+            display: false,
             autoSkip: true,
             maxTicksLimit: 4
         }
@@ -34,6 +35,7 @@ export default {
             }
         },
         ticks: {
+            display: false,
             autoSkip: false,
             maxTicksLimit: 0
         }

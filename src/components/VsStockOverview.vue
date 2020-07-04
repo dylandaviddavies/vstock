@@ -95,16 +95,6 @@
           </div>
           <div class="mb-4">
             <div class="vs-section__body">
-              <div class="my-3 vs-chips d-flex flex-wrap">
-                <button
-                  v-for="o in lineChartDateRangeFilterOptions"
-                  :key="o.id"
-                  class="vs-chip"
-                  @click="lineChartDateRangeFilter = o.id"
-                  :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
-                  type="button"
-                >{{o.label}}</button>
-              </div>
               <vs-line-chart
                 class="vs-chart"
                 v-if="loadedLineChartData"
@@ -112,9 +102,19 @@
                 :chart-data="lineChartData"
               ></vs-line-chart>
               <div v-else class="vs-loader"></div>
+              <div class="mb-4 vs-neo-tabs">
+                <button
+                  v-for="o in lineChartDateRangeFilterOptions"
+                  :key="o.id"
+                  class="vs-neo-tabs__tab"
+                  @click="lineChartDateRangeFilter = o.id"
+                  :class="{'vs-neo-tabs__tab--active': lineChartDateRangeFilter === o.id}"
+                  type="button"
+                >{{o.label}}</button>
+              </div>
             </div>
           </div>
-          <div class="vs-section mb-4">
+          <div class="vs-section pt-1 mb-4">
             <h2 class="vs-section__title mb-3">News</h2>
             <div>
               <div class="vs-section__body vs-loader" v-if="!loadedNews"></div>
@@ -205,6 +205,7 @@ export default class VsStockOverview extends Vue {
             display: false
           },
           ticks: {
+            display: false,
             beginAtZero: false
           }
         }
@@ -319,6 +320,9 @@ export default class VsStockOverview extends Vue {
   loadLineChartData(): Promise<void> {
     this.loadedLineChartData = false;
     return this.fetchLineChartData().then(data => {
+      data.data.datasets.forEach((d: any) => {
+        d.borderColor = "#3fa9f5 ";
+      });
       this.lineChartData = data.data;
       this.loadedLineChartData = true;
     });

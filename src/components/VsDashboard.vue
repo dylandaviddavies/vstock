@@ -16,16 +16,6 @@
                 <span>Stocks</span>
               </h2>
               <div class="vs-section__body">
-                <div class="my-3 vs-chips d-flex flex-wrap">
-                  <button
-                    v-for="o in lineChartDateRangeFilterOptions"
-                    :key="o.id"
-                    class="vs-chip"
-                    @click="lineChartDateRangeFilter = o.id"
-                    :class="{'vs-chip--active': lineChartDateRangeFilter === o.id}"
-                    type="button"
-                  >{{o.label}}</button>
-                </div>
                 <vs-line-chart
                   class="vs-chart"
                   v-if="loadedLineChartData"
@@ -33,6 +23,16 @@
                   :chart-data="lineChartData"
                 ></vs-line-chart>
                 <div v-else class="vs-loader"></div>
+                <div class="mb-4 vs-neo-tabs">
+                  <button
+                    v-for="o in lineChartDateRangeFilterOptions"
+                    :key="o.id"
+                    class="vs-neo-tabs__tab"
+                    @click="lineChartDateRangeFilter = o.id"
+                    :class="{'vs-neo-tabs__tab--active': lineChartDateRangeFilter === o.id}"
+                    type="button"
+                  >{{o.label}}</button>
+                </div>
               </div>
             </div>
           </div>
@@ -182,6 +182,7 @@ export default class VsDashboard extends Vue {
             display: false
           },
           ticks: {
+            display: false,
             beginAtZero: false
           }
         }
