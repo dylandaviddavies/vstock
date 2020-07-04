@@ -21,18 +21,18 @@
     &--fill {        
         border:none;
         color:#fff;
-        background-color:$primary;
+        background-color:colour(primary);
     }
     &--danger#{&}--fill {
-        background-color:$error;
+        background-color:colour(error);
     }
     &--default#{&}--fill {
-        color:$text;
-        background-color:$box-body;
+        color:colour(text);
+        background-color:colour(box-body);
     }
     &--outline {        
-        color:$primary;
-        border:2px solid $primary;
+        color:colour(primary);
+        border:2px solid colour(primary);
         background:none;
     }
     &__icon {
@@ -50,7 +50,7 @@
     padding:8px 12px;
     border:none;
     transition: background-color .2s ease-in-out;
-    background:$box-body;
+    background:colour(box-body);
     @include hover-focus-active {
         color:inherit;
     }
@@ -73,7 +73,7 @@
         overflow:hidden;
         top:0;
         right:100%;
-        background:$box-body;
+        background:colour(box-body);
         > :not(:last-child) {
             border-bottom:1px solid #f1f1f1;
         }
@@ -84,7 +84,7 @@
         width:100%;
         text-align:left;
         padding:16px 24px;
-        background:$box-body;
+        background:colour(box-body);
         font-size:14px;
         color:inherit;
         line-height:1em;

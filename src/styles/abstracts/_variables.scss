@@ -1,18 +1,55 @@
-$primary: #3fa9f5;
-$error: #ff4f4f;
-$dark-box-shadow-colour: rgb(196, 218, 240);
-$title: #fff;
-$text: #597da7;
-$body: #0f1420;
-$box-body: #1d2538;
-$box-border: #273149;
-$grey: #999;
-$subtext: #5a6f86;
-$divider: #283642;
-$price: #fff;
-$modal: #151c2c;
 $box-border-radius: 6px;
 $header-height: 66px;
+
+
+// Colours
+$colours: (
+    primary: #3fa9f5,
+    primary-darker: darken(#3fa9f5, 10%),
+    
+    error: #ff4f4f,
+    title: #fff,
+    grey: #999,
+    price: #fff,
+
+    text: #597da7,
+    text-darker: darken(#597da7, 10%),
+    text-dangerzone: #a75959,
+
+    body: #0f1420,
+    body-dangerzone: #080808,
+
+    box-body: #1d2538,
+    box-body-dangerzone: #381d1d,
+
+    box-border: #273149,
+    box-border-dangerzone: #492727,
+
+    subtext: #5a6f86,
+    subtext-dangerzone: #79858b,
+
+    badge-bg-default: transparentize(#5a6f86, .8),
+    badge-bg-primary: transparentize(#3fa9f5, .8),
+    badge-bg-error: transparentize(#ff4f4f, .8),
+    
+    chip-bg-default: transparentize(#5a6f86, .8),
+    chip-bg-primary: transparentize(#3fa9f5, .8),
+    chip-bg-error: transparentize(#ff4f4f, .8),
+    
+    header-avatar-hover-effect: transparentize(#3fa9f5,.8),
+
+    divider: #283642,
+    divider-dangerzone: #422828,
+
+    modal: #151c2c,
+    modal-dangerzone: rgb(66, 40, 40)
+);
+
+:root {
+    @each $k, $v in $colours {
+        --color-#{$k}: #{$v};
+    }
+}
 
 // font-weights
 $fw-header: 600; 

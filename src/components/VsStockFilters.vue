@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column">
-    <form @submit.prevent="applySearchFilter" class="vs-field">
+    <form @submit.prevent="applySearchFilter" class="vs-field mb-4">
       <label for="searchFilter" class="vs-field__label text-center">Search</label>
       <div class="vs-field__field">
         <button
@@ -25,7 +25,7 @@
         />
       </div>
     </form>
-    <div class="vs-field">
+    <div class="vs-field mb-4">
       <label for="changeFilter" class="vs-field__label text-center">Change</label>
       <div class="vs-field__field">
         <span
@@ -42,9 +42,11 @@
       </div>
     </div>
     <div>
-      <label for="sort" class="vs-field__label d-block text-center">Sort</label>
+      <div class="vs-field">
+        <label for="sort" class="vs-field__label d-block text-center">Sort</label>
+      </div>
       <div class="d-flex">
-        <div class="vs-field mb-45 mr-2" style="width:60%;">
+        <div class="vs-field mb-4 mr-2" style="width:60%;">
           <div class="vs-field__field">
             <span
               class="material-icons-round vs-field__field__icon vs-field__field__icon--start"
@@ -59,7 +61,7 @@
             </select>
           </div>
         </div>
-        <div class="vs-field mb-45 flex-grow-1">
+        <div class="vs-field mb-4 flex-grow-1">
           <div class="vs-field__field">
             <span
               class="material-icons-round vs-field__field__icon vs-field__field__icon--end"

@@ -19,7 +19,7 @@
         padding: 20px 40px 20px 32px;
         border-radius:$box-border-radius;
         position:relative;
-        background:$box-body;
+        background:colour(box-body);
     }
     &__close {
         position:absolute;
@@ -36,7 +36,7 @@
         }
     }
     &__icon {
-        background:$primary;
+        background:colour(primary);
         border-radius:100%;
         margin-right:16px;
         width:35px;

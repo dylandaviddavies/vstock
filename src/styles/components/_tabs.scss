@@ -7,41 +7,21 @@
         border:none;
         padding:12px 12px;
         &--active {
-            color:$primary;
-            border-bottom:1.75px solid $primary;
+            color:coloor(primary);
+            border-bottom:1.75px solid colour(primary);
+        }
+        &--error {            
+            color:colour(error);
+            border-bottom:1.75px solid colour(error);
         }
     }
     &:before {
-        border-bottom:1.75px solid $box-border;
+        border-bottom:1.75px solid colour(box-border);
         width:100%;
         content:"";
         position:absolute;
         bottom:0;
         left:0;
         right:0;
-    }
-}
-
-.vs-neo-tabs-1 {
-    border-bottom:1.5px solid $primary;
-    padding: 0 6px;
-    &__tab {
-        padding:14px 16px;
-        border-top-left-radius:4px;
-        border-top-right-radius:4px;
-        color:$subtext;
-        border:1.5px solid transparent;
-        border-bottom:none;
-        background:none;
-        text-transform:uppercase;
-        line-height:1em;
-        font-weight:600;
-        font-size:13px;
-        transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out;
-        &--active {
-            background-color:transparentize($subtext, .9);
-            color: $primary;
-            border-color:$primary;
-        }
     }
 }

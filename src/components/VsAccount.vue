@@ -25,7 +25,7 @@
               />
             </div>
           </div>
-          <div class="vs-field mb-45">
+          <div class="vs-field mb-4">
             <label for class="vs-field__label">Image</label>
             <div>
               <label class="vs-btn vs-btn--default pr-4 vs-btn--fill">

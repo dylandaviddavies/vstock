@@ -3,7 +3,7 @@
     align-items:stretch;
     border-radius: $box-border-radius;
     &--error {
-        background-color:$error;
+        background-color:colour(error);
         color:$white;
     }
     &__content {        

@@ -5,7 +5,7 @@ body,button,input,select,form,tr,td,table{
     font-family:$font-family;
 }
 body,button,input,textarea,select{
-    color: $text;
+    color: colour(text);
 }
 body{
     font-size:16px;
@@ -20,7 +20,7 @@ body,button,h1,h2,h3,h4,h5,h6{
     margin-bottom: 20px;
     margin-top:0px;
     font-weight: $fw-vs-title;
-    color:$title;
+    color:colour(title);
     font-size:28px;
     @include media-desktop {        
         font-size:32px;
@@ -31,7 +31,7 @@ body,button,h1,h2,h3,h4,h5,h6{
     }
 }
 .vs-subtitle {
-    color:$subtext;
+    color:colour(subtext);
     font-size:18px;
     @include media-desktop {        
         font-size:22px;
@@ -55,7 +55,7 @@ body,button,h1,h2,h3,h4,h5,h6{
         font-size:28px;
         font-weight:600;
         margin-bottom:16px;
-        color:$price;
+        color:colour(price);
     }
     &__change {
         display:flex;
@@ -70,7 +70,7 @@ body,button,h1,h2,h3,h4,h5,h6{
             color:rgb(185, 68, 68);
         }
         &--neutral {
-            color:$subtext;
+            color:colour(subtext);
         }
         > .material-icons-round {
             font-size:22px;

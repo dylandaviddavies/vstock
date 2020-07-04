@@ -1,6 +1,6 @@
 .vs-add-card {
-    border: 8px dashed $box-border;
-    color:$text;
+    border: 8px dashed colour(box-border);
+    color:colour(text);
     border-radius: $box-border-radius;
     display:flex;
     align-items:center;
@@ -20,9 +20,9 @@
 }
 
 .vs-stat {    
-    border: 2px solid $box-border;
+    border: 2px solid colour(box-border);
     border-radius: $box-border-radius;
-    background:$box-body;
+    background:colour(box-body);
     display:inline-flex;
     padding:28px 32px;
     margin:0 auto;
@@ -36,7 +36,7 @@
         font-size:30px;
         font-weight:600;
         margin-bottom:16px;
-        color:$price;
+        color:colour(price);
     }
     &__change {
         display:flex;
@@ -52,7 +52,7 @@
             color:rgb(185, 68, 68);
         }
         &--neutral {
-            color:$subtext;
+            color:colour(subtext);
         }
         > .material-icons-round {
             font-size:22px;
@@ -63,17 +63,17 @@
 
 .vs-box {
     $self: &;
-    border: 2px solid $box-border;
+    border: 2px solid colour(box-border);
     max-height: 100%;
     border-radius:4px;
-    background:$box-body;
+    background:colour(box-body);
     &__controls {
         margin-bottom:20px;
     }
     &__title {
         padding: 22px 28px 16px 28px;
         margin-top:0;
-        border-bottom:2px solid $box-border;
+        border-bottom:2px solid colour(box-border);
         margin-bottom:18px;       
         font-size:20px;
         font-weight:$fw-vs-title;
@@ -84,10 +84,10 @@
 }
 
 .vs-stock-card{
-    background:$box-body;
+    background:colour(box-body);
     width: 100%;
     color:inherit;
-    border: 2px solid $box-border;
+    border: 2px solid colour(box-border);
     align-items: stretch;
     margin:0;
     border-radius: $box-border-radius;
@@ -101,13 +101,13 @@
         transform:translateY(-4px);
     }
     &__symbol {
-        color:$subtext;
+        color:colour(subtext);
         font-size:12px;
     }
     &__price {
         font-size:30px;
         font-weight: $fw-vs-stock-card-price;
-        color:$price;
+        color:colour(price);
         margin: 40px 0;
         display:block;
     }
@@ -140,7 +140,7 @@
             color:rgb(185, 68, 68);
         }
         &--neutral {
-            color:$subtext;
+            color:colour(subtext);
         }
         > .material-icons-round {
             font-size:22px;

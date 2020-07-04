@@ -1,0 +1,7 @@
+@function colour($name) {
+    @return var(--color-#{$name});
+}
+
+@function colour-value($name) {
+    @return map-get($colours, $name);
+}

@@ -3,17 +3,22 @@
     align-items:center;
     border-radius:32em;
     padding:12px 24px;
-    border:1.75px solid $subtext;
-    color:$subtext;
-    background-color: transparentize($subtext, .8);
+    border:1.75px solid colour(subtext);
+    color:colour(subtext);
+    background-color: colour(chip-bg-default);
     line-height:1em;
     font-weight:$fw-vs-chip;
     font-size:13px;
     transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out;
     &--primary {
-        background-color:transparentize($primary, .9);
-        color: $primary !important;
-        border-color:$primary;
+        background-color:colour(chip-bg-primary);
+        color: colour(primary) !important;
+        border-color:colour(primary);
+    }
+    &--error {
+        background-color:colour(chip-bg-error);
+        color: colour(error) !important;
+        border-color:colour(error);
     }
     &--small {
         padding:8px 16px;

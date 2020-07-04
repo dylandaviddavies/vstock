@@ -37,7 +37,7 @@
         }
     }
     &__inner {
-        background:$body;
+        background:colour(body);
         position:fixed;
         z-index:9;
         display:flex;
@@ -48,7 +48,7 @@
         bottom:0;
         height:100%;
         width:80%;
-        border-right:1.5px solid $box-body;
+        border-right:1.5px solid colour(box-body);
         transition: transform .5s ease-in-out, opacity .5s .5s ease-in-out;
         transform: translateX(-100%);
         opacity:0;
@@ -86,18 +86,18 @@
         align-items:center;
         position:relative;
         justify-content:center;
-        color:$subtext;
+        color:colour(subtext);
         margin:0 28px 30px 28px;
         &__input {
             padding: 16px 16px 16px 74px;
             border-radius:$box-border-radius;
-            border: 2px solid $box-border;
+            border: 2px solid colour(box-border);
             font-size:16px;
             max-width:100%;
             width:100%;
             transition: border-color .2s;
             @include hover-focus-active {
-                border-color:$primary;
+                border-color:colour(primary);
             }
         }
         &__icon {
@@ -115,13 +115,13 @@
         padding:16px 40px 16px 0;
         display:flex;
         align-items:center;
-        color:$subtext !important;
+        color:colour(subtext) !important;
         line-height:1em;
         &--active {
             font-weight:$fw-vs-sidebar-active-link;
-            color:$text !important;
+            color:colour(text) !important;
             #{$self}__link__icon {                
-                color:$primary;
+                color:colour(primary);
             }
         }
         &,&__icon {

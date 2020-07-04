@@ -3,20 +3,19 @@
     display:flex;
     align-items:stretch;
     flex-direction:column;
-    margin-bottom:32px;
     &--error {
         &#{$self}--bordered {
             #{$self}__field {
                 &__input {
-                    border-color:$error;
+                    border-color:colour(error);
                 }
                 &__icon {
-                    color:$error;
+                    color:colour(error);
                 }
             }
         }
         #{$self}__label {
-            color:$error;
+            color:colour(error);
         }
     }
     &__label {
@@ -95,10 +94,10 @@
             border:none;
             width:100%;
             outline:none;
-            border: 2px solid $box-border;
+            border: 2px solid colour(box-border);
             transition: border-color .2s;
             @include hover-focus-active {
-                border-color:$primary;
+                border-color:colour(primary);
             }
         }
     }

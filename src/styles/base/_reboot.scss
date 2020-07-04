@@ -1,13 +1,13 @@
 body{
     overflow-x:hidden;
-    background:$body;
+    background:colour(body);
 }
 input,textarea,select {
-    background:$box-body;
-    border: 2px solid $box-border;
-    color:$text;
+    background:colour(box-body);
+    border: 2px solid colour(box-border);
+    color:colour(text);
     &::placeholder {
-        color:$subtext;
+        color:colour(subtext);
     }
 }
 * {
@@ -29,7 +29,7 @@ button {
 a {
     text-decoration:none;
     &:active {
-        color:darken($primary, 10%);
+        color:colour(primary-darker);
     }
     &:visited {
         color:inherit;
@@ -91,11 +91,11 @@ background: none;
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-background: $text;
+background: colour(text);
 border-radius:32px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: darken($text, 10%);
+background: colour(text-darker);
 }

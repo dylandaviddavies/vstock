@@ -40,7 +40,7 @@
             z-index:0;
             position:absolute;
             content:"";
-            background-color:transparentize($primary,.8);
+            background-color:colour(header-avatar-hover-effect);
             width:46px;
             height:46px;
             border-radius:100%;

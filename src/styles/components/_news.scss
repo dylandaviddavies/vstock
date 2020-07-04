@@ -3,7 +3,7 @@
     border-radius:$box-border-radius;
     overflow:hidden;
     margin-bottom:24px;
-    background:$box-body;
+    background:colour(box-body);
     &__img {
         flex-basis:40%;
         background-size:cover;
@@ -15,7 +15,7 @@
         flex-grow:1;
     }
     &__source {
-        color:$subtext;
+        color:colour(subtext);
         text-transform:uppercase;
         font-size:11px;
         font-weight:$fw-vs-news-source;
@@ -28,12 +28,12 @@
         }
     }
     &__summary {
-        color:$subtext;
+        color:colour(subtext);
         font-size:13px;
         padding: 8px 0;
     }
     &__date {
-        color:$subtext;
+        color:colour(subtext);
         font-size:12px;
     }
 }
@@ -56,11 +56,11 @@
             right:0;
             bottom: 0px;
             width:60%;
-            background-color:$divider;
+            background-color:colour(divider);
         }
     }
     &__source {
-        color:$subtext;
+        color:colour(subtext);
         text-transform:uppercase;
         font-size:11px;
         font-weight:$fw-vs-news-source;
@@ -73,12 +73,12 @@
         }
     }
     &__summary {
-        color:$subtext;
+        color:colour(subtext);
         font-size:13px;
         padding: 8px 0;
     }
     &__date {
-        color:$subtext;
+        color:colour(subtext);
         font-size:12px;
     }
 }
