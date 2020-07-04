@@ -59,36 +59,43 @@
             </vs-modal>
           </div>
         </div>
-        <div class="vs-stock-price mt-2 mb-4">
-          <div class="vs-stock-price__value">${{stock.quote.latestPrice}}</div>
-          <div class="vs-stock-price__change mb-2" :class="[getChangeClass(changeLineChartData)]">
-            {{changeLineChartData > 0 ? `+$${changeLineChartData}` : `-$${changeLineChartData * -1}`}}
-            ({{changeLineChartData > 0 ? `+$${getChangePercentage(lastLineChartData, changeLineChartData)}` : `${getChangePercentage(lastLineChartData, changeLineChartData)}`}})
-            <span
-              class="vs-text-subtext"
-              v-if="lineChartDateRangeFilter === 'ONE_DAY'"
-            >Today</span>
-            <span
-              class="vs-text-subtext"
-              v-else-if="lineChartDateRangeFilter === 'FIVE_DAYS'"
-            >Last 5 days</span>
-          </div>
-          <div class="vs-stock-price__change mb-2" :class="[getChangeClass(stock.quote.change)]">
-            {{stock.quote.change > 0 ? `+$${stock.quote.change}` : `-$${stock.quote.change * -1}`}}
-            ({{stock.quote.change > 0 ? '+' : ''}}{{getChangePercentage(stock.quote.latestPrice, stock.quote.change)}})
-            <span
-              class="vs-text-subtext"
-            >Latest change</span>
-          </div>
-        </div>
         <div class="mb-4">
           <div class="vs-section__body">
-            <vs-line-chart
-              class="vs-chart"
-              v-if="loadedLineChartData"
-              :options="lineChartOptions"
-              :chart-data="lineChartData"
-            ></vs-line-chart>
+            <template v-if="loadedLineChartData">
+              <div class="vs-stock-price mt-2 mb-4">
+                <div class="vs-stock-price__value">${{stock.quote.latestPrice}}</div>
+                <div
+                  class="vs-stock-price__change mb-2"
+                  :class="[getChangeClass(changeLineChartData)]"
+                >
+                  {{changeLineChartData > 0 ? `+$${changeLineChartData}` : `-$${changeLineChartData * -1}`}}
+                  ({{changeLineChartData > 0 ? `+$${getChangePercentage(lastLineChartData, changeLineChartData)}` : `${getChangePercentage(lastLineChartData, changeLineChartData)}`}})
+                  <span
+                    class="vs-text-subtext"
+                    v-if="lineChartDateRangeFilter === 'ONE_DAY'"
+                  >Today</span>
+                  <span
+                    class="vs-text-subtext"
+                    v-else-if="lineChartDateRangeFilter === 'FIVE_DAYS'"
+                  >Last 5 days</span>
+                </div>
+                <div
+                  class="vs-stock-price__change mb-2"
+                  :class="[getChangeClass(stock.quote.change)]"
+                >
+                  {{stock.quote.change > 0 ? `+$${stock.quote.change}` : `-$${stock.quote.change * -1}`}}
+                  ({{stock.quote.change > 0 ? '+' : ''}}{{getChangePercentage(stock.quote.latestPrice, stock.quote.change)}})
+                  <span
+                    class="vs-text-subtext"
+                  >Latest change</span>
+                </div>
+              </div>
+              <vs-line-chart
+                class="vs-chart"
+                :options="lineChartOptions"
+                :chart-data="lineChartData"
+              ></vs-line-chart>
+            </template>
             <div v-else class="vs-loader"></div>
             <div class="mb-4 vs-neo-tabs">
               <button
