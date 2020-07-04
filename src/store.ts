@@ -27,8 +27,7 @@ var store = new Vuex.Store({
 		},
 
 		unsubscribeStockBySymbol({ commit, dispatch }, symbol) {
-			let stock = dispatch("getSubbedStockBySymbol", symbol);
-			commit('UNSUBSCRIBE_STOCK', stock);
+			dispatch("getSubbedStockBySymbol", symbol).then((stock: Stock) => commit('UNSUBSCRIBE_STOCK', stock));
 		},
 
 		subscribeStock({ commit }, stock: Stock) {
