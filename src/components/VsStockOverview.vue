@@ -1,141 +1,115 @@
 <template>
-  <div>
-    <div v-if="loaded">
-      <div class="row">
-        <div class="col-lg-4 d-flex flex-column align-items-center">
-          <div class="d-none d-lg-block">
-            <div class="vs-stat mb-5">
-              <div class="vs-stat__title justify-content-center fw-zebra">
-                <span>Current</span>&nbsp;
-                <span>Price</span>
-              </div>
-              <div class="vs-stat__value">{{stock.quote.latestPrice}}</div>
-              <span class="vs-stat__change" :class="[changeClass]">
-                <span class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</span>
-                <span
-                  style="font-size:.7em;"
-                >({{stock.quote.change > 0 ? '+' : ''}}{{changePercentage}})</span>
-              </span>
+  <div v-if="loaded">
+    <div class="row">
+      <div class="col-12">
+        <div>
+          <router-link
+            to="/trending"
+            class="vs-chip mb-2 vs-chip--small m-0 mb-3 vs-chip--primary"
+            v-if="loadedTrendingData && trendingData.rank != null && trendingData.rank > 0"
+          >
+            <span class="material-icons-round vs-chip__icon" aria-hidden="true">trending_up</span>
+            #{{trendingData.rank}} Trending
+          </router-link>
+        </div>
+        <div class="d-flex justify-content-between">
+          <div>
+            <h1 class="vs-title mb-0">{{stock.quote.companyName}}</h1>
+          </div>
+          <div>
+            <vs-btn-group>
+              <vs-btn-group-action
+                v-if="isSubscribed"
+                :onClick="openUnsubscribeModal"
+                aria-controls="unsubscribeModal"
+              >Unsubscribe</vs-btn-group-action>
+              <vs-btn-group-action
+                v-else
+                :onClick="subscribe"
+                aria-controls="unsubscribeModal"
+              >Subscribe</vs-btn-group-action>
+            </vs-btn-group>
+            <vs-modal
+              :isOpen="isUnsubscribeModalOpen"
+              :headAsColumn="true"
+              :onClose="closeUnsubscribeModal"
+              :img="require('../assets/add_stock_img.svg')"
+              id="unsubscribeModal"
+            >
+              <template v-slot:title>Unsubscribe</template>
+              <template v-slot:body>
+                <p
+                  class="my-4 text-center text-grey"
+                >Are you sure you want to unsubscribe from this stock?</p>
+                <div class="row justify-content-center">
+                  <div class="col-12 mb-4 col-lg-4">
+                    <button
+                      @click="unsubscribe"
+                      class="w-100 vs-btn vs-btn--lg vs-btn--danger vs-btn--fill"
+                    >Yes, I'm sure</button>
+                  </div>
+                  <div class="col-12 mb-4 col-lg-4">
+                    <button
+                      @click="closeUnsubscribeModal"
+                      class="w-100 vs-btn vs-btn--default vs-btn--lg vs-btn--danger vs-btn--fill"
+                    >No, I'm not</button>
+                  </div>
+                </div>
+              </template>
+            </vs-modal>
+          </div>
+        </div>
+        <div class="vs-stock-price mt-2 mb-4">
+          <div class="vs-stock-price__value">${{stock.quote.latestPrice}}</div>
+          <span class="vs-stock-price__change" :class="[changeClass]">
+            <span class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</span>
+            <span
+              style="font-size:.7em;"
+            >({{stock.quote.change > 0 ? '+' : ''}}{{changePercentage}})</span>
+          </span>
+        </div>
+        <div class="mb-4">
+          <div class="vs-section__body">
+            <vs-line-chart
+              class="vs-chart"
+              v-if="loadedLineChartData"
+              :options="lineChartOptions"
+              :chart-data="lineChartData"
+            ></vs-line-chart>
+            <div v-else class="vs-loader"></div>
+            <div class="mb-4 vs-neo-tabs">
+              <button
+                v-for="o in lineChartDateRangeFilterOptions"
+                :key="o.id"
+                class="vs-neo-tabs__tab"
+                @click="lineChartDateRangeFilter = o.id"
+                :class="{'vs-neo-tabs__tab--active': lineChartDateRangeFilter === o.id}"
+                type="button"
+              >{{o.label}}</button>
             </div>
           </div>
         </div>
-        <div class="col-lg-8">
+        <div class="vs-section pt-1 mb-4">
+          <h2 class="vs-section__title mb-3">News</h2>
           <div>
-            <router-link
-              to="/trending"
-              class="vs-chip mb-2 vs-chip--small m-0 mb-3 vs-chip--primary"
-              v-if="loadedTrendingData && trendingData.rank != null && trendingData.rank > 0"
-            >
-              <span class="material-icons-round vs-chip__icon" aria-hidden="true">trending_up</span>
-              #{{trendingData.rank}} Trending
-            </router-link>
-          </div>
-          <div class="d-flex justify-content-between">
-            <div>
-              <h1 class="vs-title">{{stock.quote.companyName}}</h1>
-              <h2 class="vs-subtitle">{{stock.quote.symbol}}</h2>
+            <div class="vs-section__body vs-loader" v-if="!loadedNews"></div>
+            <div style="max-height:500px;" v-else-if="news.length > 0">
+              <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
             </div>
-            <div>
-              <vs-btn-group>
-                <vs-btn-group-action
-                  v-if="isSubscribed"
-                  :onClick="openUnsubscribeModal"
-                  aria-controls="unsubscribeModal"
-                >Unsubscribe</vs-btn-group-action>
-                <vs-btn-group-action
-                  v-else
-                  :onClick="subscribe"
-                  aria-controls="unsubscribeModal"
-                >Subscribe</vs-btn-group-action>
-              </vs-btn-group>
-              <vs-modal
-                :isOpen="isUnsubscribeModalOpen"
-                :headAsColumn="true"
-                :onClose="closeUnsubscribeModal"
-                :img="require('../assets/add_stock_img.svg')"
-                id="unsubscribeModal"
-              >
-                <template v-slot:title>Unsubscribe</template>
-                <template v-slot:body>
-                  <p
-                    class="my-4 text-center text-grey"
-                  >Are you sure you want to unsubscribe from this stock?</p>
-                  <div class="row justify-content-center">
-                    <div class="col-12 mb-4 col-lg-4">
-                      <button
-                        @click="unsubscribe"
-                        class="w-100 vs-btn vs-btn--lg vs-btn--danger vs-btn--fill"
-                      >Yes, I'm sure</button>
-                    </div>
-                    <div class="col-12 mb-4 col-lg-4">
-                      <button
-                        @click="closeUnsubscribeModal"
-                        class="w-100 vs-btn vs-btn--default vs-btn--lg vs-btn--danger vs-btn--fill"
-                      >No, I'm not</button>
-                    </div>
-                  </div>
-                </template>
-              </vs-modal>
-            </div>
-          </div>
-          <div class="d-flex flex-column align-items-center d-lg-none mb-5">
-            <div class="vs-stat">
-              <div class="vs-stat__title justify-content-center fw-zebra">
-                <span>Current</span>&nbsp;
-                <span>Price</span>
-              </div>
-              <div class="vs-stat__value">{{stock.quote.latestPrice}}</div>
-              <span class="vs-stat__change" :class="[changeClass]">
-                <span class="mb-2">{{stock.quote.change > 0 ? '+' : ''}}{{stock.quote.change}}</span>
-                <span
-                  style="font-size:.7em;"
-                >({{stock.quote.change > 0 ? '+' : ''}}{{changePercentage}})</span>
-              </span>
-            </div>
-          </div>
-          <div class="mb-4">
-            <div class="vs-section__body">
-              <vs-line-chart
-                class="vs-chart"
-                v-if="loadedLineChartData"
-                :options="lineChartOptions"
-                :chart-data="lineChartData"
-              ></vs-line-chart>
-              <div v-else class="vs-loader"></div>
-              <div class="mb-4 vs-neo-tabs">
-                <button
-                  v-for="o in lineChartDateRangeFilterOptions"
-                  :key="o.id"
-                  class="vs-neo-tabs__tab"
-                  @click="lineChartDateRangeFilter = o.id"
-                  :class="{'vs-neo-tabs__tab--active': lineChartDateRangeFilter === o.id}"
-                  type="button"
-                >{{o.label}}</button>
-              </div>
-            </div>
-          </div>
-          <div class="vs-section pt-1 mb-4">
-            <h2 class="vs-section__title mb-3">News</h2>
-            <div>
-              <div class="vs-section__body vs-loader" v-if="!loadedNews"></div>
-              <div style="max-height:500px;" v-else-if="news.length > 0">
-                <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
-              </div>
-              <div class="vs-section__body" v-else>
-                <img
-                  class="w-50 mt-4 mb-3 mx-auto"
-                  :src="require('../assets/no_news.svg')"
-                  alt="No news to report"
-                />
-                <div class="text-center text-grey">No news to report</div>
-              </div>
+            <div class="vs-section__body" v-else>
+              <img
+                class="w-50 mt-4 mb-3 mx-auto"
+                :src="require('../assets/no_news.svg')"
+                alt="No news to report"
+              />
+              <div class="text-center text-grey">No news to report</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div v-else class="vs-loader"></div>
   </div>
+  <div v-else class="vs-loader"></div>
 </template>
 
 <script lang="ts">

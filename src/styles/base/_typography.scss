@@ -49,3 +49,32 @@ body,button,h1,h2,h3,h4,h5,h6{
         font-weight:$fw-zebra-even;
     }
 }
+
+.vs-stock-price {    
+    &__value {
+        font-size:28px;
+        font-weight:600;
+        margin-bottom:16px;
+        color:$price;
+    }
+    &__change {
+        display:flex;
+        flex-direction:column;
+        line-height:1em;
+        font-size:18px;
+        vertical-align:middle;
+        &--good {
+            color:rgb(58, 167, 73);
+        }
+        &--bad {
+            color:rgb(185, 68, 68);
+        }
+        &--neutral {
+            color:$subtext;
+        }
+        > .material-icons-round {
+            font-size:22px;
+            margin-left:2px;
+        }
+    }
+}

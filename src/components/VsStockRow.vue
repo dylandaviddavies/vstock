@@ -11,7 +11,7 @@
         class="vs-stock-row__change"
       >{{ stock.change > 0 ? '+' : '' }}{{stock.change}} ({{changePercentage}})</span>
     </td>
-    <td class="vs-stock-row__price">{{stock.latestPrice}}</td>
+    <td class="vs-stock-row__price">${{stock.latestPrice}}</td>
     <td class="vs-stock-row__content">
       <router-link
         :to="`/stock/${ stock.symbol }`"

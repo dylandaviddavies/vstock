@@ -12,7 +12,9 @@
     <vs-sidebar :visible="isSidebarVisible" :onVisibleChange="onSidebarVisibleChange"></vs-sidebar>
     <vs-header></vs-header>
     <main class="vs-main">
-      <router-view></router-view>
+      <div class="vs-container">
+        <router-view></router-view>
+      </div>
     </main>
     <footer class="vs-footer"></footer>
   </div>
