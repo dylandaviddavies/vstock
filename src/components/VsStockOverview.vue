@@ -232,6 +232,11 @@ export default class VsStockOverview extends Vue {
     if (newVal) this.updateDatasetsBorderColor();
   }
 
+  @Watch("$route.params.symbol", { immediate: true, deep: true })
+  watchRouteParamSymbol() {
+    this.load();
+  }
+
   get isSubscribed(): boolean {
     return this.subbedStocks
       .map(s => s.symbol)
@@ -277,10 +282,6 @@ export default class VsStockOverview extends Vue {
 
   closeUnsubscribeModal() {
     this.isUnsubscribeModalOpen = false;
-  }
-
-  mounted() {
-    this.load();
   }
 
   beforeDestroy() {

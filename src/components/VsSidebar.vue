@@ -119,7 +119,7 @@ export default class VsSidebar extends Vue {
   }
 
   doSearch(): void {
-    this.$router.push("/stock/" + this.search);
+    this.$router.push(`/stock/${this.search}`);
     this.close();
   }
 }

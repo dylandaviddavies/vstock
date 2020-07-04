@@ -14,10 +14,13 @@ const routes = [
     path: '/dashboard', component: VsDashboard
   },
   {
+    path: '/', redirect: '/dashboard'
+  },
+  {
     path: '/stocks', component: VsStocks
   },
   {
-    path: '/stock/:symbol', component: VsStockOverview
+    name: "stock", path: '/stock/:symbol', component: VsStockOverview
   },
   {
     path: '/trending', component: VsTrending
