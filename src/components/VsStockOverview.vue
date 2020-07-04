@@ -94,7 +94,6 @@
             </div>
           </div>
           <div class="mb-4">
-            <h2 class="vs-section__title">Timeline</h2>
             <div class="vs-section__body">
               <div class="my-3 vs-chips d-flex flex-wrap">
                 <button

@@ -7,6 +7,7 @@ import VsNewsPage from './components/VsNewsPage.vue';
 import VsStockOverview from './components/VsStockOverview.vue';
 import VsTrending from './components/VsTrending.vue';
 import VsAccount from './components/VsAccount.vue';
+import VsPageNotFound from './components/VsPageNotFound.vue';
 
 const routes = [
   {
@@ -25,7 +26,7 @@ const routes = [
     path: '/news', component: VsNewsPage
   },
   {
-    path: '*', redirect: '/dashboard'
+    path: '*', component: VsPageNotFound
   },/*
   {
     path: '/account', component: VsAccount
