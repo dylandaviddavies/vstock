@@ -23,10 +23,10 @@
           <div>
             <router-link
               to="/trending"
-              class="vs-badge vs-badge--small m-0 mb-3 vs-badge--primary"
+              class="vs-chip mb-2 vs-chip--small m-0 mb-3 vs-chip--primary"
               v-if="loadedTrendingData && trendingData.rank != null && trendingData.rank > 0"
             >
-              <span class="material-icons-round vs-badge__icon" aria-hidden="true">trending_up</span>
+              <span class="material-icons-round vs-chip__icon" aria-hidden="true">trending_up</span>
               #{{trendingData.rank}} Trending
             </router-link>
           </div>

@@ -17,12 +17,12 @@
       >{{news.headline}}</a>
       <p class="vs-news-card__summary">{{summary}}</p>
       <div class="d-flex flex-wrap">
-        <div
+        <router-link
+          :to="`/stock/${r}`"
           v-for="r in related"
           :key="r"
-          class="vs-chip vs-chip--small vs-chip--active"
-          type="button"
-        >{{r}}</div>
+          class="vs-chip mb-2 vs-chip--small vs-chip--primary"
+        >{{r}}</router-link>
       </div>
       <div class="vs-news-card__date">{{date}}</div>
     </div>
