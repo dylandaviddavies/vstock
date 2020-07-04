@@ -2,6 +2,7 @@
     display:flex;
     align-items:stretch;
     border-radius: $box-border-radius;
+    transition: color .2s ease-in-out, background-color .2s ease-in-out;
     &--error {
         background-color:colour(error);
         color:$white;

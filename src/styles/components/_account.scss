@@ -29,6 +29,7 @@
             padding-bottom:12px;
             border-bottom:1.5px solid colour(body);
             line-height:1em;
+            transition: border-color .2s ease-in-out;
         }
     }
     &__content {

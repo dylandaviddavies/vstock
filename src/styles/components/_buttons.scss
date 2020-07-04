@@ -9,6 +9,7 @@
     font-weight:$fw-button;
     text-align:center;
     cursor:pointer;
+    transition: color .2s ease-in-out, background-color .2s ease-in-out;
     &--lg {
         padding:18px 24px;
         font-size:16px;
@@ -74,6 +75,7 @@
         top:0;
         right:100%;
         background:colour(box-body);
+        transition: background .2s ease-in-out;
         > :not(:last-child) {
             border-bottom:1px solid #f1f1f1;
         }
@@ -89,10 +91,9 @@
         color:inherit;
         line-height:1em;
         border:none;
-        transition: background-color .2s ease-in-out;
+        transition: background .2s ease-in-out;
         @include hover-focus-active {
             color:inherit;
-            //background-color: #fafafa;
         }
     }
 }

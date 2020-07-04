@@ -1,7 +1,9 @@
 .text-grey {
     color:colour(subtext);
+    transition: color .2s ease-in-out;
 }
 
 .bg-box-body {
     background:colour(box-body);
+    transition: background .2s ease-in-out;
 }

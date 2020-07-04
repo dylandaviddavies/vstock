@@ -1,13 +1,16 @@
 body{
     overflow-x:hidden;
     background:colour(body);
+    transition: background .2s ease-in-out;
 }
 input,textarea,select {
-    background:colour(box-body);
+    background: colour(box-body);
+    transition: background .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out;
     border: 2px solid colour(box-border);
     color:colour(text);
     &::placeholder {
         color:colour(subtext);
+        transition: color .2s ease-in-out;
     }
 }
 * {
@@ -30,6 +33,7 @@ a {
     text-decoration:none;
     &:active {
         color:colour(primary-darker);
+        transition: color .2s ease-in-out;
     }
     &:visited {
         color:inherit;
@@ -86,16 +90,18 @@ p {
 
 /* Track */
 ::-webkit-scrollbar-track {
-background: none;
+    background: none;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
 background: colour(text);
-border-radius:32px;
+    transition: background .2s ease-in-out;
+    border-radius:32px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: colour(text-darker);
+    background: colour(text-darker);
+    transition: background .2s ease-in-out;
 }

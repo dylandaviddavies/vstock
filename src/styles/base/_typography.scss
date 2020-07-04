@@ -21,6 +21,7 @@ body,button,h1,h2,h3,h4,h5,h6{
     margin-top:0px;
     font-weight: $fw-vs-title;
     color:colour(title);
+    transition: color .2s ease-in-out;
     font-size:28px;
     @include media-desktop {        
         font-size:32px;
@@ -32,6 +33,7 @@ body,button,h1,h2,h3,h4,h5,h6{
 }
 .vs-subtitle {
     color:colour(subtext);
+    transition: color .2s ease-in-out;
     font-size:18px;
     @include media-desktop {        
         font-size:22px;
@@ -52,10 +54,12 @@ body,button,h1,h2,h3,h4,h5,h6{
 
 .vs-text-primary{
     color: colour(primary);
+    transition: color .2s ease-in-out;
 }
 
 .vs-text-subtext{
     color: colour(subtext);
+    transition: color .2s ease-in-out;
 }
 
 .vs-stock-price {    
@@ -64,11 +68,13 @@ body,button,h1,h2,h3,h4,h5,h6{
         font-weight:600;
         margin-bottom:16px;
         color:colour(price);
+        transition: color .2s ease-in-out;
     }
     &__change {
         line-height:1em;
         font-size:14px;
         vertical-align:middle;
+        transition: color .2s ease-in-out;
         &--good {
             color:rgb(58, 167, 73);
         }
