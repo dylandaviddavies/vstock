@@ -69,7 +69,7 @@
                   :class="[getChangeClass(changeLineChartData)]"
                 >
                   {{changeLineChartData > 0 ? `+$${changeLineChartData}` : `-$${changeLineChartData * -1}`}}
-                  ({{changeLineChartData > 0 ? `+$${getChangePercentage(lastLineChartData, changeLineChartData)}` : `${getChangePercentage(lastLineChartData, changeLineChartData)}`}})
+                  ({{changeLineChartData > 0 ? `+${getChangePercentage(lastLineChartData, changeLineChartData)}` : `${getChangePercentage(lastLineChartData, changeLineChartData)}`}})
                   <span
                     class="vs-text-subtext"
                     v-if="lineChartDateRangeFilter === 'ONE_DAY'"
