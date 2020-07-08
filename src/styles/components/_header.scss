@@ -1,6 +1,6 @@
 .vs-header {
     $self: &;
-    padding: 16px 32px;
+    padding: 6px 32px 16px 32px;
     display:flex;
     height:$header-height;
     justify-content:center;
@@ -12,6 +12,11 @@
         padding: 16px 32px;
         background:none;
         margin-bottom:0px;
+    }
+    &__logo {
+        @include media-desktop {  
+            display:none; 
+        }
     }
     &__avatar {
         position:absolute;

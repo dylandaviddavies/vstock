@@ -1,5 +1,12 @@
 <template>
   <header class="vs-header">
+    <router-link class="vs-header__logo" to="/">
+      <h1 style="font-size:28px;" class="m-0">
+        v
+        <span class="vs-text-primary" style="line-height:.8em">•</span>
+        stock
+      </h1>
+    </router-link>
     <a
       class="vs-header__avatar"
       href="https://dylandavies.me/"
