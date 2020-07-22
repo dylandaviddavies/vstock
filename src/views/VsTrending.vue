@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts">
-import VsStockRow from "./VsStockRow.vue";
+import VsStockRow from "../components/VsStockRow.vue";
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({

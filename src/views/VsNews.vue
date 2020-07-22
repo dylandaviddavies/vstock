@@ -19,7 +19,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapState } from "vuex";
-import VsNewsCard from "./VsNewsCard.vue";
+import VsNewsCard from "../components/VsNewsCard.vue";
 @Component({
   computed: mapState(["subbedStocks"]),
   components: {

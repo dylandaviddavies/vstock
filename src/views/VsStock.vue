@@ -136,11 +136,11 @@
 // eslint-disable-next-line no-unused-vars
 import { Stock, StyleState } from "../types";
 import { Component, Vue, Watch } from "vue-property-decorator";
-import VsLineChart from "./VsLineChart.vue";
-import VsNews from "./VsNews.vue";
-import VsModal from "./VsModal.vue";
-import VsBtnGroup from "./VsBtnGroup.vue";
-import VsBtnGroupAction from "./VsBtnGroupAction.vue";
+import VsLineChart from "../components/VsLineChart.vue";
+import VsNews from "../components/VsNews.vue";
+import VsModal from "../components/VsModal.vue";
+import VsBtnGroup from "../components/VsBtnGroup.vue";
+import VsBtnGroupAction from "../components/VsBtnGroupAction.vue";
 import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
 import { mapState } from "vuex";
 

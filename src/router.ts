@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
-import VsDashboard from './components/VsDashboard.vue';
-import VsStocks from './components/VsStocks.vue';
-import VsNewsPage from './components/VsNewsPage.vue';
-import VsStockOverview from './components/VsStockOverview.vue';
-import VsTrending from './components/VsTrending.vue';
-import VsAccount from './components/VsAccount.vue';
-import VsPageNotFound from './components/VsPageNotFound.vue';
+import VsDashboard from './views/VsDashboard.vue';
+import VsStocks from './views/VsStocks.vue';
+import VsNews from './views/VsNews.vue';
+import VsStockOverview from './views/VsStock.vue';
+import VsTrending from './views/VsTrending.vue';
+import VsAccount from './views/VsAccount.vue';
+import Vs404 from './views/Vs404.vue';
 
 const routes = [
   {
@@ -26,10 +26,10 @@ const routes = [
     path: '/trending', component: VsTrending
   },
   {
-    path: '/news', component: VsNewsPage
+    path: '/news', component: VsNews
   },
   {
-    path: '*', component: VsPageNotFound
+    path: '*', component: Vs404
   },/*
   {
     path: '/account', component: VsAccount

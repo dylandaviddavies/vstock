@@ -88,10 +88,10 @@
 import { Stock } from "../types";
 import { Component, Vue, Watch, Ref } from "vue-property-decorator";
 import { mapState } from "vuex";
-import VsStockCard from "./VsStockCard.vue";
-import VsModal from "./VsModal.vue";
-import VsAlert from "./VsAlert.vue";
-import VsStockFilters from "./VsStockFilters.vue";
+import VsStockCard from "../components/VsStockCard.vue";
+import VsModal from "../components/VsModal.vue";
+import VsAlert from "../components/VsAlert.vue";
+import VsStockFilters from "../components/VsStockFilters.vue";
 
 @Component({
   components: {

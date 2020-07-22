@@ -9,7 +9,7 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class VsPageNotFound extends Vue {}
+export default class Vs404 extends Vue {}
 </script>
 
 <style scoped>

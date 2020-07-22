@@ -8,6 +8,20 @@
     <div class="row">
       <div class="col-xl-9">
         <div class="row">
+          <div class="col-12" v-if="loadedTopPicks">
+            <div class="vs-section mb-4">
+              <h2 class="vs-section__title fw-zebra">
+                <span>Top</span>
+                &nbsp;
+                <span>Picks</span>
+              </h2>
+              <div class="vs-section__body">
+                <div class="vs-scrollable-row">
+                  <vs-mini-stock-card :stock="s" v-for="s in topPicks" :key="s.symbol"></vs-mini-stock-card>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-12">
             <div class="vs-section mb-4">
               <h2 class="vs-section__title fw-zebra">
@@ -130,9 +144,9 @@
 // eslint-disable-next-line no-unused-vars
 import { Stock } from "../types";
 import { Component, Vue, Watch } from "vue-property-decorator";
-import VsLineChart from "./VsLineChart.vue";
-import VsStockRow from "./VsStockRow.vue";
-import VsNews from "./VsNews.vue";
+import VsLineChart from "../components/VsLineChart.vue";
+import VsStockRow from "../components/VsStockRow.vue";
+import VsNews from "../components/VsNews.vue";
 import { mapState } from "vuex";
 import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
 @Component({
@@ -154,6 +168,8 @@ export default class VsDashboard extends Vue {
   private news: Array<any> = [];
   private lineChartDateRangeFilter: string = "ONE_DAY";
   private subbedStocks!: Array<Stock>;
+  private topPicks: Array<any> = [];
+  private loadedTopPicks: boolean = false;
   private lineChartOptions = {
     responsive: true,
     elements: {
@@ -215,6 +231,21 @@ export default class VsDashboard extends Vue {
     this.loadGains();
     this.loadLosses();
     this.loadNews();
+    this.loadTopPicks();
+  }
+
+  loadTopPicks(): Promise<void> {
+    this.loadedTopPicks = false;
+    return this.fetchTopPicks().then(data => {
+      this.topPicks = data;
+      this.loadedTopPicks = false;
+    });
+  }
+
+  fetchTopPicks(): Promise<Array<any>> {
+    return fetch(`
+      ${process.env.VUE_APP_VSTOCK_API_URL}/api/v1/trendingQuotes
+    `).then(r => r.json());
   }
 
   loadNews(): Promise<void> {
@@ -259,7 +290,7 @@ export default class VsDashboard extends Vue {
     `).then(r => r.json());
   }
 
-  fetchLosses(): Promise<any> {
+  fetchLosses(): Promise<Array<any>> {
     return fetch(`
       ${
         process.env.VUE_APP_VSTOCK_API_URL
@@ -269,7 +300,7 @@ export default class VsDashboard extends Vue {
     `).then(r => r.json());
   }
 
-  fetchGains(): Promise<any> {
+  fetchGains(): Promise<Array<any>> {
     return fetch(`
       ${
         process.env.VUE_APP_VSTOCK_API_URL
