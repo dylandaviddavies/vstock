@@ -12,21 +12,10 @@
       <div class="col-xl-9">
         <p class="text-center mb-3">{{ subbedStocks.length }} / {{ maxSymbols }} stocks</p>
         <div v-if="loadedStocks || silentlyLoadStocks" class="row">
-          <div class="col-6 col-xl-3 col-lg-4 mb-5" v-for="s in stocks" :key="s.symbol">
+          <div class="col-6 col-xl-3 col-lg-4 p-2" v-for="s in stocks" :key="s.symbol">
             <vs-stock-card :to="`/stock/${s.symbol}`" class="h-100" :stock="s"></vs-stock-card>
           </div>
           <div class="col-6 col-xl-3 col-lg-4 mb-5">
-            <button
-              v-if="subbedStocks.length < maxSymbols"
-              class="vs-add-card w-100 h-100"
-              aria-controls="addStockModal"
-              @click="openAddStockModal"
-              :aria-expanded="isAddStockModalOpen"
-              type="button"
-            >
-              <span aria-hidden="true" class="material-icons-round vs-add-card__icon">add</span>
-              <span>Add stock</span>
-            </button>
             <vs-modal
               :isOpen="isAddStockModalOpen"
               :headAsColumn="true"

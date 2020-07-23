@@ -1,8 +1,8 @@
 <template>
   <component :is="tag" :to="to" class="vs-stock-card">
     <span class="vs-stock-card__head">
-      <span class="vs-stock-card__symbol">{{stock.symbol}}</span>
-      <span class="vs-stock-card__title">{{stock.companyName}}</span>
+      <span class="vs-stock-card__symbol">{{stock.companyName}}</span>
+      <span class="vs-stock-card__title">{{stock.symbol}}</span>
       <span class="vs-stock-card__price">${{stock.latestPrice}}</span>
       <span class="vs-stock-card__change" :class="[changeClass]">
         <span class="mb-2">{{stock.change > 0 ? `+$${stock.change}` : `-$${stock.change * -1}`}}</span>

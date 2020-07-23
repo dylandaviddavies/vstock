@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-12">
         <div v-if="loaded" class="vs-news-page">
-          <vs-news-card :full="true" :news="n" v-for="n in news" :key="n.url"></vs-news-card>
+          <vs-news-card class="mb-3" :full="true" :news="n" v-for="n in news" :key="n.url"></vs-news-card>
         </div>
         <div v-else class="vs-loader"></div>
       </div>

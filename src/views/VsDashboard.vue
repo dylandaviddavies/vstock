@@ -1,12 +1,29 @@
 <template>
   <div>
-    <h1 class="vs-title">
-      <span>My</span>
-      &nbsp;
-      <span>Overview</span>
-    </h1>
     <div class="row">
-      <div class="col-xl-9">
+      <div class="col-xl-8">
+        <div class="vs-section vs-section--small mb-4">
+          <div>
+            <div class="vs-section__body vs-loader" v-if="!loadedNews"></div>
+            <div class="vs-news-hero-wrapper" v-else-if="news.length > 0">
+              <vs-news-hero class="mb-3" :news="news[0]"></vs-news-hero>
+              <div class="vs-news-substories mb-3">
+                <vs-news-substory v-for="(n, i) in news.slice(1, 5)" :key="i" :news="n"></vs-news-substory>
+              </div>
+              <vs-news-card class="mb-3" v-for="(n, i) in news.slice(5)" :key="i" :news="n"></vs-news-card>
+            </div>
+            <div class="vs-section__body" v-else>
+              <img
+                class="w-50 mt-4 mb-3 mx-auto"
+                :src="require('../assets/no_news.svg')"
+                alt="No news to report"
+              />
+              <div class="text-center text-grey">No news to report</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4">
         <div class="row">
           <div class="col-12" v-if="loadedTopPicks">
             <div class="vs-section mb-4">
@@ -51,7 +68,7 @@
             </div>
           </div>
 
-          <div class="col-xl-6">
+          <div class="col-12">
             <div class="vs-section vs-section--small mb-4">
               <h2 class="vs-section__title fw-zebra">
                 <span>My</span>
@@ -81,7 +98,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xl-6">
+          <div class="col-12">
             <div class="vs-section vs-section--small mb-4">
               <h2 class="vs-section__title fw-zebra">
                 <span>My</span>
@@ -113,29 +130,6 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-3">
-        <div class="vs-section vs-section--small mb-4">
-          <h2 class="vs-section__title fw-zebra">
-            <span>My</span>
-            &nbsp;
-            <span>News</span>
-          </h2>
-          <div>
-            <div class="vs-section__body vs-loader" v-if="!loadedNews"></div>
-            <div style="max-height:500px;" class="overflow-auto" v-else-if="news.length > 0">
-              <vs-news v-for="n in news" :news="n" :key="n.url"></vs-news>
-            </div>
-            <div class="vs-section__body" v-else>
-              <img
-                class="w-50 mt-4 mb-3 mx-auto"
-                :src="require('../assets/no_news.svg')"
-                alt="No news to report"
-              />
-              <div class="text-center text-grey">No news to report</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -146,7 +140,9 @@ import { Stock } from "../types";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import VsLineChart from "../components/VsLineChart.vue";
 import VsStockRow from "../components/VsStockRow.vue";
-import VsNews from "../components/VsNews.vue";
+import VsNewsHero from "../components/VsNewsHero.vue";
+import VsNewsCard from "../components/VsNewsCard.vue";
+import VsNewsSubstory from "../components/VsNewsSubstory.vue";
 import { mapState } from "vuex";
 import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
 @Component({
@@ -154,7 +150,9 @@ import chartRangeXaxesOptions from "../scripts/chartRangeXaxesOptions";
   components: {
     VsLineChart,
     VsStockRow,
-    VsNews
+    VsNewsHero,
+    VsNewsCard,
+    VsNewsSubstory
   }
 })
 export default class VsDashboard extends Vue {
@@ -284,7 +282,7 @@ export default class VsDashboard extends Vue {
     return fetch(`
       ${
         process.env.VUE_APP_VSTOCK_API_URL
-      }/api/v1/news?limit=3&symbols=${this.subbedStocks
+      }/api/v1/news?limit=8&symbols=${this.subbedStocks
       .map(s => s.symbol)
       .join(",")}
     `).then(r => r.json());

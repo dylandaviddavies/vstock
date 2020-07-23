@@ -15,6 +15,20 @@ body,button,h1,h2,h3,h4,h5,h6{
     line-height:1.5em;
 }
 
+h1 {
+    font-size:24px;
+    @include media-desktop {        
+        font-size:32px;
+    }
+}
+
+h2 {
+    font-size:20px;
+    @include media-desktop {        
+        font-size:22px;
+    }
+}
+
 .vs-title {
     @extend .fw-zebra;
     margin-bottom: 20px;
@@ -22,7 +36,7 @@ body,button,h1,h2,h3,h4,h5,h6{
     font-weight: $fw-vs-title;
     color:colour(title);
     transition: color .2s ease-in-out;
-    font-size:28px;
+    font-size:24px;
     @include media-desktop {        
         font-size:32px;
     }

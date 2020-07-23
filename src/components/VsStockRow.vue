@@ -13,11 +13,8 @@
     </td>
     <td class="vs-stock-row__price">${{stock.latestPrice}}</td>
     <td class="vs-stock-row__content">
-      <router-link
-        :to="`/stock/${ stock.symbol }`"
-        class="vs-stock-row__title"
-      >{{stock.companyName}}</router-link>
-      <span class="vs-stock-row__subtitle">{{stock.symbol}}</span>
+      <router-link :to="`/stock/${ stock.symbol }`" class="vs-stock-row__title">{{stock.symbol}}</router-link>
+      <span class="vs-stock-row__subtitle">{{stock.companyName}}</span>
     </td>
   </tr>
 </template>

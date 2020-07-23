@@ -2,10 +2,18 @@
     display:flex;
     border-radius:$box-border-radius;
     overflow:hidden;
-    margin-bottom:24px;
     background:colour(box-body);
+    flex-direction:column;
+    @include media-desktop {
+        flex-direction:row;
+    }
     &__img {
-        flex-basis:40%;
+        height:200px;
+        @include media-desktop {
+            height:auto;
+            flex-basis:40%;
+        }
+        display:block;
         background-size:cover;
         background-position:center;
     }
@@ -35,6 +43,95 @@
     &__date {
         color:colour(subtext);
         font-size:12px;
+    }
+}
+
+.vs-news-substory {
+    background: colour(box-body);
+    border-radius:8px;
+    width:200px;
+    min-width:200px;
+    padding: 12px;
+    &:not(:last-child) {        
+        margin-right: 16px;
+    }
+    @include media-desktop {
+        min-width:unset;
+        width:auto;
+    }
+    &__title {
+        font-size:14px;
+        color: colour(text);
+        font-weight:600;
+        display:block;
+    }
+    &__source {
+        color: colour(subtext);
+        text-transform:uppercase;
+        font-size:12px;
+    }
+    &__img {
+        margin-bottom:12px;
+        display:block;
+        height:100px;
+        background-repeat:no-repeat;
+        background-size:cover;
+    }
+}
+
+.vs-news-substories {
+    display:flex;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.vs-news-hero {
+    border-radius:8px;
+    display: block;
+    position:relative;
+    overflow:hidden;
+    &__img {
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+        display:block;
+        height:400px;
+        width:100%;
+    }
+    &:before {
+        z-index:1;
+        content:"";
+        width:100%;
+        height:100%;
+        position:absolute;
+        bottom:0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.9));
+    }
+    &__info {
+        position:absolute;
+        bottom:0;
+        z-index:2;
+        display:flex;
+        flex-direction:column;
+        padding:24px;
+    }
+    &__title {
+        font-size:20px;
+        color:#fff;
+        font-weight:600;
+    }
+    &__source {
+        color:#fff;
+        font-size:11px;
+        text-transform:uppercase;
+    }
+    &__p {
+        color:colour(grey);
+        margin-top:8px;
     }
 }
 
